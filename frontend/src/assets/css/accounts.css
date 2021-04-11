@@ -1,0 +1,93 @@
+.accounts-base {
+	display: flex;
+	flex: 1;
+	justify-content: center;
+	align-content: center;
+	height: 100vh;
+	padding-left: 3em;
+	padding-right: 3em;
+}
+
+.accounts-form {
+	border-radius: 20px;
+	background-image: url('../img/prod-1.png');
+	background-size: cover;
+	background-blend-mode: color;
+	background-color: rgba(0, 0, 0, 0.8);
+	display: flex;
+	flex: 1;
+	align-self: center;
+	padding: 3em;
+	color: white;
+}
+
+.input-field input {
+	display: flex;
+	flex: 1;
+	align-self: center;
+	padding-right: .2em;
+	color: #fff !important;
+}
+
+.input-field input,
+.input-field i {
+	background-color: #333;
+}
+
+.form-title {
+	font-size: 2em;
+	font-weight: bold;
+	padding: .5em;
+	padding-bottom: .3em;
+	display: flex;
+	flex: 1;
+	justify-content: center;
+}
+
+.social-links {
+	display: flex;
+	flex: 1;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding-bottom: 2em;
+}
+
+.accounts-base button {
+	background-image: linear-gradient(to left, #ff6347, #df4e38, #bf3a2a, #a0251c, #820e0e);
+}
+
+.accounts-base button:hover {
+	background-image: linear-gradient(to right, #ff6347, #df4e38, #bf3a2a, #a0251c, #820e0e);
+}
+
+button.social {
+	border-radius: 100%;
+	width: 20px;
+	padding: 1em;
+	height: 45px;
+	align-items: center;
+	justify-content: center;
+	margin-right: .5em;
+}
+
+label {
+	color: grey;
+	display: flex;
+	flex: 1;
+	justify-content: center;
+}
+
+.account-options {
+	margin: 1em;
+}
+
+.account-options a {
+	color: #eee;
+	padding-left: .4em;
+	text-decoration: none;
+}
+
+.account-options a:hover {
+	color: grey;
+}

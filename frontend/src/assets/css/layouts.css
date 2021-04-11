@@ -1,0 +1,115 @@
+.elevation {
+    -webkit-box-shadow: 0 16px 24px 2px 
+        rgba(0, 0, 0, 0.14), 0 6px 30px 5px 
+        rgba(0, 0, 0, 0.12), 0 8px 10px -7px 
+        rgba(0, 0, 0, 0.2);
+    box-shadow: 0 16px 24px 2px 
+    rgba(0, 0, 0, 0.14), 0 6px 30px 5px 
+    rgba(0, 0, 0, 0.12), 0 8px 10px -7px 
+    rgba(0, 0, 0, 0.2);
+}
+
+.elevation-2 {
+    -webkit-box-shadow: 0 4px 5px 0
+    rgba(0, 0, 0, 0.14), 0 1px 10px 0
+    rgba(0, 0, 0, 0.12), 0 2px 4px -1px
+    rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 5px 0
+    rgba(0, 0, 0, 0.14), 0 1px 10px 0
+    rgba(0, 0, 0, 0.12), 0 2px 4px -1px
+    rgba(0, 0, 0, 0.3);
+}
+
+.elevation-3 {
+    -webkit-box-shadow: 0 8px 17px 2px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 17px 2px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+/* 16dp elevation */
+.elevation-4 {
+    -webkit-box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2);
+}
+
+/* 24dp elevation */
+.elevation-5 {
+    -webkit-box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+}
+
+.disp-flex-h {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+}
+
+.disp-flex-v {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.disp-flex-bottom {
+    display: flex;
+    flex: 1;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.flex-left-v {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+}
+
+.pama-0 {
+    margin: 0;
+    padding: 0;
+}
+
+.divider {
+    margin-top: .3em;
+    margin-bottom: .3em;
+    height: 1px;
+    width: 100%;
+    background-color: #fff;
+}
+
+.hide {
+    display: none;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.text-left {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.text-center {
+    display: flex;
+    justify-content: center;
+}
+
+.text-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.no-border {
+    border: none;
+}
+
+/* medium screen */
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+
+}
+
+/* small screen */
+
+@media only screen and (max-width: 600px) {
+
+}
