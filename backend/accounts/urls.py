@@ -7,7 +7,10 @@ from accounts.api import (
     UserLogout,
     UserUpdate
 )
-from accounts.admin_api import AdminUserList
+from accounts.admin_api import (
+    AdminUserList,
+    AdminRiderList
+)
 
 app_name = 'accounts'
 
@@ -18,5 +21,6 @@ urlpatterns = [
     path('account/logout/', UserLogout.as_view()),
     path('account/update/', UserUpdate.as_view()),
 
-    path('account/admin/users/list/', AdminUserList.as_view())
+    path('account/admin/users/', AdminUserList.as_view()),
+    path('account/admin/riders/', AdminRiderList.as_view()),
 ]

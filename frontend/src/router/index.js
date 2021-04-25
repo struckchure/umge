@@ -17,6 +17,8 @@ import StoreCreate from '@/views/store/StoreCreate.vue'
 
 import AdminHome from '@/views/admin/AdminHome.vue'
 import AdminOrders from '@/views/admin/AdminOrders.vue'
+import AdminRiders from '@/views/admin/AdminRiders.vue'
+import AdminRidersApplications from '@/views/admin/AdminRidersApplications.vue'
 
 import Orders from '@/views/delivery/Orders.vue'
 
@@ -95,6 +97,24 @@ const routes = [
         path: '/admin/orders/',
         name: 'AdminOrders',
         component: AdminOrders,
+        meta: {
+            requiresLogin: true,
+            requiresAdmin: true
+        }
+    },
+    {
+        path: '/admin/riders/',
+        name: 'AdminRiders',
+        component: AdminRiders,
+        meta: {
+            requiresLogin: true,
+            requiresAdmin: true
+        }
+    },
+    {
+        path: '/admin/riders/applications/',
+        name: 'AdminRidersApplications',
+        component: AdminRidersApplications,
         meta: {
             requiresLogin: true,
             requiresAdmin: true

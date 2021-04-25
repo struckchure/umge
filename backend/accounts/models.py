@@ -1,14 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
-from accounts.managers import UserManager
+from accounts.managers import UserManager, RiderManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+
+    class Types(models.TextChoices):
+        NORMAL = "NORMAL", "Normal"
+        RIDER = "RIDER", "Rider"
+
     first_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)
     email = models.EmailField(max_length=255, blank=True)
     username = models.CharField(max_length=255, blank=False, unique=True)
+    type = models.CharField(max_length=20, default=Types.NORMAL)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date = models.DateTimeField(auto_now_add=True)
@@ -56,6 +62,14 @@ class User(AbstractBaseUser, PermissionsMixin):
             cart.save()
 
         return cart
+
+
+class Rider(User):
+
+    objects = RiderManager()
+
+    class Meta:
+        proxy = True
 
 
 class Wallet(models.Model):

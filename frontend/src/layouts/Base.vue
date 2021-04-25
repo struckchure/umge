@@ -64,10 +64,18 @@
                 </router-link>
 
                 <router-link
-                    :to="{ name: 'AdminOrders' }">
+                    :to="{ name: 'AdminRiders' }">
                     <button>
                         <i class="fas fa-biking"></i>
                         <span>Riders</span>
+                    </button>
+                </router-link>
+
+                <router-link
+                    :to="{ name: 'AdminRidersApplications' }">
+                    <button>
+                        <i class="fas fa-ticket-alt"></i>
+                        <span>Applications</span>
                     </button>
                 </router-link>
             </div>

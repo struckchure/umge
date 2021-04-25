@@ -1,4 +1,5 @@
 from django.contrib.auth.base_user import BaseUserManager
+from django.db import models
 
 
 class UserManager(BaseUserManager):
@@ -22,3 +23,18 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
 
         return self._create_user(username, password, **extra_fields)
+
+    def get_queryset(self, *args, **kwargs):
+        from accounts.models import User
+
+        qs = super().get_queryset(*args, **kwargs).filter(type=User.Types.NORMAL)
+        return qs
+
+
+class RiderManager(models.Manager):
+
+    def get_queryset(self, *args, **kwargs):
+        from accounts.models import User
+
+        qs = super().get_queryset(*args, **kwargs).filter(type=User.Types.RIDER)
+        return qs

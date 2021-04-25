@@ -9,13 +9,15 @@ const LOGOUT_URL = '/account/logout/'
 const LOGIN_URL = '/account/login/'
 const REGISTER_URL = 'account/register/'
 const USER_UPDATE_URL = '/account/update/'
-const ADMIN_USERS_LIST_URL = '/account/admin/users/list/'
+const ADMIN_USERS_LIST_URL = '/account/admin/users/'
+const ADMIN_RIDERS_LIST_URL = '/account/admin/riders/'
 
 const storage = new utils.Storage()
 
 const state = {
     user: {},
-    admin_users_list: []
+    admin_users_list: [],
+    admin_riders_list: []
 }
 
 const getters = {
@@ -24,6 +26,9 @@ const getters = {
     },
     get_admin_users_list(state) {
         return state.admin_users_list
+    },
+    get_admin_riders_list(state) {
+        return state.admin_riders_list
     },
     is_authenticated (state) {
         if (storage.get('token')) {
@@ -52,7 +57,7 @@ const mutations = {
     [types.AUTH_SUCCESS] (state, payload) {
         state.user = payload
         storage.set('token', payload.token)
-        store.commit(types.CLEAR_ERROR, payload)
+        store.commit(types.CLEAR_ERROR)
     },
 
     // login / register failed mutation
@@ -72,14 +77,21 @@ const mutations = {
 
     [types.SET_USER] (state, payload) {
         state.user = payload
-        store.commit(types.CLEAR_ERROR, payload)
+        store.commit(types.CLEAR_ERROR)
     },
 
     // get all users for admin mutation
 
     [types.SET_ADMIN_USERS_LIST] (state, payload) {
         state.admin_users_list = payload
-        store.commit(types.CLEAR_ERROR, payload)
+        store.commit(types.CLEAR_ERROR)
+    },
+
+    // get all riders for admin mutation
+
+    [types.SET_ADMIN_RIDERS_LIST] (state, payload) {
+        state.admin_riders_list = payload
+        store.commit(types.CLEAR_ERROR)
     }
 }
 
@@ -222,6 +234,36 @@ const actions = {
         .then(
             function(response) {
                 context.commit(types.SET_ADMIN_USERS_LIST, response.data)
+            }
+        )
+        .catch(
+            function(error) {
+                store.commit(types.SET_ERROR, error.response.data)
+            }
+        )
+
+        context.commit(types.DONE_LOADING)
+    },
+
+    // get riders list for admin
+
+    async [types.GET_ADMIN_RIDERS_LIST] (context) {
+        context.commit(types.BUSY_LOADING)
+
+        const csrftoken = utils.getCookie('csrftoken');
+
+        await api({
+            method: 'get',
+            url: ADMIN_RIDERS_LIST_URL,
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+                "Authorization": `Token ${storage.get('token')}`
+            }
+        })
+        .then(
+            function(response) {
+                context.commit(types.SET_ADMIN_RIDERS_LIST, response.data)
             }
         )
         .catch(

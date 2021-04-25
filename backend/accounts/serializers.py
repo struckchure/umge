@@ -8,6 +8,7 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = User
         exclude = [
@@ -19,6 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = User
         exclude = [
