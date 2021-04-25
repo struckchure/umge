@@ -18,22 +18,19 @@ export function getCookie(name) {
 export class Storage {
 
     get(key) {
+        let get_value;
         try {
             var storage_value = localStorage.getItem(key)
-            if (storage_value) {
-                get_value = JSON.parse(storage_value)
-            }
+            get_value = storage_value
         } catch {
-            var get_value = null
+            get_value = null
         }
 
         return get_value
     }
 
     set(key, value) {
-        var set_value = JSON.stringify(value)
-
-        localStorage.setItem(key, set_value)
+        localStorage.setItem(key, value)
     }
 
     remove(key) {

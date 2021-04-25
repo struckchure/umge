@@ -27,11 +27,13 @@
 	align-self: center;
 	padding-right: .2em;
 	color: #fff !important;
+	border-top-left-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
 }
 
 .input-field input,
 .input-field i {
-	background-color: #333;
+	background-color: #333 !important;
 }
 
 .form-title {

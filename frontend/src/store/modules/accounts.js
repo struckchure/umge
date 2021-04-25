@@ -1,30 +1,45 @@
 import api from '@/store/axiosConfig.js'
 import * as utils from '@/store/utils.js'
 import * as types from '@/store/types.js'
-
+import store from '@/store/index.js'
 
 // endpoints
 
+const LOGOUT_URL = '/account/logout/'
 const LOGIN_URL = '/account/login/'
 const REGISTER_URL = 'account/register/'
+const USER_UPDATE_URL = '/account/update/'
+const ADMIN_USERS_LIST_URL = '/account/admin/users/list/'
 
 const storage = new utils.Storage()
 
 const state = {
-    error: null,
     user: {},
+    admin_users_list: []
 }
 
 const getters = {
-    get_error (state) {
-        return state.error
-    },
     get_user (state) {
         return state.user
     },
-    is_authenticated () {
+    get_admin_users_list(state) {
+        return state.admin_users_list
+    },
+    is_authenticated (state) {
         if (storage.get('token')) {
             return true
+        } else {
+            state.user = {}
+            return false
+        }
+    },
+    is_admin (state) {
+        if (storage.get('token') && state.user.username) {
+            if (state.user.is_superuser === true) {
+                return true
+            } else {
+                return false
+            }
         } else {
             return false
         }
@@ -32,21 +47,77 @@ const getters = {
 }
 
 const mutations = {
+    // login / register success mutation
+
     [types.AUTH_SUCCESS] (state, payload) {
-        state.user = payload.user
+        state.user = payload
         storage.set('token', payload.token)
+        store.commit(types.CLEAR_ERROR, payload)
     },
+
+    // login / register failed mutation
+
     [types.AUTH_FAILED] (state, payload) {
+        store.commit(types.SET_ERROR, payload)
+    },
+
+    // logout success mutation
+
+    [types.AUTH_KILL_SESSION] (state, payload) {
         storage.remove('token')
-        state.error = payload.response
+        store.commit(types.SET_ERROR, payload)
+    },
+
+    // set user mutation
+
+    [types.SET_USER] (state, payload) {
+        state.user = payload
+        store.commit(types.CLEAR_ERROR, payload)
+    },
+
+    // get all users for admin mutation
+
+    [types.SET_ADMIN_USERS_LIST] (state, payload) {
+        state.admin_users_list = payload
+        store.commit(types.CLEAR_ERROR, payload)
     }
 }
 
 const actions = {
+    // logout user by removing token + API logout
+
+    async [types.AUTH_LOGOUT] (context) {
+        context.commit(types.BUSY_LOADING)
+
+        const csrftoken = utils.getCookie('csrftoken');
+
+        await api({
+            method: 'get',
+            url: LOGOUT_URL,
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+                "Authorization": `Token ${storage.get('token')}`
+            }
+        })
+        .then(
+            function (response) {
+                context.commit(types.AUTH_KILL_SESSION, response.data)
+            }
+        )
+        .catch(
+            function (error) {
+                context.commit(types.AUTH_FAILED, error.response.data)
+            }
+        )
+        context.commit(types.DONE_LOADING)
+    },
 
     // login action to send request to API
 
     async [types.AUTH_LOGIN] (context, payload) {
+        context.commit(types.BUSY_LOADING)
+
         const csrftoken = utils.getCookie('csrftoken');
 
         await api({
@@ -65,14 +136,18 @@ const actions = {
         )
         .catch(
             function(error) {
-                context.commit(types.AUTH_FAILED, error)
+                context.commit(types.AUTH_FAILED, error.response.data)
             }
         )
+
+        context.commit(types.DONE_LOADING)
     },
 
     // register action to send request to API
 
     async [types.AUTH_REGISTER] (context, payload) {
+        context.commit(types.BUSY_LOADING)
+
         const csrftoken = utils.getCookie('csrftoken');
 
         await api({
@@ -91,9 +166,102 @@ const actions = {
         )
         .catch(
             function(error) {
-                context.commit(types.AUTH_FAILED, error)
+                context.commit(types.AUTH_FAILED, error.response.data)
             }
         )
+
+        context.commit(types.DONE_LOADING)
+    },
+
+    // get user using token
+
+    async [types.GET_USER] (context) {
+        context.commit(types.BUSY_LOADING)
+
+        const csrftoken = utils.getCookie('csrftoken');
+
+        await api({
+            method: 'get',
+            url: '/account/',
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+                "Authorization": `Token ${storage.get('token')}`
+            }
+        })
+        .then(
+            function(response) {
+                context.commit(types.SET_USER, response.data)
+            }
+        )
+        .catch(
+            function(error) {
+                context.commit(types.AUTH_FAILED, error.response.data)
+            }
+        )
+
+        context.commit(types.DONE_LOADING)
+    },
+
+    // get users list for admin
+
+    async [types.GET_ADMIN_USERS_LIST] (context) {
+        context.commit(types.BUSY_LOADING)
+
+        const csrftoken = utils.getCookie('csrftoken');
+
+        await api({
+            method: 'get',
+            url: ADMIN_USERS_LIST_URL,
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+                "Authorization": `Token ${storage.get('token')}`
+            }
+        })
+        .then(
+            function(response) {
+                context.commit(types.SET_ADMIN_USERS_LIST, response.data)
+            }
+        )
+        .catch(
+            function(error) {
+                store.commit(types.SET_ERROR, error.response.data)
+            }
+        )
+
+        context.commit(types.DONE_LOADING)
+    },
+
+    // update user details
+
+    async [types.AUTH_UPDATE_USER] (context, payload) {
+        context.commit(types.BUSY_LOADING)
+
+        const csrftoken = utils.getCookie('csrftoken');
+
+        await api({
+            method: 'post',
+            url: USER_UPDATE_URL,
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+                "Authorization": `Token ${storage.get('token')}`
+            },
+            data: payload
+        })
+        .then(
+            function(response) {
+                context.commit(types.SET_USER, response.data)
+            }
+        )
+        .catch(
+            function(error) {
+                context.commit(types.AUTH_FAILED, error.response.data)
+            }
+        )
+
+        context.commit(types.DONE_LOADING)
     }
 }
 

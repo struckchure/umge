@@ -33,28 +33,30 @@
 
             <div class="col s12 m12 l12">
                 <form @submit.prevent="login">
-                    <div class="input-field">
-                        <i class="fas fa-user"></i>
-                        <input
-                            type="text"
-                            placeholder="Username"
-                            v-model="username"
-                            required
-                        />
-                    </div>
+                        <div class="input-field">
+                            <i class="fas fa-user"></i>
+                            <input
+                                type="text"
+                                placeholder="Username"
+                                v-model="username"
+                                required
+                                maxlength="15"
+                            />
+                        </div>
 
-                    <div class="input-field">
-                        <i class="fas fa-lock"></i>
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            v-model="password"
-                            required
-                        />
-                    </div>
+                        <div class="input-field">
+                            <i class="fas fa-lock"></i>
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                v-model="password"
+                                required
+                                maxlength="20"
+                            />
+                        </div>
 
-                    <button>Sign In</button>
-                </form>
+                        <button>Sign In</button>
+                    </form>
             </div>
 
             <div class="col s12 m12 l12">
@@ -66,7 +68,7 @@
             <div class="col s12 m12 l12">
                 <div class="disp-flex-bottom">
                     <router-link to="/">
-                        <button>Return to home</button>
+                        <button id="submit_button">Return to home</button>
                     </router-link>
                 </div>
             </div>
@@ -85,6 +87,9 @@
         components: {
             AccountBase
         },
+        title () {
+            return 'Login'
+        },
         data () {
             return {
                 username: '',
@@ -92,15 +97,19 @@
             }
         },
         computed: {
-            ...mapGetters([
-                'is_authenticated'
-            ])
+            ...mapGetters({
+                is_authenticated: 'is_authenticated',
+                error: 'get_error'
+            })
         },
         methods: {
             ...mapActions({
                 'login_user': types.AUTH_LOGIN
             }),
             login () {
+                var submit_button = document.getElementById('submit_button')
+                submit_button.disabled = true
+
                 const payload = {
                     username: this.username,
                     password: this.password
@@ -108,9 +117,14 @@
 
                 this.login_user(payload)
 
-                if (this.is_authenticated) {
-                    this.$router.push('/')
-                }
+                setTimeout(
+                    () => {
+                        if (this.is_authenticated === true) {
+                            this.$router.push({ name: 'Home' })
+                        }
+                    },
+                    1000
+                )
             }
         }
     }

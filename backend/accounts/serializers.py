@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from django.contrib.auth import get_user_model
+from accounts.models import Wallet
 
 
 User = get_user_model()
@@ -10,7 +11,6 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = [
-            'id',
             'user_permissions',
             'groups',
             'is_staff',
@@ -50,3 +50,27 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     password = serializers.CharField(required=True)
+
+
+class WalletSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        exclude = ['id']
+        model = Wallet
+
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+
+    current_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=False)
+    confirm_password = serializers.CharField(required=False)
+
+    class Meta:
+        model = User
+        exclude = [
+            'date',
+            'updated'
+        ]
+
+    def validate(self, validated_data):
+        return validated_data

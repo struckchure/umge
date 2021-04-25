@@ -1,11 +1,12 @@
 from django.urls import path
-from django.http import HttpResponse
 
 from store.api import (
+    StoreMain,
     StoreList,
     StoreCreate,
     StoreDetails,
     StoreUpdate,
+    StoreProductList,
 
     ProductList,
     ProductCreate,
@@ -16,10 +17,12 @@ from store.api import (
 app_name = 'store'
 
 urlpatterns = [
+    path('store/', StoreMain.as_view()),
     path('store/list/', StoreList.as_view()),
     path('store/create/', StoreCreate.as_view()),
     path('store/<slug:store_slug>/details/', StoreDetails.as_view()),
     path('store/<slug:store_slug>/update/', StoreUpdate.as_view()),
+    path('store/<slug:store_slug>/products/', StoreProductList.as_view()),
 
     path('product/list/<str:store_name>/<str:product_name>/', ProductList.as_view()),
     path('product/list/', ProductList.as_view()),

@@ -1,0 +1,40 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	overflow: auto;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+td > img {
+	width: 30px;
+	height: inherit;
+	border-radius: 100%;
+	padding: .3em;
+	padding-top: .1em;
+	padding-bottom: .1em;
+}
+
+thead > tr {
+	background-color: #ccc;
+	padding: 1em;
+	font-weight: bold;
+}
+
+tbody > tr {
+	background-color: #fff;
+	color: #333;
+	border-bottom: 3px solid #eee;
+}
+
+tbody > tr:last-child {
+	border: none;
+}

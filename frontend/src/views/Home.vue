@@ -14,7 +14,7 @@
         </div>
 
         <template v-slot:extra>
-            <form class="no-border filter-form" @submit.prevent="filter_product_list()">
+            <form class="no-border filter-form" @submit.prevent="filter_product_list">
                 <div class="input-field">
                     <select
                         v-model="filters.store_name"
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-    import Product from '@/components/Product.vue'
+    import Product from '@/components/products/Product.vue'
     import { mapGetters, mapActions } from 'vuex'
     import * as types from '@/store/types.js'
 

@@ -1,12 +1,18 @@
 from rest_framework import serializers
 
 from store.models import Store, Product, ProductOption
+from accounts.serializers import UserSerializer
 
 
 class StoreSerializer(serializers.ModelSerializer):
+
+    store_owner = UserSerializer()
+    store_owner.Meta().depth = 2
+    store_staffs = UserSerializer(many=True)
+
     class Meta:
         model = Store
-        exclude = ['id']
+        fields = '__all__'
 
 
 class StoreCreateSerializer(serializers.ModelSerializer):
@@ -70,6 +76,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = [
+            'id',
             'product_name',
             'product_price',
             'product_type',

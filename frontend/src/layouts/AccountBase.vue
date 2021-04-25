@@ -1,18 +1,24 @@
 <template>
-	<div class="accounts-base">
-		<div class="accounts-form elevation">
-			<slot></slot>
-		</div>
-	</div>
+    <div class="accounts-base">
+        <div class="accounts-form elevation">
+            <slot></slot>
+
+            <ErrorModal />
+            <Loader />
+        </div>
+    </div>
 </template>
 
 <script>
-	import '@/assets/css/all.css'
-	// import '@/assets/css/style.css'
-	import '@/assets/css/accounts.css'
-	import '@/assets/css/layouts.css'
+    import '@/assets/css/accounts.css'
+    import ErrorModal from '@/components/common/ErrorModal.vue'
+    import Loader from '@/components/common/Loader.vue'
 
-	export default {
-		name: 'AccountBase'
-	}
+    export default {
+        name: 'AccountBase',
+        components: {
+            ErrorModal,
+            Loader
+        }
+    }
 </script>

@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 
 from umge.base import BaseAPIView as BaseView
@@ -16,6 +17,26 @@ from store.serializers import (
     ProductCreateSerializer,
     ProductOptionCreateSerializer
 )
+
+
+class StoreMain(BaseView):
+
+    permission_classes = [
+        IsAuthenticated
+    ]
+    serializer_class = StoreSerializer
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        store = Store.objects.filter(store_owner=user)
+        serialized_data = self.get_serializer(store, many=True).data
+
+        response = Response(
+            serialized_data,
+            status=status.HTTP_200_OK
+        )
+
+        return response
 
 
 class StoreCreate(BaseView):
@@ -82,6 +103,23 @@ class StoreList(BaseView):
         ).data
         response = Response(serialized_data)
 
+        return response
+
+
+class StoreProductList(BaseView):
+
+    queryset = Product.objects.order_by('-updated')
+    serializer_class = ProductSerializer
+
+    def get(self, request, store_slug, *args, **kwargs):
+        store = get_object_or_404(Store, store_slug=store_slug)
+        products = Product.objects.filter(product_store=store)
+        serialized_data = self.get_serializer(products, many=True).data
+
+        response = Response(
+            serialized_data,
+            status=status.HTTP_200_OK
+        )
         return response
 
 

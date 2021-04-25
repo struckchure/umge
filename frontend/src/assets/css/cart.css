@@ -203,6 +203,22 @@ input:disabled {
 	margin-bottom: .3em;
 }
 
+.brand-name {
+	font-weight: bold;
+	font-size: 1.1em;
+	display: flex;
+	flex: 12;
+}
+
+p.wallet-balance {
+	font-size: 1.1em;
+	margin-top: .4em;
+	margin-right: .2em;
+	display: flex;
+	flex: 3;
+	align-self: center;
+}
+
 .title {
 	display: flex;
 	flex: 10;

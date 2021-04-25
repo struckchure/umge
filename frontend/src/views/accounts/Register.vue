@@ -40,6 +40,7 @@
                             placeholder="Username"
                             v-model="username"
                             required
+                            maxlength="15"
                         />
                     </div>
 
@@ -50,6 +51,7 @@
                             placeholder="Email"
                             v-model="email"
                             required
+                            maxlength="50"
                         />
                     </div>
 
@@ -60,6 +62,7 @@
                             placeholder="Password"
                             v-model="password"
                             required
+                            maxlength="20"
                         />
                     </div>
 
@@ -95,6 +98,9 @@
         components: {
             AccountBase
         },
+        title () {
+            return 'Register'
+        },
         data () {
             return {
                 username: '',
@@ -120,8 +126,8 @@
 
                 this.register_user(payload)
 
-                if (this.is_authenticated) {
-                    return this.$router.push('/')
+                if (this.is_authenticated == true) {
+                    return this.$router.push({ name: 'Login' })
                 }
             }
         }
