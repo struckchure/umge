@@ -1,0 +1,43 @@
+.rider-order {
+	background-color: #eee;
+	border-radius: 15px;
+	padding: 1em;
+	margin: .5em;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.order-image {
+	width: auto;
+	height: auto;
+}
+
+.order-image img {
+	width: inherit;
+	height: inherit;
+	border-radius: 100%;
+}
+
+.order {
+	padding: 1.5em;
+}
+
+.order-tool {
+	display: flex;
+	flex-direction: row;
+}
+
+.order-tool button {
+	width: 200px;
+	margin: .2em;
+}
+
+@media only screen and (max-width: 600px) {
+	.rider-order,
+	.order-tool {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+}

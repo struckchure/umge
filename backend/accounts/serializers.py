@@ -14,7 +14,6 @@ class UserSerializer(serializers.ModelSerializer):
         exclude = [
             'user_permissions',
             'groups',
-            'is_staff',
             'password'
         ]
 
@@ -63,7 +62,7 @@ class WalletSerializer(serializers.ModelSerializer):
 
 class UserUpdateSerializer(serializers.ModelSerializer):
 
-    current_password = serializers.CharField(required=True)
+    password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=False)
     confirm_password = serializers.CharField(required=False)
 

@@ -9,3 +9,13 @@ class IsAdminUser(permissions.BasePermission):
     def has_permission(self, request, view):
         user = request.user.is_superuser
         return user
+
+
+class IsStaff(permissions.BasePermission):
+    """
+    Global permission check for staff users.
+    """
+
+    def has_permission(self, request, view):
+        user = request.user.is_staff
+        return user

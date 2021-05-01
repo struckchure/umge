@@ -15,10 +15,13 @@ export const AUTH_REGISTER = "AUTH_REGISTER"
 export const AUTH_KILL_SESSION = "AUTH_KILL_SESSION"
 export const AUTH_UPDATE_USER = "AUTH_UPDATE_USER"
 export const GET_USER = "GET_USER"
+export const VERIFY_PAYMENT = "VERIFY_PAYMENT"
 
 export const AUTH_FAILED = "AUTH_FAILED"
 export const AUTH_SUCCESS = "AUTH_SUCCESS"
 export const SET_USER = "SET_USER"
+export const VERIFICATION_FAILED = "VERIFICATION_FAILED"
+export const VERIFICATION_SUCCESS = "VERIFICATION_SUCCESS"
 
 // store types
 
@@ -38,8 +41,10 @@ export const SET_STORE_PRODUCTS = "SET_STORE_PRODUCTS"
 export const GET_CART = "GET_CART"
 export const UPDATE_CART = "UPDATE_CART"
 export const BUY_NOW = "BUY_NOW"
+export const CHECKOUT_CART = "CHECKOUT_CART"
 
 export const SET_CART = "SET_CART"
+export const SET_CART_PURCHASE_SUCCESS = "SET_CART_PURCHASE_SUCCESS"
 
 // product types
 

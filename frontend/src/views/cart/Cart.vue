@@ -9,7 +9,10 @@
 				</div>
 
 				<div class="col s12 m12 l5">
-					<CartForm :cart="cart" />
+					<CartForm
+						:cart="cart"
+						:user="user"
+					/>
 				</div>
 			</div>
 		</template>
@@ -38,7 +41,8 @@
 		},
 		computed: {
 			...mapGetters({
-				cart: 'get_cart'
+				cart: 'get_cart',
+				user: 'get_user'
 			}),
 			cart_items () {
 				return this.cart.cart_items

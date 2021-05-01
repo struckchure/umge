@@ -117,14 +117,9 @@
 
                 this.login_user(payload)
 
-                setTimeout(
-                    () => {
-                        if (this.is_authenticated === true) {
-                            this.$router.push({ name: 'Home' })
-                        }
-                    },
-                    1000
-                )
+                if (this.is_authenticated === true) {
+                    this.$router.push({ name: 'Home' })
+                }
             }
         }
     }

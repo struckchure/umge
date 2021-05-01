@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import '@/assets/css/tailwind.css'
 import '@/assets/css/all.css'
 import '@/assets/css/modal.css'
 import '@/assets/css/layouts.css'

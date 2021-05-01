@@ -19,6 +19,7 @@
                     <select
                         v-model="filters.store_name"
                         @change="filter_product_list()"
+                        class="bg-gray-900 p-2"
                     >
                         <option value="*">All stores (default)</option>
                         <option

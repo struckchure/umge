@@ -1,11 +1,15 @@
 <template>
 	<Base>
 		<template v-slot:main>
-			<label class="form-header">
-				Management / Users
-			</label>
+			<div class="row">
+				<div class="col s12 m12 l12">
+					<label class="form-header">
+						Management / Users
+					</label>
 
-			<AdminUsersList />
+					<AdminUsersList />
+				</div>
+			</div>
 		</template>
 	</Base>
 </template>

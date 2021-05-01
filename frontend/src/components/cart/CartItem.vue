@@ -15,14 +15,14 @@
 
 		<div class="col s12 m12 l7">
 			<div class="cart-tools">
-				<button @click="reduce_qty()" class="text-center">
+				<button @click="reduce_qty()" class="text-center rounded-2xl bg-gray-700 hover:bg-gray-800">
 					<i class="fas fa-minus"></i>
 				</button>
 				<div class="flex flex-center flex-h-center">
 					<input type="number" class="flex-1" :min="1" :max="99" v-model="get_qty" />
 				</div>
 
-				<button @click="add_qty()" class="text-center">
+				<button @click="add_qty()" class="text-center rounded-2xl bg-gray-700 hover:bg-gray-800">
 					<i class="fas fa-plus"></i>
 				</button>
 

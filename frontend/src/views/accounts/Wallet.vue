@@ -119,16 +119,23 @@
 
     export default {
         name: 'Wallet',
+        props: [
+            'reference'
+        ],
         title () {
             return 'Dashboard | Wallet'
         },
         mounted () {
+            console.log(this.get_reference)
             this.get_user()
         },
         computed: {
             ...mapGetters({
                 user: 'get_user'
-            })
+            }),
+            get_reference() {
+                return this.$route.query.reference
+            }
         },
         methods: {
             ...mapActions({

@@ -155,7 +155,7 @@
                         last_name: this.user.last_name,
                         email: this.user.email,
                         username: this.user.username,
-                        current_password: this.current_password,
+                        password: this.current_password,
                         new_password: this.new_password,
                         confirm_password: this.confirm_password
                     }

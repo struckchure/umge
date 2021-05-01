@@ -230,7 +230,7 @@ p.wallet-balance {
 
 .user-image {
 	display: flex;
-	flex: 1;
+	flex: -1;
 	width: 50px;
 	height: 50px;
 	border-radius: 100%;
@@ -239,8 +239,6 @@ p.wallet-balance {
 }
 
 .user-image img {
-	width: inherit;
-	height: inherit;
 	border-radius: inherit;
 }
 
@@ -322,7 +320,7 @@ button {
 	text-align: center;
 	font-size: 1.3em;
 	background-image: none;
-	background-color: orange;
+	/*background-color: orange;*/
 	box-shadow: none;
 	transition: .5s;
 	justify-content: center;

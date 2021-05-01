@@ -21,6 +21,7 @@ import AdminRiders from '@/views/admin/AdminRiders.vue'
 import AdminRidersApplications from '@/views/admin/AdminRidersApplications.vue'
 
 import Orders from '@/views/delivery/Orders.vue'
+import RiderOrders from '@/views/delivery/RiderOrders.vue'
 
 Vue.use(VueRouter)
 
@@ -66,6 +67,7 @@ const routes = [
         path: '/accounts/wallet/',
         name: 'Wallet',
         component: Wallet,
+        props: route => ({ query: route.query.q }),
         meta: {
             requiresLogin: true
         }
@@ -112,6 +114,15 @@ const routes = [
         }
     },
     {
+        path: '/admin/riders/orders/',
+        name: 'RiderOrders',
+        component: RiderOrders,
+        meta: {
+            requiresLogin: true,
+            requiresStaff: true
+        }
+    },
+    {
         path: '/admin/riders/applications/',
         name: 'AdminRidersApplications',
         component: AdminRidersApplications,
@@ -140,6 +151,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     const isAuthenticated = store.getters.is_authenticated
     const isAdmin = store.getters.is_admin
+    const isStaff = store.getters.is_staff
 
     if (to.meta.requiresLogin === true && !isAuthenticated) {
         next({ name: 'Login' })
@@ -148,6 +160,12 @@ router.beforeEach((to, from, next) => {
     }
 
     if (to.meta.requiresAdmin === true && !isAdmin) {
+        next({ name: 'Home' })
+    } else {
+        next()
+    }
+
+    if (to.meta.requiresStaff === true && !isStaff) {
         next({ name: 'Home' })
     } else {
         next()

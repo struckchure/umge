@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from umge.base import BaseAPIView as BaseView
+from accounts.permissions import IsStaff
 from delivery.models import Order
 from delivery.serializers import OrderSerializer
 
@@ -10,7 +11,8 @@ from delivery.serializers import OrderSerializer
 class OrderList(BaseView):
 
     permission_classes = [
-        IsAuthenticated
+        IsAuthenticated,
+        IsStaff
     ]
     serializer_class = OrderSerializer
 

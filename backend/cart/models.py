@@ -30,7 +30,7 @@ class CartItem(models.Model):
         super().save(*args, **kwargs)
 
     def get_total_balance(self):
-        balance = self.cart_item.product_price
+        balance = self.cart_item.product_price * self.cart_item_quantity
 
         for option in self.cart_item_options.all():
             balance += option.option_price
@@ -52,6 +52,13 @@ class Cart(models.Model):
         verbose_name = 'Cart'
         verbose_name_plural = 'Carts'
 
+    def get_total_quantity(self):
+        qty = 0
+        for item in self.cart_items.all():
+            qty += item.cart_item_quantity
+
+        return qty
+
     def save(self, *args, **kwargs):
         if not self.cart_slug:
             cart_slugs = Cart.objects.values_list('cart_slug', flat=True)
@@ -59,15 +66,44 @@ class Cart(models.Model):
 
         super().save(*args, **kwargs)
 
+    def get_get_cart_delivery_charges(self):
+        MIN_ITEMS = 4
+        charges = 0
+
+        if self.get_total_quantity() >= MIN_ITEMS:
+            charges = (self.get_total_quantity() / MIN_ITEMS) * 50
+        else:
+            charges = 50
+
+        return charges
+
     def get_cart_total_balance(self):
         cart_item_total_balance = 0
 
         for item in self.cart_items.all():
-            cart_item_total_balance += item.cart_item.product_price
+            cart_item_total_balance += item.get_total_balance()
 
         return cart_item_total_balance
 
-    def check_out(self):
+    def use_card(self):
+        from umge.payment import PaymentAPI
+
+        payment_api = PaymentAPI()
+        recieve_payment = payment_api.recieve(
+            email=self.cart_user.email,
+            amount=self.get_cart_total_balance()
+        )
+
+        if recieve_payment:
+            status = True
+            message = 'Checkout successful'
+        else:
+            status = False
+            message = 'Request failed'
+
+        return (message, status, recieve_payment)
+
+    def use_wallet(self):
         from accounts.models import Wallet
         from delivery.models import Order
 
@@ -84,16 +120,33 @@ class Cart(models.Model):
 
                 check_out_order.save()
 
-            checkout_state = {
-                'status': True,
-                'message': 'Checkout successful'
-            }
+                status = True
+                message = 'Checkout successful'
         else:
-            checkout_state = {
-                'status': False,
-                'message': 'Insufficient balance'
-            }
+            status = False
+            message = 'Insufficient balance'
+
+        response = {
+            'status': 200
+        }
 
         user_wallet.save()
+
+        return (message, status, response)
+
+    def check_out(self, payment_mode, item=None):
+        checkout_state = {}
+
+        if payment_mode == 'WALLET':
+            method = self.use_wallet
+        else:
+            method = self.use_card
+
+        payment_method = method()
+        message, status, response = payment_method
+
+        checkout_state['status'] = status
+        checkout_state['message'] = message
+        checkout_state['response'] = response
 
         return checkout_state

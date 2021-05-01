@@ -91,7 +91,6 @@
 
 	import { mapActions, mapGetters } from 'vuex'
 	import * as types from '@/store/types.js'
-	import * as _modal from '@/assets/js/modal.js'
 
 	export default {
 		name: 'ProductPreferenceForm',
@@ -105,12 +104,14 @@
 				qty: 1,
 				description: '',
 				options: {},
-				total_amount: 0
+				total_amount: 0,
+				payment_mode: 'C'
 			}
 		},
 		computed: {
 			...mapGetters({
-				error: 'get_error'
+				error: 'get_error',
+				purchase: 'get_purchase'
 			}),
 			get_options () {
 				return this.item.product_options
@@ -172,17 +173,23 @@
 					}
 				]
 
+				console.log(this.buy_now)
 				switch (this.buy_now) {
 					case 'buy':
 						payload = {
-							items: cart_items
+							cart_item: this.item.product_slug,
+							cart_item_quantity: this.qty,
+							cart_item_description: this.description,
+							cart_item_options: options,
+							payment_mode: this.payment_mode
 						}
 
 						this.buy_item(payload)
 						break;
 					case 'cart':
 						payload = {
-							cart_items
+							cart_items,
+							payment_mode: this.payment_mode
 						}
 
 						this.update_cart(payload)
@@ -190,14 +197,13 @@
 						break;
 				}
 
-				if (this.error == null) {
-					setTimeout(
-						500,
-						() => {
-							_modal.close_modal(this.id)
-						}
-					)
-				}
+				setTimeout(
+					() => {
+						var next_url = this.purchase.response.data.authorization_url
+						window.location.replace(next_url)
+					},
+					3000
+				)
 			}
 		}
 	}

@@ -53,10 +53,6 @@
         rgba(0, 0, 0, 0.2);
 }
 
-.flex {
-    display: flex;
-}
-
 .space-around {
     align-content: space-around;
     justify-content: space-around;
@@ -342,6 +338,17 @@
 
 .text-black {
     color: #333;
+}
+
+ /* Hide scrollbar for Chrome, Safari and Opera */
+.overflow-hide-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.overflow-hide-scroll {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .overflow {

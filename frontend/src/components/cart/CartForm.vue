@@ -2,31 +2,23 @@
 	<div class="cart-form">
 		<div class="cart-form-header">
 			<p class="title">Payment method</p>
-			<div class="user-image">
-				<img src="@/assets/img/bg-1.jpg">
+			<div class="rounded-full user-image">
+				<img src="@/assets/img/bg-1.jpg" class="rounded-full">
 			</div>
 		</div>
 
 		<div class="payment-method">
-			<button @click="choose_payment_method()">Pay with {{ alternate_method }}</button>
+			<button class="bg-yellow-600" @click="choose_payment_method()">Pay with {{ alternate_method }}</button>
 		</div>
 
 		<form @submit.prevent="pay_now()">
 			<div class="row">
 				<div class="col s12 m12 l12 input-field">
-					<input type="text" placeholder="cardholder" :disabled="disable_card" />
+					<input type="email" v-model="user.email" placeholder="email" :disabled="disable_card" />
 				</div>
 
 				<div class="col s12 m12 l12 input-field">
-					<input type="number" placeholder="XXXX **** XX" :disabled="disable_card" />
-				</div>
-
-				<div class="col s12 m12 l12 input-field">
-					<input type="number" placeholder="MM / YY" :disabled="disable_card" />
-				</div>
-
-				<div class="col s12 m12 l12 input-field">
-					<input type="number" placeholder="CVV" :disabled="disable_card" />
+					<input type="number" readonly placeholder="amount" v-model="total" :disabled="disable_card" />
 				</div>
 
 				<div class="col s12 m12 l12">
@@ -53,7 +45,7 @@
 				</div>
 
 				<div class="col s12 m12 l12">
-					<button>Pay now</button>
+					<button class="bg-yellow-600" type="submit">Pay now</button>
 				</div>
 			</div>
 		</form>
@@ -64,30 +56,28 @@
 	export default {
 		name: 'CarForm',
 		props: [
-			'cart'
+			'cart',
+			'user'
 		],
 		data () {
 			return {
-				payment_method: 'card',
-				delivery_price: 50,
+				payment_method: 'CARD'
 			}
 		},
 		computed: {
 			subtotal () {
-				var _subtotal = 0
-
-				for (var i = 0; i < this.cart.cart_items.length; i++) {
-					var price = this.cart.cart_items[i].cart_item.product_price
-					_subtotal += price
-				}
+				var _subtotal = this.cart.cart_total_balance
 
 				return _subtotal
+			},
+			delivery_price () {
+				return this.cart.cart_delivery_charges
 			},
 			total () {
 				return this.subtotal + this.delivery_price
 			},
 			disable_card() {
-				if (this.payment_method === 'card') {
+				if (this.payment_method === 'CARD') {
 					return false
 				} else {
 					return true
@@ -97,26 +87,26 @@
 				var method = this.payment_method
 
 				switch (this.payment_method) {
-					case 'card':
-						method = 'wallet'
+					case 'CARD':
+						method = 'WALLET'
 						break;
-					case 'wallet':
-						method = 'card'
+					case 'WALLET':
+						method = 'CARD'
 						break;
 				}
 
-				return method
+				return method.toLowerCase()
 			}
 		},
 		methods: {
 			pay_now () {},
 			choose_payment_method () {
 				switch (this.payment_method) {
-					case 'card':
-						this.payment_method = 'wallet'
+					case 'CARD':
+						this.payment_method = 'WALLET'
 						break;
-					case 'wallet':
-						this.payment_method = 'card'
+					case 'WALLET':
+						this.payment_method = 'CARD'
 						break;
 				}
 			}

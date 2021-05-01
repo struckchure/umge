@@ -1,6 +1,6 @@
 <template>
     <div class="pama-0">
-        <aside>
+        <aside class="overflow overflow-hide-scroll">
             <router-link
                 :to="{ name: 'Home' }"
                 title="UMGE"
@@ -56,6 +56,14 @@
                 </router-link>
 
                 <router-link
+                    :to="{ name: 'AdminHome' }">
+                    <button>
+                        <i class="fas fa-store"></i>
+                        <span>Stores</span>
+                    </button>
+                </router-link>
+
+                <router-link
                     :to="{ name: 'AdminOrders' }">
                     <button>
                         <i class="fas fa-history"></i>
@@ -78,6 +86,29 @@
                         <span>Applications</span>
                     </button>
                 </router-link>
+            </div>
+
+            <div class="pama-0" v-if="is_staff == true">
+                <label class="sidebar-divider">
+                    <i class="fas fa-biking"></i>
+                    <span>Riders</span>
+                </label>
+
+                <router-link
+                    :to="{ name: 'RiderOrders' }">
+                    <button>
+                        <i class="fas fa-history"></i>
+                        <span>Orders</span>
+                    </button>
+                </router-link> 
+
+                <router-link
+                    :to="{ name: 'RiderOrders' }">
+                    <button>
+                        <i class="fas fa-tasks"></i>
+                        <span>Tasks</span>
+                    </button>
+                </router-link>                
             </div>
 
             <label class="sidebar-divider">
@@ -106,7 +137,7 @@
             </router-link>
         </aside>
 
-        <main>
+        <main class="h-screen">
             <div class="navbar">
                 <div class="brand-name"></div>
 
@@ -187,7 +218,8 @@
             ...mapGetters({
                 user: 'get_user',
                 is_authenticated: 'is_authenticated',
-                is_admin: 'is_admin'
+                is_admin: 'is_admin',
+                is_staff: 'is_staff'
             })
         },
         methods: {

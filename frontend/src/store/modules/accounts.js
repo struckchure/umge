@@ -11,11 +11,13 @@ const REGISTER_URL = 'account/register/'
 const USER_UPDATE_URL = '/account/update/'
 const ADMIN_USERS_LIST_URL = '/account/admin/users/'
 const ADMIN_RIDERS_LIST_URL = '/account/admin/riders/'
+const PAYMENT_VERIFICATION_URL = '/payment/vefify/'
 
 const storage = new utils.Storage()
 
 const state = {
     user: {},
+    payment: {},
     admin_users_list: [],
     admin_riders_list: []
 }
@@ -41,6 +43,17 @@ const getters = {
     is_admin (state) {
         if (storage.get('token') && state.user.username) {
             if (state.user.is_superuser === true) {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    },
+    is_staff (state) {
+        if (storage.get('token') && state.user.username) {
+            if (state.user.is_staff === true) {
                 return true
             } else {
                 return false
@@ -76,22 +89,36 @@ const mutations = {
     // set user mutation
 
     [types.SET_USER] (state, payload) {
-        state.user = payload
         store.commit(types.CLEAR_ERROR)
+        state.user = payload
     },
 
     // get all users for admin mutation
 
     [types.SET_ADMIN_USERS_LIST] (state, payload) {
-        state.admin_users_list = payload
         store.commit(types.CLEAR_ERROR)
+        state.admin_users_list = payload
     },
 
     // get all riders for admin mutation
 
     [types.SET_ADMIN_RIDERS_LIST] (state, payload) {
-        state.admin_riders_list = payload
         store.commit(types.CLEAR_ERROR)
+        state.admin_riders_list = payload
+    },
+
+    // success verification
+
+    [types.VERIFICATION_SUCCESS] (state, payload) {
+        store.commit(types.CLEAR_ERROR)
+        state.payment = payload
+    },
+
+    // failed verification
+
+    [types.VERIFICATION_FAILED] (state, payload) {
+        store.commit(types.SET_ERROR, payload)
+        state.payment = {}
     }
 }
 
@@ -190,20 +217,18 @@ const actions = {
     async [types.GET_USER] (context) {
         context.commit(types.BUSY_LOADING)
 
-        const csrftoken = utils.getCookie('csrftoken');
-
         await api({
             method: 'get',
             url: '/account/',
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrftoken,
                 "Authorization": `Token ${storage.get('token')}`
             }
         })
         .then(
             function(response) {
                 context.commit(types.SET_USER, response.data)
+                context.dispatch(types.GET_CART)
             }
         )
         .catch(
@@ -300,6 +325,33 @@ const actions = {
         .catch(
             function(error) {
                 context.commit(types.AUTH_FAILED, error.response.data)
+            }
+        )
+
+        context.commit(types.DONE_LOADING)
+    },
+
+    // verify payment
+
+    async [types.VERIFY_PAYMENT] (context) {
+        context.commit(types.BUSY_LOADING)
+
+        await api({
+            method: 'get',
+            url: PAYMENT_VERIFICATION_URL,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${storage.get('token')}`
+            }
+        })
+        .then(
+            function(response) {
+                context.commit(types.VERIFICATION_SUCCESS, response.data)
+            }
+        )
+        .catch(
+            function(error) {
+                context.commit(types.VERIFICATION_FAILED, error.response.data)
             }
         )
 

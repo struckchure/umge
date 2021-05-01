@@ -1,12 +1,12 @@
 <template>
 	<Base>
 		<template v-slot:main>
-			<label class="form-header">
-				Management / Orders
-			</label>
-
 			<div class="row">
 				<div class="col s12 m12 l12">
+					<label class="form-header">
+						Management / Orders
+					</label>
+
 					<AdminOrdersList :orders="orders" />
 				</div>
 			</div>

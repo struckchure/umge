@@ -6,19 +6,24 @@ import * as types from '@/store/types.js'
 
 const CART_DETAILS_URL = '/cart/details/'
 const CART_UPDATE_URL = '/cart/update/'
-const BUY_NOW_URL = '/cart/checkout/'
+const BUY_NOW_URL = '/cart/buy-now/'
+const CHECKOUT_CART_URL = '/cart/checkout/'
 
 // storage
 
 const storage = new utils.Storage()
 
 const state = {
-    cart: {}
+    cart: {},
+    purchase: {}
 }
 
 const getters = {
     get_cart (state) {
         return state.cart
+    },
+    get_purchase (state) {
+        return state.purchase
     }
 }
 
@@ -28,6 +33,12 @@ const mutations = {
 
     [types.SET_CART] (state, payload) {
         state.cart = payload
+    },
+
+    // cart purchase success mutation
+
+    [types.SET_CART_PURCHASE_SUCCESS] (state, payload) {
+        state.purchase = payload
     }
 }
 
@@ -79,6 +90,7 @@ const actions = {
         .then(
             function(response) {
                 context.commit(types.SET_CART, response.data)
+                context.dispatch(types.GET_CART)
             }
         )
         .catch(
@@ -109,7 +121,38 @@ const actions = {
         })
         .then(
             function(response) {
-                context.commit(types.SET_SUCCESS, response.data)
+                context.commit(types.SET_CART_PURCHASE_SUCCESS, response.data)
+            }
+        )
+        .catch(
+            function(error) {
+                context.commit(types.SET_ERROR, error.response.data)
+            }
+        )
+
+        context.commit(types.DONE_LOADING)
+    },
+
+    // checkout cart
+
+    async [types.CHECKOUT_CART] (context, payload) {
+        context.commit(types.BUSY_LOADING)
+
+        const csrftoken = utils.getCookie('csrftoken');
+
+        await api({
+            method: 'post',
+            url: CHECKOUT_CART_URL,
+            data: payload,
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+                "Authorization": `Token ${storage.get('token')}`
+            }
+        })
+        .then(
+            function(response) {
+                context.commit(types.SET_CART_PURCHASE_SUCCESS, response.data)
             }
         )
         .catch(

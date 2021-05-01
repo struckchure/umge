@@ -1,13 +1,15 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from django.shortcuts import get_object_or_404
 
 from umge.base import BaseAPIView as BaseView
+from umge.payment import PaymentAPI
 from cart.serializers import (
     CartSerializer,
     CartCreateSerializer,
-    CartUpdateSerializer
+    CartUpdateSerializer,
+    CheckoutSerializer,
+    CartItemUpdateSerializer
 )
 from cart.models import Cart
 
@@ -95,25 +97,81 @@ class Checkout(BaseView):
     permission_classes = [
         IsAuthenticated
     ]
+    serializer_class = CheckoutSerializer
 
     def post(self, requests, *args, **kwargs):
         user = requests.user
+        payload = requests.data
+
+        serialized_data = self.get_serializer(data=payload)
+        serialized_data.is_valid(raise_exception=True)
+
         user_cart = Cart.objects.get(cart_user=user)
-        check_out = user_cart.check_out()
+        check_out = user_cart.check_out(serialized_data.data['payment_mode'])
 
         if check_out['status']:
             response = Response(
-                {
-                    'success': check_out['message']
-                },
+                check_out,
                 status=status.HTTP_200_OK
             )
         else:
             response = Response(
-                {
-                    'error': check_out['message']
-                },
+                check_out,
                 status=status.HTTP_402_PAYMENT_REQUIRED
             )
+
+        return response
+
+
+class BuyNow(BaseView):
+
+    permission_classes = [
+        IsAuthenticated
+    ]
+    serializer_class = CartItemUpdateSerializer
+
+    def post(self, requests):
+        user = requests.user
+        payload = requests.data
+
+        serialized_data = self.get_serializer(data=payload)
+        serialized_data.is_valid(raise_exception=True)
+
+        buy_now_item = serialized_data.validated_data
+
+        user_cart = Cart.objects.get(cart_user=user)
+        check_out = user_cart.check_out(
+            serialized_data.data['payment_mode'],
+            item=buy_now_item
+        )
+
+        if check_out['status']:
+            response = Response(
+                check_out,
+                status=status.HTTP_200_OK
+            )
+        else:
+            response = Response(
+                check_out,
+                status=status.HTTP_402_PAYMENT_REQUIRED
+            )
+
+        return response
+
+
+class VerifyPayment(BaseView):
+
+    permission_classes = [
+        IsAuthenticated
+    ]
+
+    def get(self, requests, reference):
+        payment_api = PaymentAPI()
+        verification = payment_api.verify(reference)
+
+        response = Response(
+            verification,
+            status=status.HTTP_200_OK
+        )
 
         return response

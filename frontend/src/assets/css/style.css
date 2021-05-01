@@ -4,7 +4,7 @@
 	--sidebar-width-mobile: 4.3em;
 	--sidebar-bg: #fff;
 	--sidebar-fg: #333;
-	--navbar-height: 2em;
+	--navbar-height: 3.5em;
 }
 
 * {
@@ -27,11 +27,14 @@ aside {
 	width: var(--sidebar-width);
 	height: 100vh;
 	position: fixed;
-	overflow-y: auto;
 	background-color: var(--sidebar-bg);
 	color: var(--sidebar-fg);
 	margin: 0;
 	transition: .3s;
+}
+
+aside::-webkit-scrollbar {
+	display: none;
 }
 
 .sidebar-divider {
@@ -238,6 +241,11 @@ a {
 	text-decoration: none;
 }
 
+input {
+	padding: .5em 1em;
+	margin: .2em;
+}
+
 button {
 	display: flex;
 	flex: 1;
@@ -251,6 +259,7 @@ button {
 	padding: .8em;
 	padding-left: 1.8em;
 	padding-right: 1.8em;
+	margin: .3em .1em;
 	border-radius: 5px;
 	border: none;
 	outline: none;

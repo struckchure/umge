@@ -3,6 +3,7 @@
         <template v-slot:main>
             <div class="row">
                 <div class="col s12 m12 l12">
+                    <label class="form-header">Management / Riders</label>
                     <AdminRidersList :riders="riders" />
                 </div>
             </div>
