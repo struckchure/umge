@@ -63,5 +63,14 @@ export const SET_ADMIN_RIDERS_LIST = "SET_ADMIN_RIDERS_LIST"
 // order types
 
 export const GET_ORDERS = "GET_ORDERS"
+export const GET_ADMIN_ORDERS = "GET_ADMIN_ORDERS"
 
 export const SET_ORDERS = "SET_ORDERS"
+export const SET_ADMIN_ORDERS = "SET_ADMIN_ORDERS"
+
+// wallet types
+
+export const FUND_WALLET = "FUND_WALLET"
+
+export const SET_FUND_WALLET_SUCCESS = "SET_FUND_WALLET_SUCCESS"
+export const SET_FUND_WALLET_FAILED = "SET_FUND_WALLET_FAILED"

@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow">
+    <div class="overflow h-screen">
         <table>
             <thead>
                 <tr>
@@ -29,7 +29,7 @@
                         </span>
                     </td>
                     <td>{{ order.item.cart_item.product_price }}</td>
-                    <td>{{ order.date }}</td>
+                    <td>{{ order.date | date }}</td>
                     <td>
                         <button :class="order_color(order.status)">
                             <i :class="order_icon(order.status)"></i>

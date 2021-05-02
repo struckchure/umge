@@ -30,12 +30,12 @@
         },
         computed: {
             ...mapGetters({
-                orders: 'get_orders'
+                orders: 'get_admin_orders'
             })
         },
         methods: {
             ...mapActions({
-                get_orders: types.GET_ORDERS
+                get_orders: types.GET_ADMIN_ORDERS
             })
         }
 	}

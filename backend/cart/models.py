@@ -66,14 +66,15 @@ class Cart(models.Model):
 
         super().save(*args, **kwargs)
 
-    def get_get_cart_delivery_charges(self):
+    def get_cart_delivery_charges(self):
         MIN_ITEMS = 4
         charges = 0
 
-        if self.get_total_quantity() >= MIN_ITEMS:
-            charges = (self.get_total_quantity() / MIN_ITEMS) * 50
-        else:
-            charges = 50
+        if self.cart_items.count() > 0:
+            if self.get_total_quantity() >= MIN_ITEMS:
+                charges = (self.get_total_quantity() / MIN_ITEMS) * 50
+            else:
+                charges = 50
 
         return charges
 
@@ -87,14 +88,25 @@ class Cart(models.Model):
 
     def use_card(self):
         from umge.payment import PaymentAPI
+        from delivery.models import Order
+
+        cart_balance = self.get_cart_total_balance()\
+            + self.get_cart_delivery_charges()
 
         payment_api = PaymentAPI()
         recieve_payment = payment_api.recieve(
             email=self.cart_user.email,
-            amount=self.get_cart_total_balance()
+            amount=cart_balance
         )
 
         if recieve_payment:
+            for cart_item in self.cart_items.all():
+                check_out_order = Order.objects.create(
+                    user=self.cart_user,
+                    item=cart_item
+                )
+                check_out_order.save()
+
             status = True
             message = 'Checkout successful'
         else:
@@ -110,7 +122,10 @@ class Cart(models.Model):
         user_wallet = Wallet.objects.get(wallet_user=self.cart_user)
         user_balance = user_wallet.wallet_balance
 
-        if user_balance >= self.get_cart_total_balance():
+        cart_balance = self.get_cart_total_balance()\
+            + self.get_cart_delivery_charges()
+
+        if user_balance >= cart_balance:
             for cart_item in self.cart_items.all():
                 check_out_order = Order.objects.create(
                     user=self.cart_user,
@@ -120,21 +135,21 @@ class Cart(models.Model):
 
                 check_out_order.save()
 
-                status = True
-                message = 'Checkout successful'
+            user_wallet.wallet_balance -= self.get_cart_delivery_charges()
+
+            status = True
+            message = 'Checkout successful'
         else:
             status = False
             message = 'Insufficient balance'
 
-        response = {
-            'status': 200
-        }
-
         user_wallet.save()
+
+        response = {}
 
         return (message, status, response)
 
-    def check_out(self, payment_mode, item=None):
+    def check_out(self, payment_mode):
         checkout_state = {}
 
         if payment_mode == 'WALLET':
@@ -144,6 +159,82 @@ class Cart(models.Model):
 
         payment_method = method()
         message, status, response = payment_method
+
+        checkout_state['status'] = status
+        checkout_state['message'] = message
+        checkout_state['response'] = response
+
+        return checkout_state
+
+    def buy_now_use_card(self, item):
+        from umge.payment import PaymentAPI
+        from delivery.models import Order
+
+        cart_balance = item.get_total_balance()\
+            + self.get_cart_delivery_charges()
+
+        payment_api = PaymentAPI()
+        recieve_payment = payment_api.recieve(
+            email=self.cart_user.email,
+            amount=cart_balance
+        )
+
+        if recieve_payment:
+            check_out_order = Order.objects.create(
+                user=self.cart_user,
+                item=item
+            )
+            check_out_order.save()
+
+            status = True
+            message = 'Checkout successful'
+        else:
+            status = False
+            message = 'Request failed'
+
+        return (message, status, recieve_payment)
+
+    def buy_now_use_wallet(self, item):
+        from accounts.models import Wallet
+        from delivery.models import Order
+
+        user_wallet = Wallet.objects.get(wallet_user=self.cart_user)
+        user_balance = user_wallet.wallet_balance
+
+        cart_balance = item.get_total_balance()\
+            + self.get_cart_delivery_charges()
+
+        if user_balance >= cart_balance:
+            check_out_order = Order.objects.create(
+                user=self.cart_user,
+                item=item
+            )
+            user_wallet.wallet_balance -= cart_balance
+
+            check_out_order.save()
+
+            status = True
+            message = 'Checkout successful'
+        else:
+            status = False
+            message = 'Insufficient balance'
+
+        user_wallet.save()
+
+        response = {}
+
+        return (message, status, response)
+
+    def buy_now(self, item, payment_mode):
+        if payment_mode == 'WALLET':
+            method = self.buy_now_use_wallet
+        else:
+            method = self.buy_now_use_card
+
+        payment_method = method(item)
+        message, status, response = payment_method
+
+        checkout_state = {}
 
         checkout_state['status'] = status
         checkout_state['message'] = message

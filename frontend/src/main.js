@@ -1,26 +1,31 @@
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
 
-import '@/assets/css/tailwind.css'
+// styles
+
 import '@/assets/css/all.css'
+import '@/assets/css/tailwind.css'
+import '@/assets/css/grid.css'
 import '@/assets/css/modal.css'
 import '@/assets/css/layouts.css'
-import '@/assets/css/grid.css'
 import '@/assets/css/custom-ui.css'
 import '@/assets/css/style.css'
 
-import "@/components/components.js"
-import titleMixin from "@/titleMixin.js"
+// js stuffs
 
-Vue.mixin(titleMixin)
+import App from '@/App.vue'
+import router from '@/router'
+import store from '@/store'
+import "@/components"
+import "@/filters"
+import "@/mixins"
+
 Vue.config.productionTip = false
 
-new Vue(
+const app = new Vue(
 	{
 		router,
 		store,
 		render: h => h(App)
 	}
-).$mount('#app')
+)
+app.$mount('#app')

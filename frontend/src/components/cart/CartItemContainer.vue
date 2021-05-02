@@ -5,8 +5,8 @@
 			<p>You have {{ items.length }} items in your cart</p>
 		</div>
 		<CartItem
-			v-for="(item, index) in items"
-			:key="index"
+			v-for="item in items"
+			:key="item.id"
 			:item="item"
 		/>
 	</div>

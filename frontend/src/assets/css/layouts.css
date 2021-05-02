@@ -363,6 +363,14 @@
     overflow-y: auto;
 }
 
+.overflow-auto-invisible {
+    overflow: auto;
+}
+
+.overflow-auto-invisible::-webkit-scrollbar {
+    display: none;
+}
+
 /* medium screen */
 
 @media only screen and (min-width: 600px) and (max-width: 992px) {

@@ -35,7 +35,7 @@ class CartSerializer(serializers.ModelSerializer):
         return obj.get_cart_total_balance()
 
     def get_cart_delivery_charges(self, obj):
-        return obj.get_get_cart_delivery_charges()
+        return obj.get_cart_delivery_charges()
 
 
 class CartCreateSerializer(serializers.ModelSerializer):
@@ -71,7 +71,12 @@ class CartItemUpdateSerializer(serializers.ModelSerializer):
             'cart_item_options',
             'payment_mode'
         ]
-        # extra_kwargs = {'payment_mode': {'write_only': True}}
+
+    def validate(self, validated_data):
+        if validated_data.get('payment_mode'):
+            del validated_data['payment_mode']
+
+        return validated_data
 
     def validate_cart_item(self, value):
         value = Product.objects.get(product_slug=value)

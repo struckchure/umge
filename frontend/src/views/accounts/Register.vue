@@ -28,10 +28,6 @@
             </div>
 
             <div class="col s12 m12 l12">
-                <label>or use your e-mail for registration</label>
-            </div>
-
-            <div class="col s12 m12 l12">
                 <form @submit.prevent="register">
                     <div class="input-field">
                         <i class="fas fa-user"></i>

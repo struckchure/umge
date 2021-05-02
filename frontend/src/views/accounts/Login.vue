@@ -28,35 +28,31 @@
             </div>
 
             <div class="col s12 m12 l12">
-                <label>or use your e-mail to login</label>
-            </div>
-
-            <div class="col s12 m12 l12">
                 <form @submit.prevent="login">
-                        <div class="input-field">
-                            <i class="fas fa-user"></i>
-                            <input
-                                type="text"
-                                placeholder="Username"
-                                v-model="username"
-                                required
-                                maxlength="15"
-                            />
-                        </div>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            v-model="username"
+                            required
+                            maxlength="15"
+                        />
+                    </div>
 
-                        <div class="input-field">
-                            <i class="fas fa-lock"></i>
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                v-model="password"
-                                required
-                                maxlength="20"
-                            />
-                        </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            v-model="password"
+                            required
+                            maxlength="20"
+                        />
+                    </div>
 
-                        <button>Sign In</button>
-                    </form>
+                    <button>Sign In</button>
+                </form>
             </div>
 
             <div class="col s12 m12 l12">

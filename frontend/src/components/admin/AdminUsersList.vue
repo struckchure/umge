@@ -25,7 +25,7 @@
 							</button>
 						</router-link>
 					</td>
-					<td>{{ format_date(user.date) }}</td>
+					<td>{{ user.date | date }}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -51,11 +51,7 @@
 		methods: {
 			...mapActions({
 				get_users: types.GET_ADMIN_USERS_LIST
-			}),
-			format_date (value) {
-				var date = new Date(value)
-				return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`
-			}
+			})
 		}
 	}
 </script>

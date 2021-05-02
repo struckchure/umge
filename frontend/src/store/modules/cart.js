@@ -126,7 +126,11 @@ const actions = {
         )
         .catch(
             function(error) {
-                context.commit(types.SET_ERROR, error.response.data)
+                const error_payload = {
+                    'error': error.response.data.message
+                }
+
+                context.commit(types.SET_ERROR, error_payload)
             }
         )
 

@@ -16,7 +16,7 @@
 
         <div class="extra-details">
             <label class="text-left">Date Joined</label>
-            <p>{{ format_date(user.date) }}</p>
+            <p>{{ user.date | date }}</p>
 
             <br>
             <label class="text-left">Ratings</label>
@@ -84,13 +84,6 @@
                 } else {
                     return 'loading ...'
                 }
-            }
-        },
-        methods: {
-            format_date (date) {
-                var format_date_ = new Date(date)
-
-                return `${format_date_.getDay()}/${format_date_.getMonth()}/${format_date_.getFullYear()}` // day, month year
             }
         }
     }

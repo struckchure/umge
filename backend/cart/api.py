@@ -136,13 +136,14 @@ class BuyNow(BaseView):
 
         serialized_data = self.get_serializer(data=payload)
         serialized_data.is_valid(raise_exception=True)
+        serialized_data.save()
 
-        buy_now_item = serialized_data.validated_data
+        buy_now_item = serialized_data.instance
 
         user_cart = Cart.objects.get(cart_user=user)
-        check_out = user_cart.check_out(
-            serialized_data.data['payment_mode'],
-            item=buy_now_item
+        check_out = user_cart.buy_now(
+            item=buy_now_item,
+            payment_mode=payload['payment_mode']
         )
 
         if check_out['status']:

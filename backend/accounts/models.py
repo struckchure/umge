@@ -88,6 +88,24 @@ class Wallet(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
+    def fund_wallet(self, amount):
+        from umge.payment import PaymentAPI
+
+        payment_api = PaymentAPI()
+        recieve_payment = payment_api.recieve(
+            email=self.wallet_user.email,
+            amount=amount
+        )
+
+        if recieve_payment:
+            status = True
+            message = 'Checkout successful'
+        else:
+            status = False
+            message = 'Request failed'
+
+        return (message, status, recieve_payment)
+
 
 class Activity(models.Model):
     activity_user = models.ForeignKey(User, on_delete=models.CASCADE)

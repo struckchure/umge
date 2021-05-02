@@ -15,6 +15,7 @@
                 <tr
                     v-for="(order, index) in orders"
                     :key="index"
+                    class="hover:bg-gray-400 hover:text-white cursor-pointer"
                 >
                     <td>{{ index + 1 }}</td>
                     <td>{{ order.transaction_id }}</td>
@@ -28,7 +29,7 @@
                         </span>
                     </td>
                     <td>{{ order.item.cart_item.product_price }}</td>
-                    <td>{{ order.date }}</td>
+                    <td>{{ order.date | date }}</td>
                 </tr>
             </tbody>
         </table>

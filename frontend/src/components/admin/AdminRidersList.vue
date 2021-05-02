@@ -25,7 +25,7 @@
 							</button>
 						</router-link>
 					</td>
-					<td>{{ format_date(rider.date) }}</td>
+					<td>{{ rider.date | date }}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -39,12 +39,6 @@
 		name: 'AdminRidersList',
         props: [
             'riders'
-        ],
-		methods: {
-			format_date (value) {
-				var date = new Date(value)
-				return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`
-			}
-		}
+        ]
 	}
 </script>

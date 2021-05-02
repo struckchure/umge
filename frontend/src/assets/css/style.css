@@ -1,5 +1,4 @@
 :root {
-	--bg-image: url(../img/prod-1.png);
 	--sidebar-width: 11.5em;
 	--sidebar-width-mobile: 4.3em;
 	--sidebar-bg: #fff;
@@ -11,10 +10,7 @@
 	padding: 0;
 	margin: 0;
 	font-family: "Arial", sans-serif;
-}
-
-.accounts-base {
-	background-image: var(--bg-image);
+	transition: .3s;
 }
 
 body {
@@ -83,6 +79,7 @@ aside button {
 	transition: .4s;
 	font-size: 1.1em;
 	font-weight: normal !important;
+	margin: 0;
 }
 
 aside button.active {
@@ -104,13 +101,12 @@ main {
 	padding-top: 0;
 	padding-left: calc(var(--sidebar-width) + 1em);
 	padding-right: .8em;
-	min-height: 97.5vh;
 	background-color: #FFD196;
 	padding-bottom: 1em;
-	overflow-y: auto;
 	display: flex;
 	flex: 1;
 	flex-direction: column;
+	height: 100%;
 }
 
 .navbar {
@@ -220,7 +216,7 @@ form {
 	overflow: auto;
 	width: inherit;
 	max-width: 400px;
-	max-height: 40px;
+	/*max-height: 40px;*/
 }
 
 input:focus,
@@ -250,6 +246,7 @@ button {
 	display: flex;
 	flex: 1;
 	align-self: center;
+	align-items: center;
 	box-shadow: 0 16px 24px 2px
 	rgba(0, 0, 0, 0.6), 0 6px 30px 5px
 	rgba(0, 0, 0, 0.7), 0 8px 10px -7px

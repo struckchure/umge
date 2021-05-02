@@ -137,23 +137,23 @@
             </router-link>
         </aside>
 
-        <main class="h-screen">
+        <main class="h-screen overflow-auto">
             <div class="navbar">
                 <div class="brand-name"></div>
 
                 <div class="pama-0" v-if="is_authenticated == true">
-                    <div class="cart">
-                        <p class="wallet-balance">
+                    <div class="cart w-auto mx-1 md:mx-16">
+                        <p class="wallet-balance w-auto">
                             &#8358; {{ user.wallet.wallet_balance }}
                         </p>
 
                         <div class="flex center">
                             <router-link :to="{ name: 'Cart' }">
-                                <button class="fntz-8 pa-1 flex-h-center flex-1 btn-small">
+                                <button class="fntz-8 pa-1 flex-h-center flex-1 btn-small bg-red-500">
                                     <i class="fas fa-shopping-cart"></i>
                                 </button>
                             </router-link>
-                            <label>{{ user.cart.cart_items.length }}</label>
+                            <label class="w-12">{{ user.cart.cart_items.length }}</label>
                         </div>
                     </div>
                 </div>

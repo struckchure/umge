@@ -15,11 +15,11 @@
 
         <template v-slot:extra>
             <form class="no-border filter-form" @submit.prevent="filter_product_list">
-                <div class="input-field">
+                <div class="relative">
                     <select
                         v-model="filters.store_name"
                         @change="filter_product_list()"
-                        class="bg-gray-900 p-2"
+                        class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white"
                     >
                         <option value="*">All stores (default)</option>
                         <option
@@ -27,6 +27,9 @@
                             :key="index"
                         >{{ store.store_name }}</option>
                     </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <i class="fas fa-angle-down"></i>
+                    </div>
                 </div>
 
                 <div class="input-field">

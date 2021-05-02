@@ -75,3 +75,8 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
     def validate(self, validated_data):
         return validated_data
+
+
+class FundWalletSerializer(serializers.Serializer):
+
+    amount = serializers.IntegerField()

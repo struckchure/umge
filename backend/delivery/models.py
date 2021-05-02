@@ -33,8 +33,9 @@ class Order(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.transaction_id:
-            transaction_ids = Order.objects.values_list('transaction_id', flat=True)
-            transaction_id = generate_slug(transaction_ids)
+            transaction_ids = Order.objects\
+                .values_list('transaction_id', flat=True)
+            transaction_id = generate_slug(transaction_ids, max_length=5)
             self.transaction_id = transaction_id.replace('-', '').upper()
 
         super().save(*args, **kwargs)

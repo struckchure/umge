@@ -44,7 +44,7 @@ input:disabled {
 	border-radius: 30px;
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
-	background-color: tomato;
+	/*background-color: tomato;*/
 	color: #fff;
 	background-image: none;
 }
@@ -320,7 +320,6 @@ button {
 	text-align: center;
 	font-size: 1.3em;
 	background-image: none;
-	/*background-color: orange;*/
 	box-shadow: none;
 	transition: .5s;
 	justify-content: center;

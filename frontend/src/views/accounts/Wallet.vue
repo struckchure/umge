@@ -3,101 +3,42 @@
         <template v-slot:main>
             <div class="row">
                 <div class="col s12 m4 m4">
-                    <div class="wallet-preview">
+                    <div class="w-full bg-gray-100 my-1 rounded-3xl p-8 my-3">
                         <p class="wallet-preview-balance text-right">
                             &#8358; {{ user.wallet.wallet_balance }}
                         </p>
+                    </div>
 
-                        <div class="extra-details">
-                            <label class="text-left">Cards</label>
-                            <br>
-                            <div class="wallet-card">
-                                <p class="text-right">
-                                    **** 345627
-                                </p>
-                                <label class="text-right">
-                                    John Doe
-                                </label>
-
-                                <div class="divider"></div>
-
-                                <div class="flex flex-center">
-                                    <button class="success btn-small flex-1">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="danger btn-small flex-1">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="bg-gray-100 w-full h-full rounded-3xl p-8 overflow-auto">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
                     </div>
                 </div>
 
                 <div class="col s12 m8 m8">
-                    <div class="wallet-update">
+                    <div class="w-full bg-gray-100 my-1 rounded-3xl p-8 my-3">
                         <div class="form-header">
                             Fund wallet
                         </div>
 
-                        <form @submit.prevent="fund_wallet()">
+                        <form @submit.prevent="fund_wallet">
                             <div class="row">
                                 <div class="col s12 m12 l12">
-                                    <label class="form-label text-left">Card number</label>
-                                </div>
-
-                                <div class="col s12 m12 l12">
-                                    <input
-                                        type="number"
-                                        placeholder="XXXX **** XXXX"
-                                        required
-                                    />
-                                </div>
-
-                                <div class="col s12 m12 l12">
-                                    <label class="form-label text-left">Card details</label>
-                                </div>
-
-                                <div class="col s12 m4 l4">
-                                    <input
-                                        type="number"
-                                        placeholder="CVV"
-                                        max="3"
-                                        required
-                                    />
-                                </div>
-
-                                <div class="col s12 l4 l4">
-                                    <input
-                                        type="number"
-                                        placeholder="MM / YY"
-                                        required
-                                    />
-                                </div>
-
-                                <div class="col s12 m12 l12">
-                                    <label class="form-label text-left">Card holder</label>
-                                </div>
-
-                                <div class="col s12 m12 l12">
-                                    <input
-                                        type="number"
-                                        placeholder="John Doe"
-                                        required
-                                    />
-                                </div>
-
-                                <div class="col s12 m12 l12">
-                                    <label class="form-label text-left">Amount</label>
-                                </div>
-
-                                <div class="col s12 m12 l12">
-                                    <input
-                                        type="number"
-                                        placeholder="1000"
-                                        min="100"
-                                        required
-                                    />
+                                    <label class="text-left font-extrabold">Amount</label>
+                                    <div class="w-full">
+                                        <input
+                                            type="number"
+                                            class="w-inherit rounded bg-gray-400 p-2 px-4"
+                                            min="100"
+                                            v-model="amount"
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
@@ -125,8 +66,12 @@
         title () {
             return 'Dashboard | Wallet'
         },
+        data () {
+            return {
+                amount: 100
+            }
+        },
         mounted () {
-            console.log(this.get_reference)
             this.get_user()
         },
         computed: {

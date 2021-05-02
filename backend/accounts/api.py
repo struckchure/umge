@@ -14,7 +14,8 @@ from accounts.serializers import (
 )
 from store.serializers import StoreSerializer
 from cart.serializers import CartSerializer
-
+from accounts.models import Wallet
+from accounts.serializers import FundWalletSerializer
 
 User = get_user_model()
 
@@ -135,6 +136,31 @@ class UserUpdate(BaseView):
 
         response = Response(
             serialized_data.data,
+            status=status.HTTP_200_OK
+        )
+
+        return response
+
+
+class FundWallet(BaseView):
+
+    permission_classes = [
+        IsAuthenticated
+    ]
+    serializer_class = FundWalletSerializer
+
+    def post(self, request):
+        payload = request.data
+        wallet = Wallet.objects.get(wallet_user=request.user)
+
+        serialized_data = self.get_serializer(data=payload)
+        serialized_data.is_valid(raise_exception=True)
+
+        amount = serialized_data.validated_data.get('amount')
+        fund_request = wallet.fund_wallet(amount)
+
+        response = Response(
+            fund_request,
             status=status.HTTP_200_OK
         )
 
