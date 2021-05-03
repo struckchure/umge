@@ -4,20 +4,36 @@ import * as types from '@/store/types.js'
 
 // endpoints
 
-const FUND_WALLET_URL = '/accounts/wallet/fund/'
+const FUND_WALLET_URL = '/account/wallet/fund/'
 
 // storage
 
 const storage = new utils.Storage()
 
-const state = {}
+const state = {
+    fund: {}
+}
 
-const getters = {}
+const getters = {
+    get_fund(state) {
+        return state.fund
+    }
+}
 
-const mutations = {}
+const mutations = {
+    // fund success mutation
+
+    [types.SET_FUND_WALLET_SUCCESS] (state, payload) {
+        state.fund = payload
+    },
+
+    // fund failed mutation
+
+    // [types.SET_FUND_WALLET_FAILED] (state, payload) {}
+}
 
 const actions = {
-    // buy single item
+    // fund user wallet
 
     async [types.FUND_WALLET] (context, payload) {
         context.commit(types.BUSY_LOADING)
@@ -45,7 +61,7 @@ const actions = {
                     'error': error.response.data.message
                 }
 
-                context.commit(types.SET_FUND_WALLET_FAILED, error_payload)
+                context.commit(types.SET_ERROR, error_payload)
             }
         )
 

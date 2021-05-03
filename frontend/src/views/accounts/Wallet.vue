@@ -53,7 +53,7 @@
 
 <script>
     import * as types from '@/store/types.js'
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapGetters, mapActions, mapMutations } from 'vuex'
 
     import '@/assets/css/grid.css'
     import '@/assets/css/wallet.css'
@@ -76,7 +76,9 @@
         },
         computed: {
             ...mapGetters({
-                user: 'get_user'
+                user: 'get_user',
+                fund: 'get_fund',
+                error: 'get_error'
             }),
             get_reference() {
                 return this.$route.query.reference
@@ -84,9 +86,32 @@
         },
         methods: {
             ...mapActions({
-                get_user: types.GET_USER
+                get_user: types.GET_USER,
+                fund_user_wallet: types.FUND_WALLET
             }),
-            fund_wallet () {}
+            ...mapMutations({
+                set_success: types.SET_SUCCESS
+            }),
+            fund_wallet () {
+                const payload = {
+                    amount: this.amount
+                }
+
+                this.fund_user_wallet(payload)
+
+                const success_payload = {
+                    'success': this.fund[2].message
+                }
+
+                this.set_success(success_payload)
+                setTimeout(
+                    () => {
+                        var next_url = this.fund[2].data.authorization_url
+                        window.location.replace(next_url)
+                    },
+                    3000
+                )
+            }
         }
     }
 </script>
