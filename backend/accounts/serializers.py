@@ -1,7 +1,10 @@
 from rest_framework import serializers
 
 from django.contrib.auth import get_user_model
-from accounts.models import Wallet
+from accounts.models import (
+    Wallet,
+    FundHistory
+)
 
 
 User = get_user_model()
@@ -80,3 +83,21 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 class FundWalletSerializer(serializers.Serializer):
 
     amount = serializers.IntegerField()
+
+
+class FundHistorySerializer(serializers.ModelSerializer):
+
+    description = serializers.SerializerMethodField()
+
+    class Meta:
+        model = FundHistory
+        fields = [
+            'id',
+            'user',
+            'description',
+            'date',
+            'updated'
+        ]
+
+    def get_description(self, obj):
+        return obj.get_description()

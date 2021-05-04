@@ -2,26 +2,24 @@
     <Base>
         <template v-slot:main>
             <div class="row">
-                <div class="col s12 m4 m4">
+                <div class="col s12 m6 l6">
                     <div class="w-full bg-gray-100 my-1 rounded-3xl p-8 my-3">
+                        <label class="text-right italic">Your balance</label>
                         <p class="wallet-preview-balance text-right">
                             &#8358; {{ user.wallet.wallet_balance }}
                         </p>
                     </div>
 
-                    <div class="bg-gray-100 w-full h-full rounded-3xl p-8 overflow-auto">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                    </div>
+                    <ItemListContainer class="bg-gray-100 h-80 overflow-hide-scroll overflow-auto w-full rounded-3xl pt-0 py-8 px-6">
+                        <WalletHistory
+                            v-for="history in histories"
+                            :key="history.id"
+                            :history="history"
+                        />
+                    </ItemListContainer>
                 </div>
 
-                <div class="col s12 m8 m8">
+                <div class="col s12 m6 l6">
                     <div class="w-full bg-gray-100 my-1 rounded-3xl p-8 my-3">
                         <div class="form-header">
                             Fund wallet
@@ -58,11 +56,16 @@
     import '@/assets/css/grid.css'
     import '@/assets/css/wallet.css'
 
+    import WalletHistory from '@/components/accounts/WalletHistory.vue'
+
     export default {
         name: 'Wallet',
         props: [
             'reference'
         ],
+        components: {
+            WalletHistory
+        },
         title () {
             return 'Dashboard | Wallet'
         },
@@ -73,12 +76,14 @@
         },
         mounted () {
             this.get_user()
+            this.get_fund_history()
         },
         computed: {
             ...mapGetters({
                 user: 'get_user',
+                error: 'get_error',
                 fund: 'get_fund',
-                error: 'get_error'
+                histories: 'get_fund_history'
             }),
             get_reference() {
                 return this.$route.query.reference
@@ -87,7 +92,8 @@
         methods: {
             ...mapActions({
                 get_user: types.GET_USER,
-                fund_user_wallet: types.FUND_WALLET
+                fund_user_wallet: types.FUND_WALLET,
+                get_fund_history: types.GET_WALLET_FUND_HISTORY
             }),
             ...mapMutations({
                 set_success: types.SET_SUCCESS

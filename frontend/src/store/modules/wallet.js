@@ -5,18 +5,24 @@ import * as types from '@/store/types.js'
 // endpoints
 
 const FUND_WALLET_URL = '/account/wallet/fund/'
+const FUND_WALLET_HISTORY_URL = '/account/wallet/history/'
 
 // storage
 
 const storage = new utils.Storage()
 
 const state = {
-    fund: {}
+    fund: {},
+    fund_history: []
 }
 
 const getters = {
     get_fund(state) {
         return state.fund
+    },
+
+    get_fund_history(state) {
+        return state.fund_history
     }
 }
 
@@ -27,9 +33,11 @@ const mutations = {
         state.fund = payload
     },
 
-    // fund failed mutation
+    // fund history mutation
 
-    // [types.SET_FUND_WALLET_FAILED] (state, payload) {}
+    [types.SET_FUND_WALLET_HISTORY] (state, payload) {
+        state.fund_history = payload
+    }
 }
 
 const actions = {
@@ -59,6 +67,37 @@ const actions = {
             function(error) {
                 const error_payload = {
                     'error': error.response.data.message
+                }
+
+                context.commit(types.SET_ERROR, error_payload)
+            }
+        )
+
+        context.commit(types.DONE_LOADING)
+    },
+
+    // fund wallet history
+
+    async [types.GET_WALLET_FUND_HISTORY] (context) {
+        context.commit(types.BUSY_LOADING)
+
+        await api({
+            method: 'get',
+            url: FUND_WALLET_HISTORY_URL,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${storage.get('token')}`
+            }
+        })
+        .then(
+            function(response) {
+                context.commit(types.SET_FUND_WALLET_HISTORY, response.data)
+            }
+        )
+        .catch(
+            function(error) {
+                const error_payload = {
+                    error
                 }
 
                 context.commit(types.SET_ERROR, error_payload)

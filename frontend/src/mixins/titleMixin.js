@@ -8,7 +8,7 @@ function getTitle (vm) {
 export default {
     created () {
         const title = getTitle(this)
-            if (title) {
+        if (title) {
             document.title = title
         }
     }
