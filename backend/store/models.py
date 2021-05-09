@@ -36,6 +36,10 @@ class Store(models.Model):
         verbose_name_plural = 'Stores'
 
     def save(self, *args, **kwargs):
+        if self.store_owner.type != User.Types.STORE_OWNER:
+            self.store_owner.type = User.Types.STORE_OWNER
+            self.store_owner.save()
+
         if not self.store_slug:
             store_slug = slugify(self.store_name)
             self.store_slug = store_slug

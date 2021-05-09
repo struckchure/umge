@@ -13,6 +13,7 @@
 				<tr
 					v-for="(rider, index) in riders"
 					:key="index"
+					class="hover:bg-gray-400 hover:text-white cursor-pointer"
 				>
 					<td>{{ rider.username }}</td>
 					<td>{{ rider.email }}</td>

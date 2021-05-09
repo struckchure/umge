@@ -11,6 +11,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Types(models.TextChoices):
         NORMAL = "NORMAL", "Normal"
         RIDER = "RIDER", "Rider"
+        STORE_OWNER = "STORE_OWNER", "Store Owner"
 
     first_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)

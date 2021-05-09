@@ -1,5 +1,28 @@
 <template>
-	<div class="rider-order">
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<td>#</td>
+					<td>Transaction ID</td>
+					<td>Location</td>
+					<td>Action</td>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr v-for="(order, index) in orders" :key="index">
+					<td>{{ index + 1 }}</td>
+					<td>{{ order.transaction_id }}</td>
+					<td>School</td>
+					<td>
+						<button class="btn-small w-20 bg-red-500 hover:red-400">Accept</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+<!-- 	<div class="rider-order">
 		<div class="order-image pa-1">
 			<img :src="order.item.cart_item.product_image"/>
 		</div>
@@ -30,14 +53,14 @@
 				qty: {{ order.item.cart_item_quantity }}
 			</label>
 		</div>
-	</div>
+	</div> -->
 </template>
 
 <script>
 	export default {
 		name: 'RiderOrder',
 		props: [
-			'order'
+			'orders'
 		]
 	}
 </script>

@@ -16,6 +16,7 @@
                 <tr
                     v-for="(order, index) in orders"
                     :key="index"
+                    class="hover:bg-gray-400 hover:text-white cursor-pointer"
                 >
                     <td>{{ index + 1 }}</td>
                     <td>{{ order.transaction_id }}</td>

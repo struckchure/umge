@@ -22,7 +22,7 @@
                     <td class="flex flex-row flex-h-center">
                         <img
                             :src="order.item.cart_item.product_image"
-                            alt="order.item.cart_item.product_name"
+                            :alt="order.item.cart_item.product_name"
                         />
                         <span>
                             {{ order.item.cart_item.product_name }}

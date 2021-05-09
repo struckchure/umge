@@ -2,11 +2,7 @@
 	<Base>
 		<template v-slot:main>
 			<RiderOrdersContainer>
-				<RiderOrder
-					v-for="(order, index) in orders"
-					:key="index"
-					:order="order"
-				/>
+				<RiderOrderList :orders="orders" />
 			</RiderOrdersContainer>
 		</template>
 	</Base>
@@ -14,7 +10,7 @@
 
 <script>
 	import RiderOrdersContainer from '@/components/delivery/RiderOrdersContainer.vue'
-	import RiderOrder from '@/components/delivery/RiderOrder.vue'
+	import RiderOrderList from '@/components/delivery/RiderOrderList.vue'
 
 	import * as types from '@/store/types.js'
 	import { mapGetters, mapActions } from 'vuex'
@@ -32,7 +28,7 @@
 		},
 		components: {
 			RiderOrdersContainer,
-			RiderOrder
+			RiderOrderList
 		},
 		computed: {
 			...mapGetters({
