@@ -1,4 +1,4 @@
-sudo mv umge.conf /etc/apache2/sites-available/
+sudo cp umge.conf /etc/apache2/sites-available/
 sudo a2ensite umge.conf
 
 sudo systemctl restart apache2
