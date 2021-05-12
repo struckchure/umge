@@ -5,6 +5,7 @@ from rest_framework import status
 from umge.base import BaseAPIView as BaseView
 from delivery.models import Order
 from delivery.serializers import OrderSerializer
+from delivery.utils import group_rider_orders
 
 
 class OrderList(BaseView):
@@ -21,6 +22,23 @@ class OrderList(BaseView):
         serializer_data = self.get_serializer(order_list, many=True).data
         response = Response(
             serializer_data,
+            status=status.HTTP_200_OK
+        )
+
+        return response
+
+
+class RiderOrderList(BaseView):
+
+    permission_classes = [
+        IsAuthenticated
+    ]
+    queryset = Order.objects.order_by('-updated')
+
+    def get(self, request):
+        group_qs = group_rider_orders(self.get_queryset())
+        response = Response(
+            group_qs,
             status=status.HTTP_200_OK
         )
 

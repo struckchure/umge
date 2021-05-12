@@ -38,6 +38,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
+        self.get_wallet()
+        self.get_cart()
+
     def get_stores(self):
         from store.models import Store
 
@@ -52,6 +55,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_wallet(self):
         user = User.objects.get(username=self.username)
         wallet, created = Wallet.objects.get_or_create(wallet_user=user)
+
         if not created:
             wallet.save()
 
@@ -59,6 +63,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_cart(self):
         from cart.models import Cart
+
         user = User.objects.get(username=self.username)
         cart, created = Cart.objects.get_or_create(cart_user=user)
         if not created:

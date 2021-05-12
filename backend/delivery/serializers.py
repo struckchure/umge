@@ -7,8 +7,11 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        exclude = [
-            'id',
-            'user'
-        ]
+        fields = [
+        	'item',
+			'transaction_id',
+			'status',
+			'date',
+			'updated'
+		]
         depth = 2
