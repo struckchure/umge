@@ -1,66 +1,63 @@
 <template>
-	<div>
+	<div class="overflow">
+		<RiderOrderDetails
+			:order="current_order"
+		/>
+
 		<table>
 			<thead>
 				<tr>
-					<td>#</td>
-					<td>Transaction ID</td>
+					<td class="w-3">#</td>
+					<td>Items</td>
 					<td>Location</td>
-					<td>Action</td>
+					<td class="w-10">Action</td>
 				</tr>
 			</thead>
 
 			<tbody>
-				<tr v-for="(order, index) in orders" :key="index">
+				<tr
+					v-for="(order, index) in orders"
+					:key="index"
+					class="hover:bg-gray-400 hover:text-white cursor-pointer h-8 p-1"
+				>
 					<td>{{ index + 1 }}</td>
-					<td>{{ order.transaction_id }}</td>
+					<td>{{ order.orders.length }} available for delivery</td>
 					<td>School</td>
 					<td>
-						<button class="btn-small w-20 bg-red-500 hover:red-400">Accept</button>
+						<button
+							@click="check_details(order)"
+							class="text-sm m-0 px-5 w-auto md:w-auto bg-red-500 hover:red-400"
+						>
+							Accept
+							<i class="fas fa-check mx-2"></i>
+						</button>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-<!-- 	<div class="rider-order">
-		<div class="order-image pa-1">
-			<img :src="order.item.cart_item.product_image"/>
-		</div>
-
-		<div class="order w-30">
-			<div class="">
-				<p class="text-wrap">
-					{{ order.transaction_id }}
-				</p>
-			</div>
-
-			<div class="order-tool">
-				<button class="success">Accept</button>
-				<button class="primary">Details</button>
-			</div>
-		</div>
-
-		<div class="order-description w-100">
-			<p class="text-center">
-				{{ order.item.cart_item.product_name }}
-			</p>
-
-			<label class="text-center form-header">
-				&#8358; {{ order.item.cart_item.product_price }}
-			</label>
-
-			<label>
-				qty: {{ order.item.cart_item_quantity }}
-			</label>
-		</div>
-	</div> -->
 </template>
 
 <script>
+	import RiderOrderDetails from '@/components/delivery/RiderOrderDetails.vue'
+
 	export default {
 		name: 'RiderOrder',
 		props: [
 			'orders'
-		]
+		],
+		components: {
+			RiderOrderDetails
+		},
+		data () {
+			return {
+				current_order: {}
+			}
+		},
+		methods: {
+			check_details (order) {
+				this.current_order = order
+			}
+		}
 	}
 </script>

@@ -9,6 +9,14 @@ table {
 	overflow: auto;
 }
 
+tr {
+	height: 30px;
+}
+
+td {
+	height: inherit;
+}
+
 th, td {
     padding: 10px;
     text-align: left;

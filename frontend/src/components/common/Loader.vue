@@ -4,9 +4,10 @@
 			<img src="@/assets/logo.png" class="loader-animation">
 			<i class="loader-animation">
 			</i>
-			<!-- <p class="form-header">
-				Processsing request ...
-			</p> -->
+
+			<p class="form-header mx-auto text-sm md:text-3xl">
+				loading ...
+			</p>
 		</div>
 	</div>
 </template>
