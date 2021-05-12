@@ -10,7 +10,7 @@ jobs:
           command:
             pip install --user -r backend/requirements.txt
       - run:
-          name: Running Djnago tests
+          name: Running Django tests
           command:
             python3 backend/manage.py test
 workflows:
