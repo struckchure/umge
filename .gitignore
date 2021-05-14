@@ -1,5 +1,7 @@
 # python + django
 
+backend/venv
+**/*venv
 **/*migrations
 **/*__pycache__
 **/*media
