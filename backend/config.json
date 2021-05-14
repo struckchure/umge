@@ -10,7 +10,7 @@
 		"https://umge.store",
 		"https://www.umge.store"
 	],
-	"DATABASE": {
+	"DATABASES": {
 		"default": {
 			"ENGINE": "django.db.backends.postgresql_psycopg2",
 			"NAME": "umge_db",
