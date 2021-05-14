@@ -16,7 +16,7 @@ db.sqlite3
 .DS_Store
 node_modules
 /dist
-
+frontend/package-lock.json
 
 # local env files
 .env.local
