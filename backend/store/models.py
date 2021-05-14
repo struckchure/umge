@@ -37,8 +37,9 @@ class Store(models.Model):
 
     def save(self, *args, **kwargs):
         if self.store_owner.type != User.Types.STORE_OWNER:
-            self.store_owner.type = User.Types.STORE_OWNER
-            self.store_owner.save()
+            user = User.objects.get(username=self.store_owner.username)
+            user.type = User.Types.STORE_OWNER
+            user.save()
 
         if not self.store_slug:
             store_slug = slugify(self.store_name)
