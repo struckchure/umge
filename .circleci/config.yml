@@ -17,7 +17,7 @@ jobs:
           path: backend/
           destination: circleci-docs
       - store_test_results:
-          path: test-results
+          path: circleci-docs/test-results
 workflows:
   build_test:
     jobs:
