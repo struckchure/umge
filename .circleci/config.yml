@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Running Django tests
           command:
-            python3 backend/manage.py test >> test-results/django-test.txt
+            python3 backend/manage.py test >> circleci-docs/test-results/django-test.txt
       - store_artifacts:
           path: backend/
           destination: circleci-docs
