@@ -112,15 +112,13 @@ WSGI_APPLICATION = 'umge.wsgi.application'
 #     DATABASES = CONFIG['DATABASES']
 
 DATABASES = {
-    "DATABASES": {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": "umge_db",
-            "USER": "umge_db_admin",
-            "PASSWORD": "!@#$%^&*()",
-            "HOST": "localhost",
-            "PORT": ""
-        }
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "umge_db",
+        "USER": "umge_db_admin",
+        "PASSWORD": "!@#$%^&*()",
+        "HOST": "localhost",
+        "PORT": ""
     }
 }
 
