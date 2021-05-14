@@ -109,7 +109,7 @@ if not LIVE:
         }
     }
 else:
-    DATABASES = config['DATABASES']
+    DATABASES = CONFIG['DATABASES']
 
 AUTH_USER_MODEL = 'accounts.User'
 
