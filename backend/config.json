@@ -2,7 +2,9 @@
 	"SECRET_KEY": "@vqk-d$5(x1(teap1csv09y+dl%l$f@kj1_a#lh=)mz6*6g-%4",
 	"ALLOWED_HOSTS": [
 		"api.umge.store",
-		"www.api.umge.store"
+		"www.api.umge.store",
+		"localhost",
+		"0.0.0.0"
 	],
 
 	"TEST_SECRET_KEY": "sk_test_18b8563d8400efe88699181368e7a066366fff46",

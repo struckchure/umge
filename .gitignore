@@ -34,3 +34,9 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# nginx / uwsgi
+
+*.ini
+*.sock
+**/*uwsgi_params
