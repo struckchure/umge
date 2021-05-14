@@ -30,12 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = CONFIG['ALLOWED_HOSTS']
 
-CORS_ORIGIN_ALLOW_ALL = True
-
-# CORS_ORIGIN_WHITELIST = (
-#     'http://localhost:8080',
-#     'http://172.104.229.18'
-# )
+# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = CONFIG['CORS_ORIGIN_WHITELIST']
 
 # Application definition
 

@@ -10,7 +10,7 @@ switch(DEBUG_MODE) {
 		BASE_URL = 'http://localhost:8000'
 		break;
 	case 'production':
-		BASE_URL = 'http://api.umge.store/'
+		BASE_URL = 'https://api.umge.store/'
 		break;
 }
 

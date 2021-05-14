@@ -6,6 +6,11 @@
 		"localhost",
 		"0.0.0.0"
 	],
+	"CORS_ORIGIN_WHITELIST": [
+		"http://localhost:8080",
+		"https://umge.store",
+		"https://www.umge.store"
+	],
 
 	"TEST_SECRET_KEY": "sk_test_18b8563d8400efe88699181368e7a066366fff46",
 	"TEST_PUBLIC_KEY": "pk_test_baffe1e516ff547afe18a4ce4e3c7971c9832d9e",
