@@ -12,17 +12,17 @@ import wallet from '@/store/modules/wallet.js'
 Vue.use(Vuex)
 
 const store = new Vuex.Store(
-	{
-		modules: {
-			common,
-			accounts,
-			stores,
-			cart,
-			products,
-			delivery,
-			wallet
-		}
-	}
+    {
+        modules: {
+            common,
+            accounts,
+            stores,
+            cart,
+            products,
+            delivery,
+            wallet
+        }
+    }
 )
 
 export default store

@@ -22,10 +22,10 @@ import "@/mixins"
 Vue.config.productionTip = false
 
 const app = new Vue(
-	{
-		router,
-		store,
-		render: h => h(App)
-	}
+    {
+        router,
+        store,
+        render: h => h(App)
+    }
 )
 app.$mount('#app')

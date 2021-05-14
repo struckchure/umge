@@ -9,7 +9,7 @@ Test that user wallet and cart is created
 '''
 
 user_details = {
-    'username': 'test_user_name_case'
+    'username': 'beta-tester'
 }
 
 
