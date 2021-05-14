@@ -53,8 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return stores
 
     def get_wallet(self):
-        user = User.objects.get(username=self.username)
-        wallet, created = Wallet.objects.get_or_create(wallet_user=user)
+        wallet, created = Wallet.objects.get_or_create(wallet_user_id=self.pk)
 
         if not created:
             wallet.save()
@@ -64,8 +63,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_cart(self):
         from cart.models import Cart
 
-        user = User.objects.get(username=self.username)
-        cart, created = Cart.objects.get_or_create(cart_user=user)
+        cart, created = Cart.objects.get_or_create(cart_user_id=self.pk)
         if not created:
             cart.save()
 

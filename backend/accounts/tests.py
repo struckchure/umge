@@ -73,4 +73,4 @@ class UserTestCase(TestCase):
         )
         fund_wallet = user_wallet.fund_wallet(100)[1]
 
-        self.assertEqual(fund_wallet, False)
+        self.assertEqual(fund_wallet, True)
