@@ -10,6 +10,16 @@
 		"https://umge.store",
 		"https://www.umge.store"
 	],
+	"DATABASE": {
+		"default": {
+			"ENGINE": "django.db.backends.postgresql_psycopg2",
+			"NAME": "umge_db",
+			"USER": "umge_db_admin",
+			"PASSWORD": "!@#$%^&*()",
+			"HOST": "localhost",
+			"PORT": ""
+		}
+	},
 
 	"TEST_SECRET_KEY": "sk_test_18b8563d8400efe88699181368e7a066366fff46",
 	"TEST_PUBLIC_KEY": "pk_test_baffe1e516ff547afe18a4ce4e3c7971c9832d9e",
