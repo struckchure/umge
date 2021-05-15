@@ -3,8 +3,18 @@ jobs:
   run_test:
     docker:
       - image: circleci/python:3.8.5
+      - image: circleci/postgres:9.6-alpine
+          auth:
+            username: $POSTGRES_USER
+            password: $POSTGRES_USER_PASSWORD  # context / project UI env-var reference
+          environment:
+            POSTGRES_USER: $POSTGRES_USER
+            POSTGRES_DB: $POSTGRES_USER_PASSWORD
     steps:
       - checkout
+      - run:
+          name: Setup postgres database
+          command: source backend/prep-db.sh
       - run:
           name: Install python dependencies
           command:
@@ -14,10 +24,11 @@ jobs:
           command:
             python3 backend/manage.py test
       - store_artifacts:
-          path: backend/
-          destination: circleci-docs
+          path: /tmp/test-results
+          destination: raw-test-output
+
       - store_test_results:
-          path: test-results
+          path: /tmp/test-results
 workflows:
   build_test:
     jobs:
