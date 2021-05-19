@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from delivery.models import Order
+from delivery.models import Order, Delivery
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -15,3 +15,13 @@ class OrderSerializer(serializers.ModelSerializer):
 			'updated'
 		]
         depth = 2
+
+
+class DeliverySerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = Delivery
+		exclude = [
+			'id'
+		]
+		depth = 1

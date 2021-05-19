@@ -1,11 +1,8 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 
 from cart.models import CartItem
 from umge.utils import generate_slug
-
-
-User = get_user_model()
+from accounts.models import Rider, User
 
 
 class Order(models.Model):
@@ -37,5 +34,40 @@ class Order(models.Model):
                 .values_list('transaction_id', flat=True)
             transaction_id = generate_slug(transaction_ids, max_length=5)
             self.transaction_id = transaction_id.replace('-', '').upper()
+
+        super().save(*args, **kwargs)
+
+
+class Delivery(models.Model):
+
+    class STATUS(models.TextChoices):
+        PENDING = "PD", "Pending"
+        PROCESSING = "PS", "Processing"
+        DONE = "DN", "Done"
+        CANCELLED = "CN", "Cancelled"
+
+    rider = models.ForeignKey(Rider, on_delete=models.DO_NOTHING, related_name='delievery_rider')
+    reciepient = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='delivery_recipient')
+    items = models.JSONField(null=True, blank=True)
+    status = models.CharField(max_length=30, default=STATUS.PENDING, choices=STATUS.choices)
+    slug = models.SlugField(max_length=255, unique=True, blank=True)
+    date =models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.rider.username} {self.reciepient.username}'
+
+    class Meta:
+        verbose_name = 'Delivery'
+        verbose_name_plural = 'Deliveries'
+
+    def save(self, *args, **kwargs):
+        if self.items:
+            self.status = STATUS.PROCESSING
+
+        if not self.slug:
+            delivery_slugs = Delivery.objects\
+                .values_list('slug', flat=True)
+            self.slug = generate_slug(delivery_slugs, max_length=50)
 
         super().save(*args, **kwargs)

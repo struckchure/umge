@@ -17,7 +17,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=255, blank=True)
     email = models.EmailField(max_length=255, blank=True)
     username = models.CharField(max_length=255, blank=False, unique=True)
-    type = models.CharField(max_length=20, default=Types.NORMAL)
+    type = models.CharField(max_length=20, default=Types.NORMAL, choices=Types.choices)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date = models.DateTimeField(auto_now_add=True)
@@ -68,6 +68,32 @@ class User(AbstractBaseUser, PermissionsMixin):
             cart.save()
 
         return cart
+
+    def make_delivery(self, reciepient):
+        from delivery.models import Delivery, Order
+        from delivery.serializers import DeliverySerializer, OrderSerializer
+
+        status = False
+        rider = User.objects.get(pk=self.pk)
+        orders = Order.objects.filter(user=reciepient)
+        orders_serialized = OrderSerializer(orders, many=True).data
+
+        create_delivery = Delivery.objects.create(
+            rider=rider,
+            reciepient=reciepient,
+            items=orders_serialized
+        )
+        create_delivery.save()
+
+        if create_delivery:
+            status = True
+
+        response = {
+            'status': status,
+            'delivery': DeliverySerializer(create_delivery).data
+        }
+
+        return response
 
 
 class Rider(User):

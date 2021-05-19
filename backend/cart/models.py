@@ -1,11 +1,8 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 
 from umge.utils import generate_slug
 from store.models import Product, ProductOption
-
-
-User = get_user_model()
+from accounts.models import User
 
 
 class CartItem(models.Model):

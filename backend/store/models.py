@@ -1,11 +1,9 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 
 from store.handlers import store_image_handler, product_image_handler
 from umge.utils import generate_slug
-
-User = get_user_model()
+from accounts.models import User
 
 
 class Store(models.Model):
