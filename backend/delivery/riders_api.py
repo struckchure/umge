@@ -5,8 +5,10 @@ from rest_framework.permissions import IsAuthenticated
 
 from umge.base import BaseAPIView as BaseView
 from accounts.permissions import IsStaff
+from accounts.models import User
 from delivery.models import Delivery, Order
 from delivery.serializers import DeliverySerializer
+from delivery.utils import group_rider_orders
 
 
 class RiderOrderList(BaseView):
@@ -51,7 +53,7 @@ class RiderOrderAccept(BaseView):
             delivery,
             status=status_code
         )
-        
+
         return response
 
 

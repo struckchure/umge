@@ -6,6 +6,7 @@
                     <td class="sn">#</td>
                     <td>Reference</td>
                     <td>Product</td>
+                    <td>Status</td>
                     <td>Price</td>
                     <td>Date</td>
                 </tr>
@@ -28,6 +29,11 @@
                             {{ order.item.cart_item.product_name }}
                         </span>
                     </td>
+                    <td>
+                        <label class="w-11 p-2 text-white rounded" :class="order_color(order.status)">
+                            <i :class="order_icon(order.status)"></i>
+                        </label>
+                    </td>
                     <td>{{ order.item.cart_item.product_price }}</td>
                     <td>{{ order.date | date }}</td>
                 </tr>
@@ -37,10 +43,16 @@
 </template>
 
 <script>
+    import { order_color, order_icon } from '@/store/utils.js'
+
     export default {
         name: 'OrdersList',
         props: [
             'orders'
-        ]
+        ],
+        methods: {
+            order_color,
+            order_icon
+        }
     }
 </script>

@@ -61,8 +61,11 @@ class Delivery(models.Model):
         verbose_name_plural = 'Deliveries'
 
     def save(self, *args, **kwargs):
-        # if self.items:
-        #     self.status = Delivery.STATUS.PROCESSING
+        if self.status == Delivery.STATUS.DONE:
+            for item in self.items:
+                order = Order.objects.get(transaction_id=item['transaction_id'])
+                order.status = Order.STATUS.DONE
+                order.save()
 
         if not self.slug:
             delivery_slugs = Delivery.objects\
