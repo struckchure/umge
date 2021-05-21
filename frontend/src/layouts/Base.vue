@@ -103,10 +103,18 @@
                 </router-link> 
 
                 <router-link
-                    :to="{ name: 'RiderOrders' }">
+                    :to="{ name: 'RiderTasks' }">
+                    <button>
+                        <i class="fas fa-bookmark"></i>
+                        <span>Tasks</span>
+                    </button>
+                </router-link>
+
+                <router-link
+                    :to="{ name: 'RiderHistory' }">
                     <button>
                         <i class="fas fa-tasks"></i>
-                        <span>Tasks</span>
+                        <span>History</span>
                     </button>
                 </router-link>                
             </div>

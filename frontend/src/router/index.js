@@ -22,6 +22,9 @@ import AdminRidersApplications from '@/views/admin/AdminRidersApplications.vue'
 
 import Orders from '@/views/delivery/Orders.vue'
 import RiderOrders from '@/views/delivery/RiderOrders.vue'
+import RiderTasks from '@/views/delivery/RiderTasks.vue'
+import RiderHistory from '@/views/delivery/RiderHistory.vue'
+
 
 Vue.use(VueRouter)
 
@@ -117,6 +120,24 @@ const routes = [
         path: '/admin/riders/orders/',
         name: 'RiderOrders',
         component: RiderOrders,
+        meta: {
+            requiresLogin: true,
+            requiresStaff: true
+        }
+    },
+    {
+        path: '/admin/riders/tasks/',
+        name: 'RiderTasks',
+        component: RiderTasks,
+        meta: {
+            requiresLogin: true,
+            requiresStaff: true
+        }
+    },
+    {
+        path: 'admin/riders/history/',
+        name: 'RiderHistory',
+        component: RiderHistory,
         meta: {
             requiresLogin: true,
             requiresStaff: true

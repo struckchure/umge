@@ -16,7 +16,7 @@ def group_rider_orders(orders):
             users.append(order.user.username)
 
             user_orders = Order.objects\
-                .filter(user=order.user)\
+                .filter(user=order.user, status=Order.STATUS.PENDING)\
                 .order_by('-updated')
             serialized_orders = OrderSerializer(user_orders, many=True).data
 

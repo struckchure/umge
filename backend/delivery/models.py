@@ -7,17 +7,16 @@ from accounts.models import Rider, User
 
 class Order(models.Model):
 
-    STATUS = (
-        ('PD', 'PENDING'),
-        ('PS', 'PROCESSING'),
-        ('DN', 'DONE'),
-        ('CN', 'CANCELLED')
-    )
+    class STATUS(models.TextChoices):
+        PENDING = "PD", "Pending"
+        PROCESSING = "PS", "Processing"
+        DONE = "DN", "Done"
+        CANCELLED = "CN", "Cancelled"
 
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     item = models.ForeignKey(CartItem, on_delete=models.DO_NOTHING)
     transaction_id = models.CharField(max_length=7, blank=True, unique=True)
-    status = models.CharField(max_length=20, default='PD', choices=STATUS)
+    status = models.CharField(max_length=20, default=STATUS.PENDING, choices=STATUS.choices)
     date = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -51,7 +50,7 @@ class Delivery(models.Model):
     items = models.JSONField(null=True, blank=True)
     status = models.CharField(max_length=30, default=STATUS.PENDING, choices=STATUS.choices)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
-    date =models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -62,8 +61,8 @@ class Delivery(models.Model):
         verbose_name_plural = 'Deliveries'
 
     def save(self, *args, **kwargs):
-        if self.items:
-            self.status = STATUS.PROCESSING
+        # if self.items:
+        #     self.status = Delivery.STATUS.PROCESSING
 
         if not self.slug:
             delivery_slugs = Delivery.objects\

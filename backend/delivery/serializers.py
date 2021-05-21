@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from delivery.models import Order, Delivery
+from accounts.serializers import UserSerializer
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -18,6 +19,9 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class DeliverySerializer(serializers.ModelSerializer):
+
+	rider = UserSerializer()
+	reciepient = UserSerializer()
 
 	class Meta:
 		model = Delivery

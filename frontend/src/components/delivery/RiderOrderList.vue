@@ -40,6 +40,8 @@
 
 <script>
 	import RiderOrderDetails from '@/components/delivery/RiderOrderDetails.vue'
+	import { mapActions } from 'vuex'
+	import * as types from '@/store/types.js'
 
 	export default {
 		name: 'RiderOrder',
@@ -55,8 +57,15 @@
 			}
 		},
 		methods: {
+			...mapActions({
+				'accept_order': types.RIDER_ACCEPT_DELIVERY
+			}),
 			check_details (order) {
 				this.current_order = order
+				const payload = {
+					username: order.user.username
+				}
+				this.accept_order(payload)
 			}
 		}
 	}

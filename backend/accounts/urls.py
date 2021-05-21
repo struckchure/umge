@@ -14,6 +14,7 @@ from accounts.admin_api import (
     AdminRiderList
 )
 
+
 app_name = 'accounts'
 
 urlpatterns = [
@@ -27,5 +28,5 @@ urlpatterns = [
     path('account/wallet/history/', FundHistoryList.as_view()),
 
     path('account/admin/users/', AdminUserList.as_view()),
-    path('account/admin/riders/', AdminRiderList.as_view()),
+    path('account/admin/riders/', AdminRiderList.as_view())
 ]

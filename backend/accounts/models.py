@@ -75,25 +75,50 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         status = False
         rider = User.objects.get(pk=self.pk)
-        orders = Order.objects.filter(user=reciepient)
+        orders = Order.objects.filter(
+            user=reciepient,
+            status=Order.STATUS.PENDING
+        )
         orders_serialized = OrderSerializer(orders, many=True).data
 
-        create_delivery = Delivery.objects.create(
+        rider_is_busy = Delivery.objects.filter(
             rider=rider,
-            reciepient=reciepient,
-            items=orders_serialized
-        )
-        create_delivery.save()
+            status=Delivery.STATUS.PROCESSING
+        ).exists()
 
-        if create_delivery:
-            status = True
+        if not rider_is_busy:
+            create_delivery = Delivery.objects.create(
+                rider=rider,
+                reciepient=reciepient,
+                items=orders_serialized,
+                status=DeliverySerializer.STATUS.PROCESSING
+            )
 
-        response = {
-            'status': status,
-            'delivery': DeliverySerializer(create_delivery).data
-        }
+            if create_delivery:
+                status = True
+                self.process_orders(orders)
+                create_delivery.save()
+
+            response = {
+                'status': status,
+                'delivery': DeliverySerializer(create_delivery).data
+            }
+        else:
+            status = False
+            message = 'You need to complete existing delivery before taking another one.'
+            response = {
+                'status': status,
+                'message': message
+            }
 
         return response
+
+    def process_orders(self, orders):
+        from delivery.models import Order
+
+        for order in orders:
+            order.status = Order.STATUS.PROCESSING
+            order.save()
 
 
 class Rider(User):
