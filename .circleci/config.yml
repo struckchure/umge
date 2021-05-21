@@ -6,13 +6,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install python dependencies
-          command:
-            pip install --user -r backend/requirements.txt
-      - run:
           name: Install Django GDAL dependencies
           command:
             source server_requirements.sh
+      - run:
+          name: Install python dependencies
+          command:
+            pip install --user -r backend/requirements.txt
       - run:
           name: Running Django tests
           command:
