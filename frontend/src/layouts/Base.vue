@@ -86,6 +86,15 @@
                         <span>Applications</span>
                     </button>
                 </router-link>
+
+                <router-link
+                    :to="{ name: 'AdminLocations' }"
+                >
+                    <button>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Locations</span>
+                    </button>
+                </router-link>
             </div>
 
             <div class="pama-0" v-if="is_staff == true">

@@ -19,6 +19,7 @@ import AdminHome from '@/views/admin/AdminHome.vue'
 import AdminOrders from '@/views/admin/AdminOrders.vue'
 import AdminRiders from '@/views/admin/AdminRiders.vue'
 import AdminRidersApplications from '@/views/admin/AdminRidersApplications.vue'
+import AdminLocations from '@/views/admin/AdminLocations.vue'
 
 import Orders from '@/views/delivery/Orders.vue'
 import RiderOrders from '@/views/delivery/RiderOrders.vue'
@@ -111,6 +112,15 @@ const routes = [
         path: '/admin/riders/',
         name: 'AdminRiders',
         component: AdminRiders,
+        meta: {
+            requiresLogin: true,
+            requiresAdmin: true
+        }
+    },
+    {
+        path: '/admin/locations/',
+        name: 'AdminLocations',
+        component: AdminLocations,
         meta: {
             requiresLogin: true,
             requiresAdmin: true

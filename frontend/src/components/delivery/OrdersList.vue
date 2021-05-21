@@ -16,18 +16,19 @@
                 <tr
                     v-for="(order, index) in orders"
                     :key="index"
-                    class="hover:bg-gray-400 hover:text-white cursor-pointer"
+                    class="hover:bg-gray-400 hover:text-white cursor-pointer h-auto"
                 >
                     <td>{{ index + 1 }}</td>
                     <td>{{ order.transaction_id }}</td>
-                    <td class="flex flex-row flex-h-center">
+                    <td class="row">
                         <img
                             :src="order.item.cart_item.product_image"
                             :alt="order.item.cart_item.product_name"
+                            class="col s2 w-5 h-7"
                         />
-                        <span>
+                        <p class="col s10">
                             {{ order.item.cart_item.product_name }}
-                        </span>
+                        </p>
                     </td>
                     <td>
                         <label class="w-11 p-2 text-white rounded" :class="order_color(order.status)">

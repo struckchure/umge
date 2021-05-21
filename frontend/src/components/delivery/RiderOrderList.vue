@@ -1,9 +1,5 @@
 <template>
 	<div class="overflow">
-		<RiderOrderDetails
-			:order="current_order"
-		/>
-
 		<table>
 			<thead>
 				<tr>
@@ -39,7 +35,6 @@
 </template>
 
 <script>
-	import RiderOrderDetails from '@/components/delivery/RiderOrderDetails.vue'
 	import { mapActions } from 'vuex'
 	import * as types from '@/store/types.js'
 
@@ -48,9 +43,6 @@
 		props: [
 			'orders'
 		],
-		components: {
-			RiderOrderDetails
-		},
 		data () {
 			return {
 				current_order: {}
