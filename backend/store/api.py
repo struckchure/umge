@@ -83,6 +83,7 @@ class StoreDetails(BaseView):
     def get(self, request, store_slug):
         store = get_object_or_404(Store, store_slug=store_slug)
         serialized_data = self.get_serializer(store).data
+
         response = Response(
             serialized_data,
             status=status.HTTP_200_OK
@@ -101,6 +102,7 @@ class StoreList(BaseView):
             self.get_queryset(),
             many=True
         ).data
+
         response = Response(serialized_data)
 
         return response
