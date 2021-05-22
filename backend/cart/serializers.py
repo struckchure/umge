@@ -27,6 +27,7 @@ class CartSerializer(serializers.ModelSerializer):
             'cart_items',
             'cart_delivery_charges',
             'cart_total_balance',
+            'cart_location',
             'cart_slug'
         ]
         depth = 1

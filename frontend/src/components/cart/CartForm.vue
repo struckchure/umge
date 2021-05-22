@@ -12,6 +12,7 @@
         </div>
 
         <form @submit.prevent="pay_now">
+            {{ current_location.coords.latitude }}
             <div class="row">
                 <div class="col s12 m12 l12 input-field">
                     <input type="email" v-model="user.email" placeholder="email" :disabled="disable_card" />
@@ -62,9 +63,15 @@
             'cart',
             'user'
         ],
+        mounted () {
+            this.locateMe();
+        },
         data () {
             return {
-                payment_method: 'CARD'
+                payment_method: 'CARD',
+                current_location: {},
+                gettingLocation: false,
+                errorStr:null
             }
         },
         computed: {
@@ -125,10 +132,40 @@
             ...mapMutations({
                 set_success: types.SET_SUCCESS
             }),
+            async getLocation() {
+                return new Promise(
+                    (resolve, reject) => {
+                    if(!("geolocation" in navigator)) {
+                        reject(new Error('Geolocation is not available.'));
+                    }
+
+                    navigator.geolocation.getCurrentPosition(
+                        pos => {
+                            resolve(pos);
+                        },
+                        err => {
+                            reject(err);
+                        }
+                    );
+                });
+            },
+            async locateMe() {
+                this.gettingLocation = true;
+                try {
+                    this.gettingLocation = false;
+                    this.current_location = await this.getLocation();
+                } catch(e) {
+                    this.gettingLocation = false;
+                    this.errorStr = e.message;
+                }
+            },
             pay_now() {
-                console.log(this.get_payment_mode_name.toUpperCase())
                 const payload = {
-                    payment_mode: this.get_payment_mode_name.toUpperCase()
+                    payment_mode: this.get_payment_mode_name.toUpperCase(),
+                    cart_location: {
+                        latitude: this.current_location.coords.latitude,
+                        longitude: this.current_location.coords.longitude
+                    }
                 }
 
                 this.checkout(payload)
@@ -145,7 +182,7 @@
                             var next_url = this.purchase.response.data.authorization_url
                             window.location.replace(next_url)
                         },
-                        3000
+                        500
                     )
                 }
             },

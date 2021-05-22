@@ -123,7 +123,8 @@
                 description: '',
                 options: {},
                 total_amount: 0,
-                payment_mode: 'C'
+                payment_mode: 'C',
+                current_location: {}
             }
         },
         computed: {
@@ -207,6 +208,12 @@
                     }
                 ]
 
+                navigator.geolocation.getCurrentPosition(pos => {
+                    this.current_location = pos
+                })
+
+                console.log(this.current_location)
+
                 switch (this.buy_now) {
                     case 'buy':
                         payload = {
@@ -214,14 +221,16 @@
                             cart_item_quantity: this.qty,
                             cart_item_description: this.description,
                             cart_item_options: options,
-                            payment_mode: this.get_payment_mode_name.toUpperCase()
+                            payment_mode: this.get_payment_mode_name.toUpperCase(),
+                            cart_location: this.current_location
                         }
 
                         this.buy_item(payload)
                         break;
                     case 'cart':
                         payload = {
-                            cart_items
+                            cart_items,
+                            cart_location: this.current_location
                         }
 
                         this.update_cart(payload)
@@ -239,7 +248,7 @@
                             var next_url = this.purchase.response.data.authorization_url
                             window.location.replace(next_url)
                         },
-                        3000
+                        500
                     )
                 }
             }

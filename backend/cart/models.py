@@ -39,6 +39,7 @@ class Cart(models.Model):
     cart_user = models.OneToOneField(User, on_delete=models.CASCADE)
     cart_items = models.ManyToManyField(CartItem, blank=True)
     cart_slug = models.SlugField(max_length=100, blank=True, unique=True)
+    cart_location = models.JSONField(blank=True, null=True)
     date = models.DateTimeField(auto_now=True)
     updated = models.DateTimeField(auto_now_add=True)
 
@@ -146,7 +147,11 @@ class Cart(models.Model):
 
         return (message, status, response)
 
-    def check_out(self, payment_mode):
+    def check_out(self, payment_mode, location=None):
+        if location:
+            self.location = location
+            self.save()
+
         checkout_state = {}
 
         if payment_mode == 'WALLET':
@@ -222,7 +227,11 @@ class Cart(models.Model):
 
         return (message, status, response)
 
-    def buy_now(self, item, payment_mode):
+    def buy_now(self, item, payment_mode, location=None):
+        if location:
+            self.location = location
+            self.save()
+
         if payment_mode == 'WALLET':
             method = self.buy_now_use_wallet
         else:

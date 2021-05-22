@@ -1,6 +1,7 @@
 '''
     Delivery utilities
 '''
+from ip2geotools.databases.noncommercial import DbIpCity
 
 from delivery.models import Order
 from delivery.serializers import OrderSerializer
@@ -28,3 +29,9 @@ def group_rider_orders(orders):
             grouped_data.append(user_order_data)
 
     return grouped_data
+
+
+def get_coordinates(ip_address):
+    response = DbIpCity.get(ip_address, api_key='free')
+
+    return response.to_json()
