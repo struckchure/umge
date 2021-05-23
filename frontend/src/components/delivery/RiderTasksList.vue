@@ -5,6 +5,7 @@
                 <td>#</td>
                 <td>Reciepient</td>
                 <td>Items</td>
+                <td>Location</td>
                 <td>Date</td>
                 <td>Updated (Delivery time)</td>
                 <td>Status</td>
@@ -20,6 +21,7 @@
                 <td>{{ index + 1 }}</td>
                 <td class="font-bold">{{ task.reciepient.username }}</td>
                 <td>{{ task.items.length }}</td>
+                <td>{{ task.location }}</td>
                 <td>{{ task.date | date }}</td>
                 <td>{{ task.updated | date }}</td>
                 <td>

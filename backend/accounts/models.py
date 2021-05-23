@@ -8,6 +8,8 @@ from umge.utils import generate_slug
 
 class User(AbstractBaseUser, PermissionsMixin):
 
+    MAX_DELIVERY_COUNT = 20
+
     class Types(models.TextChoices):
         NORMAL = "NORMAL", "Normal"
         RIDER = "RIDER", "Rider"
@@ -81,17 +83,17 @@ class User(AbstractBaseUser, PermissionsMixin):
         )
         orders_serialized = OrderSerializer(orders, many=True).data
 
-        rider_is_busy = Delivery.objects.filter(
+        rider_is_available = Delivery.objects.filter(
             rider=rider,
             status=Delivery.STATUS.PROCESSING
-        ).exists()
+        ).count() <= self.MAX_DELIVERY_COUNT
 
-        if not rider_is_busy:
+        if rider_is_available:
             create_delivery = Delivery.objects.create(
                 rider=rider,
                 reciepient=reciepient,
                 items=orders_serialized,
-                status=DeliverySerializer.STATUS.PROCESSING
+                status=Delivery.STATUS.PROCESSING
             )
 
             if create_delivery:
@@ -105,7 +107,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             }
         else:
             status = False
-            message = 'You need to complete existing delivery before taking another one.'
+            message = 'You need to complete existing deliveries before taking another one.'
             response = {
                 'status': status,
                 'message': message

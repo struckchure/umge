@@ -113,7 +113,11 @@ const actions = {
         const csrftoken = utils.getCookie('csrftoken');
 
         const cart_location = await utils.getLocation();
-        payload.cart_location = cart_location
+        payload.cart_location = {
+            latitude: cart_location.coords.latitude,
+            longitude: cart_location.coords.longitude
+        }
+        console.log(cart_location)
 
         await api({
             method: 'post',

@@ -34,9 +34,6 @@
                 props_order: this.order
             }
         },
-        mounted () {
-            console.log(this.props_order)
-        },
         computed: {
             get_display () {
                 let display;

@@ -84,15 +84,17 @@ class RiderTasks(BaseView):
     ]
 
     def get(self, request, delivery_status='PD'):
-        if delivery_status != "*":
+        if delivery_status == "*":
+            deliveries = Delivery.objects.filter(
+                rider=request.user
+            )
+        else:
             deliveries = Delivery.objects.filter(
                 rider=request.user,
                 status=delivery_status
             )
-        else:
-            deliveries = Delivery.objects.filter(
-                rider=request.user
-            )
+
+        deliveries = deliveries.order_by('-date')
 
         serialized_deliveries = DeliverySerializer(deliveries, many=True).data
 

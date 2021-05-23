@@ -52,13 +52,13 @@ class Cart(models.Model):
         verbose_name_plural = 'Carts'
 
     def get_cart_location(self):
-        if self.cart_location:
-            x, y = self.cart_location.values()
+        # if self.cart_location:
+        #     x, y = self.cart_location.values()
 
-            cart_location = Point(x, y)
+        #     cart_location = Point(x, y)
 
-            return cart_location
-        return None
+        #     return self.cart_location
+        return self.self.cart_location
 
     def get_total_quantity(self):
         qty = 0

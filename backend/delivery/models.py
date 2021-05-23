@@ -63,7 +63,7 @@ class Delivery(models.Model):
     def get_delivery_location(self):
         reciepient_cart = Cart.objects.get(cart_user=self.reciepient)
 
-        return reciepient_cart.get_point()
+        return reciepient_cart.get_cart_location()
 
     def save(self, *args, **kwargs):
         if self.status == Delivery.STATUS.DONE:
