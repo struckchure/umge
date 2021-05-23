@@ -95,7 +95,7 @@ export function order_icon (status) {
     return classes
 }
 
-async function getLocation() {
+export async function getLocation() {
     return new Promise(
         (resolve, reject) => {
         if(!("geolocation" in navigator)) {
@@ -111,15 +111,4 @@ async function getLocation() {
             }
         );
     });
-}
-
-export async function locateMe(current_location, error_message, getting_location) {
-    getting_location = true;
-    try {
-        getting_location = false;
-        current_location = await getLocation();
-    } catch(e) {
-        getting_location = false;
-        error_message = e.message;
-    }
 }

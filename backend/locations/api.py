@@ -5,6 +5,7 @@ from ipware import get_client_ip
 
 from umge.base import BaseAPIView as BaseView
 from accounts.permissions import IsStaff
+from locations.models import PickUpLocation
 from locations.serializers import PickUpLocationSerializer
 
 
@@ -38,6 +39,22 @@ class SaveCurrentLocation(BaseView):
                 'ip_address': client_ip,
                 'is_routable':is_routable
             },
+            status=status.HTTP_200_OK
+        )
+
+        return response
+
+
+class LocationsList(BaseView):
+
+    queryset = PickUpLocation.objects.order_by('-date')
+    serializer_class = PickUpLocationSerializer
+
+    def get(self, request):
+        serialized_data = self.get_serializer(self.get_queryset(), many=True).data
+
+        response = Response(
+            serialized_data,
             status=status.HTTP_200_OK
         )
 
