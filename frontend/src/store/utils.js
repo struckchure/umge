@@ -94,3 +94,32 @@ export function order_icon (status) {
 
     return classes
 }
+
+async function getLocation() {
+    return new Promise(
+        (resolve, reject) => {
+        if(!("geolocation" in navigator)) {
+            reject(new Error('Geolocation is not available.'));
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            pos => {
+                resolve(pos);
+            },
+            err => {
+                reject(err);
+            }
+        );
+    });
+}
+
+export async function locateMe(current_location, error_message, getting_location) {
+    getting_location = true;
+    try {
+        getting_location = false;
+        current_location = await getLocation();
+    } catch(e) {
+        getting_location = false;
+        error_message = e.message;
+    }
+}
