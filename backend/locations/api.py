@@ -5,24 +5,40 @@ from ipware import get_client_ip
 
 from umge.base import BaseAPIView as BaseView
 from accounts.permissions import IsStaff
+from locations.serializers import PickUpLocationSerializer
 
 
 class SaveCurrentLocation(BaseView):
 
-	permission_classes = [
-		IsStaff,
-		IsAuthenticated
-	]
+    permission_classes = [
+        IsStaff,
+        IsAuthenticated
+    ]
+    serializer_class = PickUpLocationSerializer
 
-	def get(self, request):
-		client_ip, is_routable = get_client_ip(request)
+    def post(self, request):
+        data = request.data
 
-		response = Response(
-			{
-				'ip_address': client_ip,
-				'is_routable':is_routable
-			},
-			status=status.HTTP_200_OK
-		)
+        serialized_data = self.get_serializer(data=data)
+        serialized_data.is_valid(raise_exception=True)
+        serialized_data.save()
 
-		return response
+        response = Response(
+            serialized_data.data,
+            status=status.HTTP_200_OK
+        )
+
+        return response
+
+    def get(self, request):
+        client_ip, is_routable = get_client_ip(request)
+
+        response = Response(
+            {
+                'ip_address': client_ip,
+                'is_routable':is_routable
+            },
+            status=status.HTTP_200_OK
+        )
+
+        return response
