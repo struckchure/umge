@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.gis.geos import Point
 
 from umge.utils import generate_slug
 from store.models import Product, ProductOption
@@ -49,6 +50,15 @@ class Cart(models.Model):
     class Meta:
         verbose_name = 'Cart'
         verbose_name_plural = 'Carts'
+
+    def get_cart_location(self):
+        if self.cart_location:
+            x, y = self.cart_location.values()
+
+            cart_location = Point(x, y)
+
+            return cart_location
+        return None
 
     def get_total_quantity(self):
         qty = 0
