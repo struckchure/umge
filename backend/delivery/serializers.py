@@ -22,6 +22,7 @@ class DeliverySerializer(serializers.ModelSerializer):
 
 	rider = UserSerializer()
 	reciepient = UserSerializer()
+	locaation = serializers.SerializerMethodField()
 
 	class Meta:
 		model = Delivery
@@ -29,3 +30,6 @@ class DeliverySerializer(serializers.ModelSerializer):
 			'id'
 		]
 		depth = 1
+
+	def get_location(self, obj):
+		return obj.get_delivery_location()

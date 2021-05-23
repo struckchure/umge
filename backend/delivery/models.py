@@ -1,6 +1,6 @@
 from django.db import models
 
-from cart.models import CartItem
+from cart.models import CartItem, Cart
 from umge.utils import generate_slug
 from accounts.models import Rider, User
 
@@ -59,6 +59,11 @@ class Delivery(models.Model):
     class Meta:
         verbose_name = 'Delivery'
         verbose_name_plural = 'Deliveries'
+
+    def get_delivery_location(self):
+        reciepient_cart = Cart.objects.get(cart_user=self.reciepient)
+
+        return reciepient_cart.get_point()
 
     def save(self, *args, **kwargs):
         if self.status == Delivery.STATUS.DONE:
