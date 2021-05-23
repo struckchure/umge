@@ -117,7 +117,7 @@ const actions = {
             latitude: cart_location.coords.latitude,
             longitude: cart_location.coords.longitude
         }
-        console.log(cart_location)
+        console.log(payload.cart_location)
 
         await api({
             method: 'post',

@@ -8,6 +8,7 @@ import cart from '@/store/modules/cart.js'
 import products from '@/store/modules/products.js'
 import delivery from '@/store/modules/delivery.js'
 import wallet from '@/store/modules/wallet.js'
+import locations from '@/store/modules/locations.js'
 
 Vue.use(Vuex)
 
@@ -20,7 +21,8 @@ const store = new Vuex.Store(
             cart,
             products,
             delivery,
-            wallet
+            wallet,
+            locations
         }
     }
 )
