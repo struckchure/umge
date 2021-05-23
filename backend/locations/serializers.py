@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from locations.models import PickUpLocation
+from locations.models import PickUpLocation, Region
 
 
 class PickUpLocationSerializer(serializers.ModelSerializer):
@@ -10,3 +10,12 @@ class PickUpLocationSerializer(serializers.ModelSerializer):
         exclude = [
             'id'
         ]
+
+
+class RegionSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = Region
+		exclude = [
+			'id'
+		]
