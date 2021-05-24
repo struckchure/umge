@@ -201,8 +201,8 @@ class FundHistory(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=50, choices=STATUS.choices, default=STATUS.UNVERIFIED)
-    reference = models.CharField(max_length=20, unique=True, null=True)
-    access_code = models.CharField(max_length=20, unique=True, null=True)
+    reference = models.CharField(max_length=20, unique=True)
+    access_code = models.CharField(max_length=20, unique=True)
     description = models.TextField(blank=True)
     slug = models.SlugField(max_length=50, unique=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
