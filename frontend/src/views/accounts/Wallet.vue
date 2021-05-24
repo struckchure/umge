@@ -104,7 +104,7 @@
             ...mapMutations({
                 set_success: types.SET_SUCCESS
             }),
-            fund_wallet () {
+            async fund_wallet () {
                 const payload = {
                     amount: this.amount
                 }
@@ -116,13 +116,17 @@
                 }
 
                 this.set_success(success_payload)
-                setTimeout(
-                    () => {
-                        var next_url = this.fund[2].data.authorization_url
-                        window.location.replace(next_url)
-                    },
-                    3000
-                )
+
+                var next_url = await this.fund[2].data.authorization_url
+                window.location.replace(next_url)
+
+                // setTimeout(
+                //     () => {
+                //         var next_url = this.fund[2].data.authorization_url
+                //         window.location.replace(next_url)
+                //     },
+                //     3000
+                // )
             }
         }
     }
