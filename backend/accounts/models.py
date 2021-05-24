@@ -163,11 +163,14 @@ class Wallet(models.Model):
             status = False
             message = 'Request failed'
 
-        fund_history = FundHistory.objects.create(
-            user=self.wallet_user
-        )
-        fund_history.status = True
-        fund_history.save()
+        if status:
+            fund_history = FundHistory.objects.create(
+                user=self.wallet_user,
+                reference=recieve_payment['data']['reference'],
+                access_code=recieve_payment['data']['access_code']
+            )
+
+            fund_history.save()
 
         return (message, status, recieve_payment)
 
@@ -190,9 +193,16 @@ class Activity(models.Model):
 
 
 class FundHistory(models.Model):
+
+    class STATUS(models.TextChoices):
+        VERIFIED = 'V', 'Verified'
+        UNVERIFIED = 'U', 'Unverified'
+        DECLINED = 'D', 'Declined'
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.BooleanField(default=False)
-    reference = models.CharField(max_length=20, blank=True, unique=True)
+    status = models.CharField(max_length=50, choices=STATUS.choices, default=STATUS.UNVERIFIED)
+    reference = models.CharField(max_length=20, unique=True)
+    access_code = models.CharField(max_length=20, unique=True)
     description = models.TextField(blank=True)
     slug = models.SlugField(max_length=50, unique=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
@@ -209,9 +219,6 @@ class FundHistory(models.Model):
         if not self.slug:
             self.slug = self.make_slug()
 
-        if not self.reference:
-            self.reference = self.make_reference()
-
         super().save(*args, **kwargs)
 
     def make_slug(self):
@@ -219,15 +226,6 @@ class FundHistory(models.Model):
         new_slug = generate_slug(slugs)
 
         return new_slug
-
-    def make_reference(self):
-        references = FundHistory.objects.values_list('reference', flat=True)
-        new_reference = generate_slug(references, 5)\
-            .replace('-', f'{random.randint(0, 9)}')\
-            .replace('_', f'{random.randint(0, 9)}')\
-            .upper()
-
-        return new_reference
 
     def get_description(self):
         status = 'failed'
@@ -238,3 +236,38 @@ class FundHistory(models.Model):
         description = f'Wallet fund with reference {self.reference} {status}'
 
         return description
+
+    def verify_transaction(self):
+        from umge.payment import PaymentAPI
+
+        status = False
+        message = 'Transaction Unverified'
+
+        response = {
+            'status': status,
+            'message': message
+        }
+
+        if self.status != FundHistory.STATUS.VERIFIED:
+            payment_api = PaymentAPI()
+            is_verified = payment_api.verify(self.reference)
+
+            if is_verified['status'] and self.status == FundHistory.STATUS.UNVERIFIED:
+                amount = is_verified['data']['amount']
+
+                user_wallet = Wallet.objects.get(wallet_user=self.user)
+                user_wallet.wallet_balance += amount
+
+                user_wallet.save()
+
+            response = is_verified
+
+        return response
+
+    def get_amount(self):
+        from umge.payment import PaymentAPI
+
+        payment_api = PaymentAPI()
+        is_verified = payment_api.verify(self.reference)
+
+        return is_verified['data']['amount']

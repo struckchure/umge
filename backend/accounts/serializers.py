@@ -88,6 +88,7 @@ class FundWalletSerializer(serializers.Serializer):
 class FundHistorySerializer(serializers.ModelSerializer):
 
     description = serializers.SerializerMethodField()
+    amount = serializers.SerializerMethodField()
 
     class Meta:
         model = FundHistory
@@ -95,9 +96,13 @@ class FundHistorySerializer(serializers.ModelSerializer):
             'id',
             'user',
             'description',
+            'amount',
             'date',
             'updated'
         ]
 
     def get_description(self, obj):
         return obj.get_description()
+
+    def get_amount(self, obj):
+        return obj.get_amount()

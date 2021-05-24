@@ -7,7 +7,8 @@ from accounts.api import (
     UserLogout,
     UserUpdate,
     FundWallet,
-    FundHistoryList
+    FundHistoryList,
+    FundVerify
 )
 from accounts.admin_api import (
     AdminUserList,
@@ -25,6 +26,7 @@ urlpatterns = [
     path('account/update/', UserUpdate.as_view()),
 
     path('account/wallet/fund/', FundWallet.as_view()),
+    path('account/wallet/fund/verify/', FundVerify.as_view()),
     path('account/wallet/history/', FundHistoryList.as_view()),
 
     path('account/admin/users/', AdminUserList.as_view()),

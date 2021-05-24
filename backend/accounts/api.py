@@ -11,7 +11,8 @@ from accounts.serializers import (
     UserSerializer,
     WalletSerializer,
     UserUpdateSerializer,
-    FundHistorySerializer
+    FundHistorySerializer,
+    FundWalletSerializer
 )
 from store.serializers import StoreSerializer
 from cart.serializers import CartSerializer
@@ -19,7 +20,7 @@ from accounts.models import (
     Wallet,
     FundHistory
 )
-from accounts.serializers import FundWalletSerializer
+
 
 User = get_user_model()
 
@@ -185,6 +186,30 @@ class FundHistoryList(BaseView):
 
         response = Response(
             serialized_data.data,
+            status=status.HTTP_200_OK
+        )
+
+        return response
+
+
+class FundVerify(BaseView):
+
+    permission_classes = [
+        IsAuthenticated
+    ]
+    serializer_class = FundHistorySerializer
+
+    def get(self, request):
+        fund_history = FundHistory.objects.filter(
+            user=request.user
+        ).last()
+
+        fund_history.verify_transaction()
+
+        serialized_data = self.get_serializer(fund_history).data
+
+        response = Response(
+            serialized_data,
             status=status.HTTP_200_OK
         )
 
