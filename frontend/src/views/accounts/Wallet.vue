@@ -2,47 +2,51 @@
     <Base>
         <template v-slot:main>
             <div class="row">
-                <div class="col s12 m6 l6">
-                    <div class="w-full bg-gray-100 my-1 rounded-3xl p-8 my-3">
-                        <label class="text-right italic">Your balance</label>
-                        <p class="wallet-preview-balance text-right">
-                            &#8358; {{ user.wallet.wallet_balance }}
-                        </p>
-                    </div>
-
-                    <ItemListContainer class="bg-gray-100 h-80 overflow-hide-scroll overflow-auto w-full rounded-3xl pt-0 py-8 px-6">
-                        <WalletHistory
-                            v-for="history in histories"
-                            :key="history.id"
-                            :history="history"
-                        />
-                    </ItemListContainer>
+                <div class="col s12 m12 l12">
+                    <label class="form-header">Wallet / </label>
                 </div>
 
-                <div class="col s12 m6 l6">
-                    <div class="w-full bg-gray-100 my-1 rounded-3xl p-8 my-3">
-                        <div class="form-header">
-                            Fund wallet
+                <div class="col s12 m4 l4">
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <div class="w-full bg-gray-100 my-1 rounded-3xl p-8 my-3">
+                                <label class="text-right italic">Your balance</label>
+                                <p class="wallet-preview-balance text-right">
+                                    &#8358; {{ user.wallet.wallet_balance }}
+                                </p>
+                            </div>
                         </div>
 
-                        <form @submit.prevent="fund_wallet">
-                            <div class="row">
-                                <div class="col s12 m12 l12">
-                                    <label class="text-left font-extrabold">Amount</label>
-                                    <div class="w-full">
-                                        <input
-                                            type="number"
-                                            class="w-inherit rounded bg-gray-400 p-2 px-4"
-                                            min="100"
-                                            v-model="amount"
-                                        />
-                                    </div>
+                        <div class="col s12 m12 l12">                    
+                            <div class="w-full bg-gray-100 my-1 rounded-3xl p-8 my-3">
+                                <div class="form-header">
+                                    Fund wallet
                                 </div>
-                            </div>
 
-                            <button type="submit">Pay now</button>
-                        </form>
+                                <form @submit.prevent="fund_wallet">
+                                    <div class="row">
+                                        <div class="col s12 m12 l12">
+                                            <label class="text-left font-extrabold">Amount</label>
+                                            <div class="w-full">
+                                                <input
+                                                    type="number"
+                                                    class="w-inherit rounded bg-gray-400 p-2 px-4"
+                                                    min="100"
+                                                    v-model="amount"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit">Pay now</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <div class="col s12 m8 l8">
+                    <WalletHistoryList :histories="histories" />
                 </div>
             </div>
         </template>
@@ -56,7 +60,7 @@
     import '@/assets/css/grid.css'
     import '@/assets/css/wallet.css'
 
-    import WalletHistory from '@/components/accounts/WalletHistory.vue'
+    import WalletHistoryList from '@/components/accounts/WalletHistoryList.vue'
 
     export default {
         name: 'Wallet',
@@ -64,7 +68,7 @@
             'reference'
         ],
         components: {
-            WalletHistory
+            WalletHistoryList
         },
         title () {
             return 'Dashboard | Wallet'
@@ -77,6 +81,7 @@
         mounted () {
             this.get_user()
             this.get_fund_history()
+            this.verify_fund()
         },
         computed: {
             ...mapGetters({
@@ -93,7 +98,8 @@
             ...mapActions({
                 get_user: types.GET_USER,
                 fund_user_wallet: types.FUND_WALLET,
-                get_fund_history: types.GET_WALLET_FUND_HISTORY
+                get_fund_history: types.GET_WALLET_FUND_HISTORY,
+                verify_fund: types.VERIFY_FUND
             }),
             ...mapMutations({
                 set_success: types.SET_SUCCESS

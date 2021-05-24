@@ -6,6 +6,7 @@ import * as types from '@/store/types.js'
 
 const FUND_WALLET_URL = '/account/wallet/fund/'
 const FUND_WALLET_HISTORY_URL = '/account/wallet/history/'
+const VERIFY_FUND_URL = '/account/wallet/fund/verify/'
 
 // storage
 
@@ -101,6 +102,33 @@ const actions = {
                 }
 
                 context.commit(types.SET_ERROR, error_payload)
+            }
+        )
+
+        context.commit(types.DONE_LOADING)
+    },
+
+    // verify last payment
+
+    async [types.VERIFY_FUND] (context) {
+        context.commit(types.BUSY_LOADING)
+
+        await api({
+            method: 'get',
+            url: VERIFY_FUND_URL,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${storage.get('token')}`
+            }
+        })
+        .then(
+            function(response) {
+                context.commit(types.SET_SUCCESS, response.data)
+            }
+        )
+        .catch(
+            function(error) {
+                context.commit(types.SET_ERROR, error.data)
             }
         )
 

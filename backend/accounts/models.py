@@ -248,11 +248,14 @@ class FundHistory(models.Model):
             'message': message
         }
 
-        if self.status != FundHistory.STATUS.VERIFIED:
+        if self.status == FundHistory.STATUS.UNVERIFIED:
             payment_api = PaymentAPI()
             is_verified = payment_api.verify(self.reference)
 
-            if is_verified['status'] and self.status == FundHistory.STATUS.UNVERIFIED:
+            if is_verified['status']:
+                self.status = FundHistory.STATUS.VERIFIED
+                self.save()
+
                 amount = is_verified['data']['amount']
 
                 user_wallet = Wallet.objects.get(wallet_user=self.user)

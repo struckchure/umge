@@ -92,13 +92,8 @@ class FundHistorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FundHistory
-        fields = [
-            'id',
-            'user',
-            'description',
-            'amount',
-            'date',
-            'updated'
+        exclude = [
+            'id'
         ]
 
     def get_description(self, obj):
