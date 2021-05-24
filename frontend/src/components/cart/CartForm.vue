@@ -125,13 +125,9 @@
             ...mapMutations({
                 set_success: types.SET_SUCCESS
             }),
-            pay_now() {
+            async pay_now() {
                 const payload = {
-                    payment_mode: this.get_payment_mode_name.toUpperCase(),
-                    cart_location: {
-                        latitude: this.current_location.coords.latitude,
-                        longitude: this.current_location.coords.longitude
-                    }
+                    payment_mode: this.get_payment_mode_name.toUpperCase()
                 }
 
                 this.checkout(payload)
@@ -143,13 +139,8 @@
 
                     this.set_success(success_payload)
 
-                    setTimeout(
-                        () => {
-                            var next_url = this.purchase.response.data.authorization_url
-                            window.location.replace(next_url)
-                        },
-                        500
-                    )
+                    var next_url = await this.purchase.response.data.authorization_url
+                    window.location.replace(next_url)
                 }
             },
             choose_payment_method () {

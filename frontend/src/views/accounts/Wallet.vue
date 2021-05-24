@@ -119,14 +119,6 @@
 
                 var next_url = await this.fund[2].data.authorization_url
                 window.location.replace(next_url)
-
-                // setTimeout(
-                //     () => {
-                //         var next_url = this.fund[2].data.authorization_url
-                //         window.location.replace(next_url)
-                //     },
-                //     3000
-                // )
             }
         }
     }
