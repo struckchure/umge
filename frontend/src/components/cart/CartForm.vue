@@ -132,13 +132,13 @@
 
                 this.checkout(payload)
 
+                const success_payload = {
+                    'success': this.purchase.response.data.message
+                }
+
+                this.set_success(success_payload)
+
                 if (this.payment_mode == 'C') {
-                    const success_payload = {
-                        'success': this.purchase.response.data.message
-                    }
-
-                    this.set_success(success_payload)
-
                     var next_url = await this.purchase.response.data.authorization_url
                     window.location.replace(next_url)
                 }

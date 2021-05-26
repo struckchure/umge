@@ -3,7 +3,8 @@
 	"ALLOWED_HOSTS": [
 		"api.umge.store",
 		"www.api.umge.store",
-		"localhost"
+		"localhost",
+		"192.168.43.252"
 	],
 	"CORS_ORIGIN_WHITELIST": [
 		"http://localhost:8080",

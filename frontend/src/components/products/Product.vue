@@ -7,26 +7,34 @@
             <ProductPreferenceForm :item="item" :buy_now="buy_now" />
         </div>
 
-        <slot name="tools">
-            <div class="product-tools">
-                <button @click="() => {show_modal(product_id); this.buy_now = 'buy'}">
-                    Buy now
-                </button>
+        <div class="row p-0">
+            <div class="col s12 m12 l12">
+                <slot name="tools">
+                    <div class="product-tools">
+                        <button @click="() => {show_modal(product_id); this.buy_now = 'buy'}">
+                            Buy now
+                        </button>
 
-                <button @click="() => {show_modal(product_id); this.buy_now = 'cart'}">
-                    <i class="fas fa-cart-plus  "></i>
-                </button>
+                        <button @click="() => {show_modal(product_id); this.buy_now = 'cart'}">
+                            <i class="fas fa-cart-plus  "></i>
+                        </button>
+                    </div>
+                </slot>
             </div>
-        </slot>
 
-        <div class="product-image">
-            <img class="elevation-3" :src="item.product_image">
-        </div>
+            <div class="col s12 m12 l12">
+                <div class="product-image">
+                    <img class="elevation-3" :src="item.product_image">
+                </div>
+            </div>
 
-        <div class="product-details">
-            <label class="store">{{ item.product_store.store_name }}</label>
-            <p class="product-description">{{ item.product_name }}</p>
-            <label class="product-price">&#8358; {{ item.product_price }}</label>
+            <div class="col s12 m12 l12">
+                <div class="product-details">
+                    <label class="store">{{ item.product_store.store_name }}</label>
+                    <p class="product-description">{{ item.product_name }}</p>
+                    <label class="product-price">&#8358; {{ item.product_price }}</label>
+                </div>
+            </div>
         </div>
     </div>
 </template>
