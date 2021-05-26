@@ -192,16 +192,10 @@
                             <div class="col s12 m12 l12">
                                 <slot name="breadcrumb">
                                     <div class="breadcrumb">
-                                        <div class="row">
-                                            <div class="col s12 m12 l12">
-                                                <p class="page-title">{{ page_title }}</p>
-                                            </div>
+                                        <p class="page-title">{{ page_title }}</p>
 
-                                            <div class="col s12 m12 l12">
-                                                <div class="breadcrumb-extra">
-                                                    <slot name="extra"></slot>
-                                                </div>
-                                            </div>
+                                        <div class="breadcrumb-extra">
+                                            <slot name="extra"></slot>
                                         </div>
                                     </div>
                                 </slot>
