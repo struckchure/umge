@@ -8,6 +8,7 @@
 	],
 	"CORS_ORIGIN_WHITELIST": [
 		"http://localhost:8080",
+		"http://192.168.43.252:8080",
 		"https://umge.store",
 		"https://www.umge.store"
 	],
