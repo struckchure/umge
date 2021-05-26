@@ -2,7 +2,7 @@
     <Base current_page="Products" page_title="Products">
         <div class="row">
             <div
-                class="col s12 m12 l4"
+                class="col s12 m6 l4"
                 v-for="(item, index) in products"
                 :key="index"
             >
@@ -15,30 +15,30 @@
 
         <template v-slot:extra>
             <form class="no-border filter-form" @submit.prevent="filter_product_list">
-                <div class="relative">
-                    <select
-                        v-model="filters.store_name"
-                        @change="filter_product_list()"
-                        class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white"
-                    >
-                        <option value="*">All stores (default)</option>
-                        <option
-                            v-for="(store, index) in stores"
-                            :key="index"
-                        >{{ store.store_name }}</option>
-                    </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <i class="fas fa-angle-down"></i>
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <select
+                            v-model="filters.store_name"
+                            @change="filter_product_list()"
+                            class="appearance-none bg-white text-black"
+                        >
+                            <option value="*">All stores (default)</option>
+                            <option
+                                v-for="(store, index) in stores"
+                                :key="index"
+                            >{{ store.store_name }}</option>
+                        </select>
                     </div>
-                </div>
 
-                <div class="input-field">
-                    <input
-                        type="text"
-                        v-model="filters.product_name"
-                        placeholder="search ..."
-                        @input="filter_product_list()"
-                    />
+                    <div class="col s12 m12 l12">
+                        <input
+                            type="text"
+                            v-model="filters.product_name"
+                            placeholder="search ..."
+                            @input="filter_product_list()"
+                            class="bg-white text-white w-full input-diff"
+                        />
+                    </div>
                 </div>
 
                 <label>showing {{ products.length }} product(s)</label>
@@ -131,12 +131,30 @@
         padding: 0;
     }
 
-    select {
-        width: 300px;
+    select, input {
+        padding: .6em;
+        border-radius: .3em !important;
+        margin: .2em 0;
+        width: 90% !important;
+        float: right;
     }
 
-    input {
-        width: 100px;
-        margin: 0;
+    .input-diff {
+        background-color: white !important;
+        color: black !important;
+    }
+
+    @media only screen and (max-width: 600px) {
+        select {
+            width: 90% !important;
+        }
+
+        select, input {
+            float: left;
+        }
+
+        * {
+            font-size: auto;
+        }
     }
 </style>

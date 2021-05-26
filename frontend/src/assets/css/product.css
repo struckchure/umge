@@ -52,10 +52,7 @@ input:focus {
 }
 
 .product {
-	min-width: 250px;
-	display: flex;
-	flex: 1;
-	flex-direction: column;
+	min-width: auto;
 	align-content: center;
 	justify-content: center;
 	background-image: linear-gradient(to bottom left, #fff, #eee, #ccc, #fcf, #f4f4f4);
