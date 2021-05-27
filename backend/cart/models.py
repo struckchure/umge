@@ -253,9 +253,6 @@ class Cart(models.Model):
         buy_now_state['message'] = message
         buy_now_state['response'] = response
 
-        if buy_now_state['status']:
-            self.delete_cart_items()
-
         return buy_now_state
 
     def delete_cart_items(self):
