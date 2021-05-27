@@ -170,6 +170,9 @@ class Cart(models.Model):
         checkout_state['message'] = message
         checkout_state['response'] = response
 
+        if checkout_state['status']:
+            self.delete_cart_items()
+
         return checkout_state
 
     def buy_now_use_card(self, item):
@@ -244,10 +247,16 @@ class Cart(models.Model):
         payment_method = method(item)
         message, status, response = payment_method
 
-        checkout_state = {}
+        buy_now_state = {}
 
-        checkout_state['status'] = status
-        checkout_state['message'] = message
-        checkout_state['response'] = response
+        buy_now_state['status'] = status
+        buy_now_state['message'] = message
+        buy_now_state['response'] = response
 
-        return checkout_state
+        if buy_now_state['status']:
+            self.delete_cart_items()
+
+        return buy_now_state
+
+    def delete_cart_items(self):
+        self.cart_items.all().delete()

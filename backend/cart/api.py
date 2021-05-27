@@ -134,11 +134,6 @@ class BuyNow(BaseView):
         user = requests.user
         payload = requests.data
 
-        # location = {
-        #     'latitude': '',
-        #     'longitude': ''
-        # }
-
         serialized_data = self.get_serializer(data=payload)
         serialized_data.is_valid(raise_exception=True)
         serialized_data.save()
@@ -146,20 +141,19 @@ class BuyNow(BaseView):
         buy_now_item = serialized_data.instance
 
         user_cart = Cart.objects.get(cart_user=user)
-        check_out = user_cart.buy_now(
+        buy_now = user_cart.buy_now(
             item=buy_now_item,
-            payment_mode=payload['payment_mode'],
-            # location=location
+            payment_mode=payload['payment_mode']
         )
 
-        if check_out['status']:
+        if buy_now['status']:
             response = Response(
-                check_out,
+                buy_now,
                 status=status.HTTP_200_OK
             )
         else:
             response = Response(
-                check_out,
+                buy_now,
                 status=status.HTTP_402_PAYMENT_REQUIRED
             )
 
