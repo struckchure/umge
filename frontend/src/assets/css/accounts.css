@@ -23,21 +23,6 @@
 	color: white;
 }
 
-.input-field input {
-	display: flex;
-	flex: 1;
-	align-self: center;
-	padding-right: .2em;
-	color: #fff !important;
-	border-top-left-radius: 0 !important;
-	border-bottom-left-radius: 0 !important;
-}
-
-.input-field input,
-.input-field i {
-	background-color: #333 !important;
-}
-
 .form-title {
 	font-size: 2em;
 	font-weight: bold;
@@ -94,4 +79,17 @@ label {
 
 .account-options a:hover {
 	color: grey;
+}
+
+.auth-field i , input {
+	background-color: #333 !important;
+	color: white;
+	margin: .3em 0 !important;
+}
+
+.auth-field i {
+	padding: .5em .8em;
+	width: 2.5em;
+	border-top-left-radius: .4em;
+	border-bottom-left-radius: .4em;
 }

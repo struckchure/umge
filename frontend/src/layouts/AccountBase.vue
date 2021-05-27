@@ -16,6 +16,12 @@
 
     input {
         width: inherit;
+        background-color: #312 !important;
+        color: white !important;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+        border-top-right-radius: .4em !important;
+        border-bottom-right-radius: .4em !important;
     }
 
     button.social {
@@ -38,9 +44,10 @@
 </style>
 
 <script>
-    import '@/assets/css/accounts.css'
     import ErrorModal from '@/components/common/ErrorModal.vue'
     import Loader from '@/components/common/Loader.vue'
+
+    import '@/assets/css/accounts.css'
 
     export default {
         name: 'AccountBase',

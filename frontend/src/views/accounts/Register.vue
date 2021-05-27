@@ -29,7 +29,7 @@
 
             <div class="col s12 m12 l12">
                 <form @submit.prevent="register">
-                    <div class="input-field">
+                    <div class="auth-field flex flex-row">
                         <i class="fas fa-user"></i>
                         <input
                             type="text"
@@ -40,7 +40,7 @@
                         />
                     </div>
 
-                    <div class="input-field">
+                    <div class="auth-field flex flex-row">
                         <i class="fas fa-envelope"></i>
                         <input
                             type="email"
@@ -51,7 +51,7 @@
                         />
                     </div>
 
-                    <div class="input-field">
+                    <div class="auth-field flex flex-row">
                         <i class="fas fa-lock"></i>
                         <input
                             type="password"
