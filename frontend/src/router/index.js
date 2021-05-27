@@ -20,6 +20,7 @@ import AdminOrders from '@/views/admin/AdminOrders.vue'
 import AdminRiders from '@/views/admin/AdminRiders.vue'
 import AdminRidersApplications from '@/views/admin/AdminRidersApplications.vue'
 import AdminLocations from '@/views/admin/AdminLocations.vue'
+import AdminStores from '@/views/admin/AdminStores.vue'
 
 import Orders from '@/views/delivery/Orders.vue'
 import RiderOrders from '@/views/delivery/RiderOrders.vue'
@@ -81,7 +82,8 @@ const routes = [
         name: 'StoreCreate',
         component: StoreCreate,
         meta: {
-            requiresLogin: true
+            requiresLogin: true,
+            requiresStaff: true
         }
     },
     {
@@ -94,6 +96,15 @@ const routes = [
         path: '/admin/',
         name: 'AdminHome',
         component: AdminHome,
+        meta: {
+            requiresLogin: true,
+            requiresAdmin: true
+        }
+    },
+    {
+        path: '/admin/stores/',
+        name: 'AdminStores',
+        component: AdminStores,
         meta: {
             requiresLogin: true,
             requiresAdmin: true
@@ -145,7 +156,7 @@ const routes = [
         }
     },
     {
-        path: 'admin/riders/history/',
+        path: '/admin/riders/history/',
         name: 'RiderHistory',
         component: RiderHistory,
         meta: {
@@ -184,7 +195,7 @@ router.beforeEach((to, from, next) => {
     const isAdmin = store.getters.is_admin
     const isStaff = store.getters.is_staff
 
-    if (to.meta.requiresLogin === true && !isAuthenticated) {
+    if (to.meta.requiresLogin == true && isAuthenticated == false) {
         next({ name: 'Login' })
     } else {
         next()
@@ -203,4 +214,4 @@ router.beforeEach((to, from, next) => {
     }
 })
 
-export default router
+export default router;

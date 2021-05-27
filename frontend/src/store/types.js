@@ -30,11 +30,13 @@ export const GET_STORE = "GET_STORE"
 export const GET_STORE_LIST = "GET_STORE_LIST"
 export const GET_PRODUCT_LIST = "GET_PRODUCT_LIST"
 export const GET_STORE_PRODUCTS = "GET_STORE_PRODUCTS"
+export const GET_STORE_ORDERS = "GET_STORE_ORDERS"
 
 export const SET_STORE = "SET_STORE"
 export const SET_STORE_LIST = "SET_STORE_LIST"
 export const SET_PRODUCT_LIST = "SET_PRODUCT_LIST"
 export const SET_STORE_PRODUCTS = "SET_STORE_PRODUCTS"
+export const SET_STORE_ORDERS = "SET_STORE_ORDERS"
 
 // cart types
 

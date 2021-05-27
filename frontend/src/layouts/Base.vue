@@ -56,7 +56,7 @@
                 </router-link>
 
                 <router-link
-                    :to="{ name: 'AdminHome' }">
+                    :to="{ name: 'AdminStores' }">
                     <button>
                         <i class="fas fa-store"></i>
                         <span>Stores</span>

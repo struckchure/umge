@@ -135,8 +135,7 @@ const actions = {
             url: LOGOUT_URL,
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrftoken,
-                "Authorization": `Token ${storage.get('token')}`
+                "X-CSRFToken": csrftoken
             }
         })
         .then(

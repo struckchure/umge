@@ -8,6 +8,7 @@ import * as types from '@/store/types.js'
 const STORE_URL = '/store/'
 const STORE_CREATE_URL = '/store/create/'
 const STORE_LIST_URL = '/store/list/'
+const STORE_ORDERS_URL = '/store/orders/'
 const PRODUCT_LIST_URL = '/product/list/'
 
 // storage
@@ -17,6 +18,7 @@ const storage = new utils.Storage()
 const state = {
     store: {},
     store_products: [],
+    store_orders: [],
     all_stores: [],
     products: []
 }
@@ -33,6 +35,9 @@ const getters = {
     },
     get_products (state) {
         return state.products
+    },
+    get_store_orders(state) {
+        return state.store_orders
     }
 }
 
@@ -59,13 +64,19 @@ const mutations = {
 
     [types.SET_PRODUCT_LIST] (state, payload) {
         state.products = payload
+    },
+
+    // store orders mutation
+
+    [types.SET_STORE_ORDERS] (state, payload) {
+        state.store_orders = payload
     }
 }
 
 const actions = {
     // create new store
 
-    async[types.CREATE_STORE] (context, payload) {
+    async [types.CREATE_STORE] (context, payload) {
         context.commit(types.BUSY_LOADING)
 
         const csrftoken = utils.getCookie('csrftoken');
@@ -187,6 +198,32 @@ const actions = {
         .then(
             function(response) {
                 context.commit(types.SET_PRODUCT_LIST, response.data)
+            }
+        )
+        .catch(
+            function(error) {
+                context.commit(types.SET_ERROR, error.response.data)
+            }
+        )
+
+        context.commit(types.DONE_LOADING)
+    },
+
+    // get all stores + orders
+
+    async [types.GET_STORE_ORDERS] (context) {
+        context.commit(types.BUSY_LOADING)
+
+        await api({
+            method: 'get',
+            url: STORE_ORDERS_URL,
+            headers: {
+                'Authorization': `Token ${storage.get('token')}`
+            }
+        })
+        .then(
+            function(response) {
+                context.commit(types.SET_STORE_ORDERS, response.data)
             }
         )
         .catch(
