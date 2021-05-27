@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 
 from umge.base import BaseAPIView as BaseView
+from accounts.permissions import IsStaff
 from store.models import (
     Store,
     Product
@@ -40,7 +41,12 @@ class StoreMain(BaseView):
 
 
 class StoreCreate(BaseView):
+
     serializer_class = StoreCreateSerializer
+    permission_classes = [
+        IsAuthenticated,
+        IsStaff
+    ]
 
     def post(self, request, *args, **kwargs):
         payload = request.data
@@ -59,6 +65,10 @@ class StoreCreate(BaseView):
 class StoreUpdate(BaseView):
 
     serializer_class = StoreUpdateSerializer
+    permission_classes = [
+        IsAuthenticated,
+        IsStaff
+    ]
 
     def post(self, request, store_slug):
         store = get_object_or_404(Store, store_slug=store_slug)
@@ -154,6 +164,10 @@ class ProductList(BaseView):
 class ProductCreate(BaseView):
 
     serializer_class = ProductCreateSerializer
+    permission_classes = [
+        IsAuthenticated,
+        IsStaff
+    ]
 
     def post(self, request, *args, **kwargs):
         payload = request.data
@@ -171,6 +185,10 @@ class ProductCreate(BaseView):
 class ProductOptionCreate(BaseView):
 
     serializer_class = ProductOptionCreateSerializer
+    permission_classes = [
+        IsAuthenticated,
+        IsStaff
+    ]
 
     def post(self, request, *args, **kwargs):
         payload = request.data
