@@ -30,6 +30,7 @@ class StoreMain(BaseView):
     def get(self, request, *args, **kwargs):
         user = request.user
         store = Store.objects.filter(store_owner=user)
+
         serialized_data = self.get_serializer(store, many=True).data
 
         response = Response(
@@ -50,6 +51,7 @@ class StoreCreate(BaseView):
 
     def post(self, request, *args, **kwargs):
         payload = request.data
+
         serialized_data = self.get_serializer(data=payload)
         serialized_data.is_valid(raise_exception=True)
         serialized_data.save()
@@ -126,6 +128,7 @@ class StoreProductList(BaseView):
     def get(self, request, store_slug, *args, **kwargs):
         store = get_object_or_404(Store, store_slug=store_slug)
         products = Product.objects.filter(product_store=store)
+
         serialized_data = self.get_serializer(products, many=True).data
 
         response = Response(
@@ -171,6 +174,7 @@ class ProductCreate(BaseView):
 
     def post(self, request, *args, **kwargs):
         payload = request.data
+
         serialized_data = self.get_serializer(data=payload)
         serialized_data.is_valid(raise_exception=True)
         serialized_data.save()
@@ -192,6 +196,7 @@ class ProductOptionCreate(BaseView):
 
     def post(self, request, *args, **kwargs):
         payload = request.data
+
         serialized_data = self.get_serializer(data=payload)
         serialized_data.is_valid(raise_exception=True)
         serialized_data.save()
