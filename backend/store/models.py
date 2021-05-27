@@ -22,6 +22,7 @@ class Store(models.Model):
     store_phone_number = models.CharField(max_length=20, blank=True)
     store_owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='store_owner')
     store_staffs = models.ManyToManyField(User, related_name='store_staffs', blank=True)
+    store_balance = models.PositiveIntegerField(default=0)
     store_slug = models.SlugField(max_length=255, unique=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -44,6 +45,15 @@ class Store(models.Model):
             self.store_slug = store_slug
 
         super().save(*args, **kwargs)
+
+    def get_store_orders(self):
+        from delivery.models import Order
+
+        store_orders = Order.objects.filter(
+            item__cart_item__product_store__store_name__contains=self.store_name
+        )
+
+        return store_orders
 
 
 class ProductOption(models.Model):

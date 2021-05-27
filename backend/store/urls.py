@@ -8,6 +8,9 @@ from store.api import (
     StoreUpdate,
     StoreProductList,
 
+    StoreOrdersList,
+    StoreOrdersDetail,
+
     ProductList,
     ProductCreate,
 
@@ -23,6 +26,9 @@ urlpatterns = [
     path('store/<slug:store_slug>/details/', StoreDetails.as_view()),
     path('store/<slug:store_slug>/update/', StoreUpdate.as_view()),
     path('store/<slug:store_slug>/products/', StoreProductList.as_view()),
+
+    path('store/orders/', StoreOrdersList.as_view()),
+    path('store/orders/<slug:store_slug>/', StoreOrdersDetail.as_view()),
 
     path('product/list/<str:store_name>/<str:product_name>/', ProductList.as_view()),
     path('product/list/', ProductList.as_view()),

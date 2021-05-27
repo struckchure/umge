@@ -17,6 +17,7 @@ class Order(models.Model):
     item = models.ForeignKey(CartItem, on_delete=models.DO_NOTHING)
     transaction_id = models.CharField(max_length=7, blank=True, unique=True)
     status = models.CharField(max_length=20, default=STATUS.PENDING, choices=STATUS.choices)
+    store_credited = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -28,11 +29,24 @@ class Order(models.Model):
         verbose_name_plural = 'Orders'
 
     def save(self, *args, **kwargs):
+        from store.models import Store
+
         if not self.transaction_id:
             transaction_ids = Order.objects\
                 .values_list('transaction_id', flat=True)
             transaction_id = generate_slug(transaction_ids, max_length=5)
             self.transaction_id = transaction_id.replace('-', '').upper()
+
+        order_amount = self.item.get_total_balance()
+
+        if not self.store_credited:
+            store = Store.objects.get(
+                store_name=self.item.cart_item.product_store.store_name
+            )
+            store.store_balance = order_amount
+            store.save()
+
+            self.store_credited = True
 
         super().save(*args, **kwargs)
 

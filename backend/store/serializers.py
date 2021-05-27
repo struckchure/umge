@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from store.models import Store, Product, ProductOption
+from delivery.serializers import OrderSerializer
 from accounts.serializers import UserSerializer
 
 
@@ -12,7 +13,7 @@ class StoreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store
-        fields = '__all__'
+        exclude = ['id']
 
 
 class StoreCreateSerializer(serializers.ModelSerializer):
@@ -85,7 +86,6 @@ class ProductSerializer(serializers.ModelSerializer):
             'product_options',
             'product_store'
         ]
-        # depth = 1
 
     def get_product_price(self, product):
         return product.get_total_price()
@@ -99,3 +99,20 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             'id',
             'product_slug'
         ]
+
+
+class StoreOrderSerializer(serializers.ModelSerializer):
+
+    store_orders = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Store
+        exclude = [
+            'id'
+        ]
+
+    def get_store_orders(self, obj):
+        return OrderSerializer(
+            obj.get_store_orders(),
+            many=True
+        ).data

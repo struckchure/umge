@@ -13,6 +13,7 @@ from store.serializers import (
     StoreSerializer,
     StoreCreateSerializer,
     StoreUpdateSerializer,
+    StoreOrderSerializer,
 
     ProductSerializer,
     ProductCreateSerializer,
@@ -210,24 +211,43 @@ class ProductOptionCreate(BaseView):
         return response
 
 
+class StoreOrdersDetail(BaseView):
+
+    permission_classes = [
+        IsAuthenticated,
+        IsStaff
+    ]
+    serializer_class = StoreOrderSerializer
+
+    def get(self, request, store_slug):
+        store = get_object_or_404(Store, store_slug=store_slug)
+
+        serialized_orders = self.get_serializer(store).data
+
+        response = Response(
+            serialized_orders,
+            status=status.HTTP_200_OK
+        )
+
+        return response
+
+
 class StoreOrdersList(BaseView):
 
     permission_classes = [
         IsAuthenticated,
         IsStaff
     ]
-    serializer_class = OrderSerializer
+    serializer_class = StoreOrderSerializer
+    queryset = Store.objects.order_by('-date')
 
-    def get(self, request, store_slug):
-        store = get_object_or_404(Store, store_slug=store_slug)
-
-        store_orders = Order.objects.filter(
-            item__cart_item__product_store__store_name__contains=store.store_name
-        )
-        serialized_orders = self.get_serializer(store_orders, many=True).data
+    def get(self, request):
+        serialized_stores = self.get_serializer(
+            self.get_queryset(), many=True
+        ).data
 
         response = Response(
-            serialized_orders,
+            serialized_stores,
             status=status.HTTP_200_OK
         )
 
