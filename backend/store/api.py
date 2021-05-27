@@ -18,6 +18,8 @@ from store.serializers import (
     ProductCreateSerializer,
     ProductOptionCreateSerializer
 )
+from delivery.models import Order
+from delivery.serializers import OrderSerializer
 
 
 class StoreMain(BaseView):
@@ -205,4 +207,28 @@ class ProductOptionCreate(BaseView):
             serialized_data.data,
             status=status.HTTP_200_OK
         )
+        return response
+
+
+class StoreOrdersList(BaseView):
+
+    permission_classes = [
+        IsAuthenticated,
+        IsStaff
+    ]
+    serializer_class = OrderSerializer
+
+    def get(self, request, store_slug):
+        store = get_object_or_404(Store, store_slug=store_slug)
+
+        store_orders = Order.objects.filter(
+            item__cart_item__product_store__store_name__contains=store.store_name
+        )
+        serialized_orders = self.get_serializer(store_orders, many=True).data
+
+        response = Response(
+            serialized_orders,
+            status=status.HTTP_200_OK
+        )
+
         return response

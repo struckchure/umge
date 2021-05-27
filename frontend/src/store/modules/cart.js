@@ -75,8 +75,8 @@ const actions = {
     async [types.UPDATE_CART] (context, payload) {
         context.commit(types.BUSY_LOADING)
 
-        const cart_location = await utils.getLocation();
-        payload.cart_location = cart_location
+        // const cart_location = await utils.getLocation();
+        // payload.cart_location = cart_location
 
         const csrftoken = utils.getCookie('csrftoken');
 
@@ -112,12 +112,12 @@ const actions = {
 
         const csrftoken = utils.getCookie('csrftoken');
 
-        const cart_location = await utils.getLocation();
-        payload.cart_location = {
-            latitude: cart_location.coords.latitude,
-            longitude: cart_location.coords.longitude
-        }
-        console.log(payload.cart_location)
+        // const cart_location = await utils.getLocation();
+        // payload.cart_location = {
+        //     latitude: cart_location.coords.latitude,
+        //     longitude: cart_location.coords.longitude
+        // }
+        // console.log(payload.cart_location)
 
         await api({
             method: 'post',
@@ -154,8 +154,8 @@ const actions = {
 
         const csrftoken = utils.getCookie('csrftoken');
 
-        const cart_location = await utils.getLocation();
-        payload.cart_location = cart_location
+        // const cart_location = await utils.getLocation();
+        // payload.cart_location = cart_location
 
         await api({
             method: 'post',

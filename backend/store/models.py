@@ -14,7 +14,7 @@ class Store(models.Model):
         ('PRM', 'Premimum')
     )
 
-    store_name = models.CharField(max_length=255, blank=False)
+    store_name = models.CharField(max_length=255, blank=False, unique=True)
     store_description = models.TextField(max_length=255, blank=True)
     store_package = models.CharField(max_length=10, choices=STORE_PACKAGES, default='STD')
     store_image = models.ImageField(upload_to=store_image_handler, null=True, blank=True)
