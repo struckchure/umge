@@ -109,11 +109,12 @@
 
     import { mapActions, mapGetters, mapMutations } from 'vuex'
     import * as types from '@/store/types.js'
+    import { close_modal } from '@/assets/js/modal.js'
 
     export default {
         name: 'ProductPreferenceForm',
         props: [
-            'id',
+            'product_id',
             'item',
             'buy_now'
         ],
@@ -208,12 +209,6 @@
                     }
                 ]
 
-                navigator.geolocation.getCurrentPosition(pos => {
-                    this.current_location = pos
-                })
-
-                console.log(this.current_location)
-
                 switch (this.buy_now) {
                     case 'buy':
                         payload = {
@@ -237,7 +232,7 @@
                         break;
                 }
 
-                if (this.payment_mode == 'C') {
+                if (this.payment_mode == 'C' && this.purchase.response) {
                     const success_payload = {
                         'success': this.purchase.response.data.message
                     }
@@ -251,6 +246,11 @@
                         500
                     )
                 }
+
+                this.close_modal(this.product_id)
+            },
+            close_modal (product_id) {
+                close_modal(product_id)
             }
         }
     }

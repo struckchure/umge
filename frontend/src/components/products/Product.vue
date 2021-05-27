@@ -4,7 +4,7 @@
             <div class="modal-tools">
                 <button @click="close_modal(product_id)" class="modal-close">&times;</button>
             </div>
-            <ProductPreferenceForm :item="item" :buy_now="buy_now" />
+            <ProductPreferenceForm :product_id="product_id" :item="item" :buy_now="buy_now" />
         </div>
 
         <div class="row p-0">

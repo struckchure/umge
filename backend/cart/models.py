@@ -256,4 +256,7 @@ class Cart(models.Model):
         return buy_now_state
 
     def delete_cart_items(self):
-        self.cart_items.all().delete()
+        for item in self.cart_items.all():
+            self.cart_items.remove(item)
+
+        self.save()
