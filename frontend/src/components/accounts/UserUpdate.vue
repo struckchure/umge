@@ -56,16 +56,7 @@
                     <label class="form-label text-left">Phone number</label>
                 </div>
 
-                <div class="col s3 m2 l2">
-                    <input
-                        type="number"
-                        placeholder="Phone number"
-                        v-model="country_code"
-                        readonly
-                    />
-                </div>
-
-                <div class="col s9 m10 l10">
+                <div class="col s12 m12 l12">
                     <input
                         type="number"
                         placeholder="Phone number"
@@ -83,26 +74,6 @@
                         placeholder="Current password"
                         v-model="current_password"
                         required
-                        minlength="5"
-                        maxlength="15"
-                    />
-                </div>
-
-                <div class="col s12 m6 l6">
-                    <input
-                        type="password"
-                        placeholder="New password"
-                        v-model="new_password"
-                        minlength="5"
-                        maxlength="15"
-                    />
-                </div>
-
-                <div class="col s12 m6 l6">
-                    <input
-                        type="password"
-                        placeholder="Confirm password"
-                        v-model="confirm_password"
                         minlength="5"
                         maxlength="15"
                     />
@@ -131,9 +102,7 @@
         data () {
             return {
                 country_code: '+234',
-                current_password: '',
-                new_password: '',
-                confirm_password: ''
+                current_password: ''
             }
         },
         methods: {
@@ -155,9 +124,7 @@
                         last_name: this.user.last_name,
                         email: this.user.email,
                         username: this.user.username,
-                        password: this.current_password,
-                        new_password: this.new_password,
-                        confirm_password: this.confirm_password
+                        password: this.current_password
                     }
 
                     this.update_user(payload)

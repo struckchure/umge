@@ -1,9 +1,9 @@
 from django.db import models
-from django.contrib.gis.geos import Point
 
 from umge.utils import generate_slug
 from store.models import Product, ProductOption
 from accounts.models import User
+from locations.models import PickUpLocation
 
 
 class CartItem(models.Model):
@@ -40,7 +40,7 @@ class Cart(models.Model):
     cart_user = models.OneToOneField(User, on_delete=models.CASCADE)
     cart_items = models.ManyToManyField(CartItem, blank=True)
     cart_slug = models.SlugField(max_length=100, blank=True, unique=True)
-    cart_location = models.JSONField(blank=True, null=True)
+    cart_location = models.OneToOneField(PickUpLocation, on_delete=models.DO_NOTHING, blank=True, null=True)
     date = models.DateTimeField(auto_now=True)
     updated = models.DateTimeField(auto_now_add=True)
 

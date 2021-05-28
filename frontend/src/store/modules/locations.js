@@ -9,6 +9,7 @@ const LOCATIONS_URL = '/locations/'
 const LOCATIONS_CREATE_URL = '/locations/create/'
 const REGIONS_URL = '/locations/regions/'
 const REGIONS_CREATE_URL = '/locations/regions/create/'
+const USER_LOCATION_UPDATE_URL = '/locations/update-pickup-location/'
 
 const state = {
     locations: [],
@@ -151,6 +152,39 @@ const actions = {
         .then(
             function (response) {
                 context.commit(types.SET_REGION_SUCCESS, response.data)
+            }
+        )
+        .catch(
+            function (error) {
+                context.commit(types.SET_ERROR, error.data)
+            }
+        )
+
+        context.commit(types.DONE_LOADING)
+    },
+
+    async [types.USER_LOCATION_UPDATE] (context, payload) {
+        context.commit(types.BUSY_LOADING)
+
+        const csrftoken = utils.getCookie('csrftoken');
+
+        await api({
+            method: 'post',
+            url: USER_LOCATION_UPDATE_URL,
+            data: payload,
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+                "Authorization": `Token ${storage.get('token')}`
+            }
+        })
+        .then(
+            function (response) {
+                const success_message = {
+                    'success': 'Location update was successfull !!!'
+                }
+
+                context.commit(types.SET_ERROR, success_message)
             }
         )
         .catch(

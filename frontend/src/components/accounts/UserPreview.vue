@@ -19,15 +19,42 @@
             <p>{{ user.date | date }}</p>
 
             <br>
-            <label class="text-left">Ratings</label>
-            <label class="text-left pama-0" style="font-weight: normal;">4.5 / 5</label>
-            <p>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </p>
+            <label class="text-left">Delivery location</label>
+
+            <form @submit.prevent="user_user_location()">
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <label class="form-header">
+                            Location
+                        </label>
+                    </div>
+
+                    <div class="col s12 m12 l12">
+                        <select
+                            class="rounded rounded-r-none m-0 p-2 w-full appearance-none leading-tight w-full"
+                            v-model="user_delivery_location"
+                        >
+                            <option value="" disabled>select location</option>
+                            <option
+                                v-for="(location, index) in locations"
+                                :key="index"
+                                :value="location.id"
+                            >
+                                {{ location.title }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col s12 m12 l12">
+                        <button type="submit" class="h-auto p-1">
+                            <span class="w-auto px-4">
+                                <i class="fas fa-save"></i>
+                            </span>
+                            save
+                        </button>
+                    </div>
+                </div>
+            </form>
 
             <br>
             <label class="text-left">My Store(s)</label>
@@ -66,13 +93,23 @@
 <script>
     import '@/assets/css/profile.css'
 
-    import { mapGetters } from 'vuex'
+    import * as types from '@/store/types.js'
+    import { mapGetters, mapActions } from 'vuex'
 
     export default {
         name: "UserPreview",
+        data () {
+            return {
+                user_delivery_location: ''
+            }
+        },
+        mounted () {
+            this.get_locations()
+        },
         computed: {
             ...mapGetters({
-                user: 'get_user'
+                user: 'get_user',
+                locations: 'get_locations'
             }),
             get_full_name () {
                 if (this.user.username) {
@@ -84,6 +121,21 @@
                 } else {
                     return 'loading ...'
                 }
+            }
+        },
+        methods: {
+            ...mapActions({
+                get_locations: types.GET_ADMIN_DELIVERY_LOCATIONS,
+                update_location: types.USER_LOCATION_UPDATE
+            }),
+            user_user_location () {
+                const payload = {
+                    cart_location: this.user_delivery_location
+                }
+
+                this.update_location(payload)
+
+                this.get_locations()
             }
         }
     }

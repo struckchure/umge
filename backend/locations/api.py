@@ -6,7 +6,12 @@ from ipware import get_client_ip
 from umge.base import BaseAPIView as BaseView
 from accounts.permissions import IsStaff
 from locations.models import PickUpLocation, Region
-from locations.serializers import PickUpLocationSerializer, RegionSerializer
+from locations.serializers import (
+    PickUpLocationSerializer,
+    RegionSerializer,
+    UpdatePickUpLocationSerializer
+)
+from cart.models import Cart
 
 
 class CreateRegion(BaseView):
@@ -99,3 +104,28 @@ class LocationsList(BaseView):
 
         return response
 
+
+class UpdatePickUpLocation(BaseView):
+
+    permission_classes = [
+        IsAuthenticated
+    ]
+    serializer_class = UpdatePickUpLocationSerializer
+
+    def post(self, requests):
+        data = requests.data
+        cart = Cart.objects.get(cart_user=requests.user)
+
+        serialized_cart = self.get_serializer(
+            instance=cart,
+            data=data
+        )
+        serialized_cart.is_valid(raise_exception=True)
+        serialized_cart.save()
+
+        response = Response(
+            serialized_cart.data,
+            status=status.HTTP_200_OK
+        )
+
+        return response

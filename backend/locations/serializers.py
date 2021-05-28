@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from locations.models import PickUpLocation, Region
+from cart.models import Cart
 
 
 class PickUpLocationSerializer(serializers.ModelSerializer):
@@ -20,3 +21,12 @@ class RegionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Region
         fields = '__all__'
+
+
+class UpdatePickUpLocationSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = Cart
+		fields = [
+			'cart_location'
+		]
