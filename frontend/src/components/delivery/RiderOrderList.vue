@@ -24,7 +24,7 @@
                             <i :class="order_icon(order.status)"></i>
                         </label>
                     </td>
-					<td>{{ order.location }}</td>
+					<td>{{ order.location.title }}</td>
 					<td>
 						<button
 							@click="rider_accept_order(order)"

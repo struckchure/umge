@@ -3,6 +3,7 @@ from rest_framework import serializers
 from cart.models import Cart
 from delivery.models import Order, Delivery
 from accounts.serializers import UserSerializer
+from locations.serializers import PickUpLocationSerializer
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -25,8 +26,12 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def get_location(self, obj):
         cart = Cart.objects.get(cart_user=obj.user)
+        location = cart.get_cart_location()
 
-        return cart.get_cart_location()
+        if location:
+            return PickUpLocationSerializer(location).data
+
+        return {}
 
 
 class DeliverySerializer(serializers.ModelSerializer):
@@ -43,4 +48,9 @@ class DeliverySerializer(serializers.ModelSerializer):
         depth = 1
 
     def get_location(self, obj):
-        return obj.get_delivery_location()
+        location = obj.get_delivery_location()
+
+        if location:
+            return PickUpLocationSerializer(location).data
+
+        return {}
