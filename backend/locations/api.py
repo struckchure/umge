@@ -22,6 +22,7 @@ class CreateRegion(BaseView):
 
         serialized_data = self.get_serializer(data=data)
         serialized_data.is_valid(raise_exception=True)
+        serialized_data.save()
 
         response = Response(
             serialized_data.data,
