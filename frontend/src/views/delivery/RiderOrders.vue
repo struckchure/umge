@@ -31,19 +31,19 @@
             return 'Riders | Orders'
         },
         mounted() {
-            this.get_orders()
+            this.get_admin_orders()
         },
         components: {
             RiderOrderList
         },
         computed: {
             ...mapGetters({
-                orders: 'get_orders'
+                orders: 'get_admin_orders'
             })
         },
         methods: {
             ...mapActions({
-                get_orders: types.GET_ORDERS
+                get_admin_orders: types.GET_ORDERS
             })
         }
     }

@@ -35,7 +35,7 @@
         },
         methods: {
             ...mapActions({
-                get_orders: types.GET_ADMIN_ORDERS
+                get_admin_orders: types.GET_ADMIN_ORDERS
             })
         }
 	}
