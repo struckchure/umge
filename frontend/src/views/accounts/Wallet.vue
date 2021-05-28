@@ -3,6 +3,12 @@
         <template v-slot:main>
             <div class="row">
                 <div class="col s12 m12 l12">
+                    <div v-if="fund.length > 0" class="p-2 py-2 bg-red-700 text-white my-1 border-l-8 border-red-500">
+                        Click <a class="font-bold underline text-indigo-100" :href="fund[2].data.authorization_url">here</a> if you are not automatically redirected
+                    </div>
+                </div>
+
+                <div class="col s12 m12 l12">
                     <label class="form-header">Wallet / </label>
                 </div>
 

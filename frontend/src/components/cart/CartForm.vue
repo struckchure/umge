@@ -1,5 +1,9 @@
 <template>
     <div class="cart-form">
+        <div v-if="purchase.response" class="p-2 py-2 bg-red-700 text-white my-1 border-l-8 border-red-500">
+            Click <a class="font-bold underline text-indigo-100" :href="purchase.response.data.authorization_url">here</a> if you are not automatically redirected
+        </div>
+
         <div class="cart-form-header">
             <p class="title">Payment method</p>
             <div class="rounded-full user-image">

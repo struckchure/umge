@@ -26,7 +26,7 @@
             AdminOrdersList
         },
 		mounted () {
-            this.get_orders()
+            this.get_admin_orders()
         },
         computed: {
             ...mapGetters({
