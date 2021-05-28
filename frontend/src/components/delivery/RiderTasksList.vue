@@ -21,7 +21,7 @@
                 <td>{{ index + 1 }}</td>
                 <td class="font-bold">{{ task.reciepient.username }}</td>
                 <td>{{ task.items.length }}</td>
-                <td>{{ task.location }}</td>
+                <td>{{ task.location.title }}</td>
                 <td>{{ task.date | date }}</td>
                 <td>{{ task.updated | date }}</td>
                 <td>
