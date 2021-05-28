@@ -179,7 +179,7 @@ const actions = {
             }
         })
         .then(
-            function (response) {
+            function () {
                 const success_message = {
                     'success': 'Location update was successfull !!!'
                 }

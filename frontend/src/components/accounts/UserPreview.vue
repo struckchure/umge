@@ -33,6 +33,7 @@
                         <select
                             class="rounded rounded-r-none m-0 p-2 w-full appearance-none leading-tight w-full"
                             v-model="user_delivery_location"
+                            required
                         >
                             <option value="" disabled>select location</option>
                             <option
