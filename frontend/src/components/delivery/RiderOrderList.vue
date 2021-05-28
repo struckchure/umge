@@ -61,13 +61,16 @@
 		],
 		methods: {
 			...mapActions({
-				'accept_order': types.RIDER_ACCEPT_DELIVERY
+				accept_order: types.RIDER_ACCEPT_DELIVERY,
+				get_admin_orders: types.GET_ADMIN_ORDERS
 			}),
 			rider_accept_order (order) {
 				const payload = {
 					username: order.user.username
 				}
 				this.accept_order(payload)
+
+				this.get_admin_orders()
 			},
 			order_color,
 			order_icon

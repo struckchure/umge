@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow h-screen">
+    <div class="overflow-auto">
         <table>
             <thead>
                 <tr>

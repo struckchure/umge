@@ -47,7 +47,10 @@
 
 <script>
     import { order_color, order_icon } from '@/store/utils.js'
-    import { FINISH_RIDER_TASK } from '@/store/types.js'
+    import {
+        FINISH_RIDER_TASK,
+        GET_RIDER_TASKS
+    } from '@/store/types.js'
     import { mapActions } from 'vuex'
 
     export default {
@@ -58,7 +61,8 @@
         ],
         methods: {
             ...mapActions({
-                finish_rider_task: FINISH_RIDER_TASK
+                finish_rider_task: FINISH_RIDER_TASK,
+                get_tasks: GET_RIDER_TASKS
             }),
             order_color,
             order_icon,
@@ -68,6 +72,8 @@
                 }
 
                 this.finish_rider_task(payload)
+
+                this.get_tasks()
             }
         }
     }
