@@ -40,3 +40,6 @@ class PickUpLocation(models.Model):
         point = Point(self.latitude, self.longitude)
 
         return point
+
+    def get_region(self):
+        return self.region

@@ -19,7 +19,7 @@
 				>
 					<td>{{ index + 1 }}</td>
 					<td>{{ location.title }}</td>
-					<td>{{ location.region }}</td>
+					<td>{{ location.location_region.region }}</td>
 					<td>{{ location.date | date }}</td>
 					<td>{{ location.updated | date }}</td>
 					<td colspan="2" class="flex">
