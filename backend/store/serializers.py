@@ -80,13 +80,6 @@ class ProductCreateSerializer(serializers.ModelSerializer):
         model = Product
         exclude = ["id", "product_slug"]
 
-    def validate_product_store(self, value):
-        store = Store.objects.filter(name=value)
-        if not store.exists():
-            raise serializers.ValidationError("Store does not exist")
-
-        return store.first().id
-
 
 class StoreOrderSerializer(serializers.ModelSerializer):
 
