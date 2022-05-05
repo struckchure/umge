@@ -9,7 +9,7 @@
   ],
   "DATABASES": {
     "default": {
-      "ENGINE": "django.db.backends.postgresql_psycopg2",
+      "ENGINE": "django.db.backends.postgresql",
       "NAME": "ddhbt8sddagi6c",
       "USER": "jnadwwhapzrcjf",
       "PASSWORD": "2c39b11701c024881b57831027b3e8644522812f6edac2c629a669d37cf53f07",
