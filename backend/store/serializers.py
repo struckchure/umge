@@ -13,59 +13,43 @@ class StoreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store
-        exclude = ['id']
+        exclude = ["id"]
 
 
 class StoreCreateSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Store
-        exclude = [
-            'id',
-            'store_staffs',
-            'store_slug'
-        ]
+        exclude = ["id", "store_staffs", "store_slug"]
 
     def validate(self, validated_data):
 
-        store_name = validated_data.get('store_name')
+        store_name = validated_data.get("store_name")
 
         qs = Store.objects.filter(store_name=store_name)
 
         if qs.exists():
-            message = f'Store with name {store_name} already exist'
+            message = f"Store with name {store_name} already exist"
             raise serializers.ValidationError(message)
 
         return validated_data
 
 
 class StoreUpdateSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Store
-        exclude = [
-            'id',
-            'store_staffs',
-            'store_slug'
-        ]
+        exclude = ["id", "store_staffs", "store_slug"]
 
 
 class ProductOptionSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ProductOption
-        exclude = [
-            'id'
-        ]
+        exclude = ["id"]
 
 
 class ProductOptionCreateSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ProductOption
-        exclude = [
-            'option_slug'
-        ]
+        exclude = ["option_slug"]
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -77,14 +61,14 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = [
-            'id',
-            'product_name',
-            'product_price',
-            'product_type',
-            'product_image',
-            'product_slug',
-            'product_options',
-            'product_store'
+            "id",
+            "product_name",
+            "product_price",
+            "product_type",
+            "product_image",
+            "product_slug",
+            "product_options",
+            "product_store",
         ]
 
     def get_product_price(self, product):
@@ -92,13 +76,16 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Product
-        exclude = [
-            'id',
-            'product_slug'
-        ]
+        exclude = ["id", "product_slug"]
+
+    def validate_product_store(self, value):
+        store = Store.objects.filter(name=value)
+        if not store.exists():
+            raise serializers.ValidationError("Store does not exist")
+
+        return store.first().id
 
 
 class StoreOrderSerializer(serializers.ModelSerializer):
@@ -107,12 +94,7 @@ class StoreOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store
-        exclude = [
-            'id'
-        ]
+        exclude = ["id"]
 
     def get_store_orders(self, obj):
-        return OrderSerializer(
-            obj.get_store_orders(),
-            many=True
-        ).data
+        return OrderSerializer(obj.get_store_orders(), many=True).data
