@@ -10,7 +10,7 @@ switch(DEBUG_MODE) {
 		BASE_URL = 'http://localhost:8000'
 		break;
 	case 'production':
-		BASE_URL = 'https://api.umge.store/'
+		BASE_URL = 'https://umge.herokuapp.com/'
 		break;
 }
 
