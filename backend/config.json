@@ -1,29 +1,26 @@
 {
-	"SECRET_KEY": "@vqk-d$5(x1(teap1csv09y+dl%l$f@kj1_a#lh=)mz6*6g-%4",
-	"ALLOWED_HOSTS": [
-		"api.umge.store",
-		"www.api.umge.store",
-		"localhost"
-	],
-	"CORS_ORIGIN_WHITELIST": [
-		"http://localhost:8080",
-		"https://umge.store",
-		"https://www.umge.store"
-	],
-	"DATABASES": {
-		"default": {
-			"ENGINE": "django.db.backends.postgresql_psycopg2",
-			"NAME": "umge_db",
-			"USER": "umge_db_admin",
-			"PASSWORD": "!@#$%^&*()",
-			"HOST": "localhost",
-			"PORT": ""
-		}
-	},
+  "SECRET_KEY": "@vqk-d$5(x1(teap1csv09y+dl%l$f@kj1_a#lh=)mz6*6g-%4",
+  "ALLOWED_HOSTS": ["*"],
+  "CORS_ORIGIN_WHITELIST": [
+    "http://localhost:8080",
+    "https://umge.store",
+    "https://www.umge.store",
+    "https://umge.vercel.app"
+  ],
+  "DATABASES": {
+    "default": {
+      "ENGINE": "django.db.backends.postgresql_psycopg2",
+      "NAME": "ddhbt8sddagi6c",
+      "USER": "jnadwwhapzrcjf",
+      "PASSWORD": "2c39b11701c024881b57831027b3e8644522812f6edac2c629a669d37cf53f07",
+      "HOST": "ec2-3-229-252-6.compute-1.amazonaws.com",
+      "PORT": 5432
+    }
+  },
 
-	"TEST_SECRET_KEY": "sk_test_18b8563d8400efe88699181368e7a066366fff46",
-	"TEST_PUBLIC_KEY": "pk_test_baffe1e516ff547afe18a4ce4e3c7971c9832d9e",
+  "TEST_SECRET_KEY": "sk_test_18b8563d8400efe88699181368e7a066366fff46",
+  "TEST_PUBLIC_KEY": "pk_test_baffe1e516ff547afe18a4ce4e3c7971c9832d9e",
 
-	"LIVE_SECRET_KEY": "sk_live_c94f476cb624fbfe3dbea514295bfec71cc29c85",
-	"LIVE_PUBLIC_KEY": "pk_live_1228a1a43885abecab5ad328754414506a7b4c32"
+  "LIVE_SECRET_KEY": "sk_live_c94f476cb624fbfe3dbea514295bfec71cc29c85",
+  "LIVE_PUBLIC_KEY": "pk_live_1228a1a43885abecab5ad328754414506a7b4c32"
 }
