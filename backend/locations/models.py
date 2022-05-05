@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.gis.geos import Point
 
 from accounts.models import User
 
@@ -16,8 +15,8 @@ class Region(models.Model):
         return self.region
 
     class Meta:
-        verbose_name = 'Region'
-        verbose_name_plural = 'Regions'
+        verbose_name = "Region"
+        verbose_name_plural = "Regions"
 
 
 class PickUpLocation(models.Model):
@@ -33,13 +32,11 @@ class PickUpLocation(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Pick up location'
-        verbose_name_plural = 'Pick up locations'
+        verbose_name = "Pick up location"
+        verbose_name_plural = "Pick up locations"
 
     def get_point(self):
-        point = Point(self.latitude, self.longitude)
-
-        return point
+        return self.latitude, self.longitude
 
     def get_region(self):
         return self.region
