@@ -107,7 +107,7 @@ DATABASES = {
     }
 }
 
-DATABASES["default"] = CONFIG["DATABASES"]
+DATABASES["default"] = CONFIG["DATABASES"]["default"]
 
 AUTH_USER_MODEL = "accounts.User"
 
