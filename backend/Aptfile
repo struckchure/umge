@@ -1,9 +1,0 @@
-gdal-bin
-binutils
-libproj-dev
-build-essential
-python3-gdal
-libgdal-dev
-libatlas-base-dev
-libhdf5-dev
-libhdf5-serial-dev
