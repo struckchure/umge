@@ -4,5 +4,4 @@ libproj-dev
 build-essential
 python3-gdal
 libgdal-dev
-libcblas-dev
 libatlas-base-dev
