@@ -1,11 +1,11 @@
 <template>
-	<div class="">
-		<slot></slot>
-	</div>
+  <div class="">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
-	export default {
-		name: 'ItemListContainer'
-	}
+export default {
+  name: "ItemListContainer",
+};
 </script>

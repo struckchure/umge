@@ -1,1 +1,1 @@
-import '@/filters/dateFilter.js'
+import "@/filters/dateFilter.js";

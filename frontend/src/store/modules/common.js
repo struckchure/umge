@@ -1,66 +1,66 @@
-import * as types from '@/store/types.js'
+import * as types from "@/store/types.js";
 
 const state = {
-    error: null,
-    success: null,
-    is_loading: false
-}
+  error: null,
+  success: null,
+  is_loading: false,
+};
 
 const getters = {
-    get_error (state) {
-        return state.error
-    },
-    get_success(state) {
-        return state.success
-    },
-    get_is_loading (state) {
-        return state.is_loading
-    }
-}
+  get_error(state) {
+    return state.error;
+  },
+  get_success(state) {
+    return state.success;
+  },
+  get_is_loading(state) {
+    return state.is_loading;
+  },
+};
 
 const mutations = {
-    // success mutation
+  // success mutation
 
-    [types.SET_SUCCESS] (state, payload) {
-        state.success = payload
-    },
+  [types.SET_SUCCESS](state, payload) {
+    state.success = payload;
+  },
 
-    // clear succes mutation
+  // clear succes mutation
 
-    [types.CLEAR_SUCCESS] (state) {
-        state.success = null
-    },
+  [types.CLEAR_SUCCESS](state) {
+    state.success = null;
+  },
 
-    // error mutation
+  // error mutation
 
-    [types.SET_ERROR] (state, payload) {
-        state.error = payload
-    },
+  [types.SET_ERROR](state, payload) {
+    state.error = payload;
+  },
 
-    // clear error
+  // clear error
 
-    [types.CLEAR_ERROR] (state) {
-        state.error = null
-    },
+  [types.CLEAR_ERROR](state) {
+    state.error = null;
+  },
 
-    // done loading mutation
+  // done loading mutation
 
-    [types.DONE_LOADING] (state) {
-        state.is_loading = false
-    },
+  [types.DONE_LOADING](state) {
+    state.is_loading = false;
+  },
 
-    // still loading mutation
+  // still loading mutation
 
-    [types.BUSY_LOADING] (state) {
-        state.is_loading = true
-    }
-}
+  [types.BUSY_LOADING](state) {
+    state.is_loading = true;
+  },
+};
 
-const actions = {}
+const actions = {};
 
 export default {
-    state,
-    getters,
-    mutations,
-    actions
-}
+  state,
+  getters,
+  mutations,
+  actions,
+};

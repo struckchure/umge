@@ -1,354 +1,353 @@
 button {
-	box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 input {
-	background-color: rgba(0, 0, 0, 0.2) !important;
+  background-color: rgba(0, 0, 0, 0.2) !important;
 }
 
 input:disabled {
-	background-color: rgba(0, 0, 0, 0.1) !important;
+  background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
 .cart {
-	display: flex;
-	flex: 3;
-	flex-direction: row;
-	align-self: center;
-	justify-content: center;
+  display: flex;
+  flex: 3;
+  flex-direction: row;
+  align-self: center;
+  justify-content: center;
 }
 
 .cart label {
-	border-radius: 30px;
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-	display: flex;
-	flex: 1;
-	align-self: center;
-	justify-content: center;
-	color: #eee;
-	background-color: #FA8907;
-	padding: .5em;
-	font-weight: bold;
+  border-radius: 30px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  display: flex;
+  flex: 1;
+  align-self: center;
+  justify-content: center;
+  color: #eee;
+  background-color: #fa8907;
+  padding: 0.5em;
+  font-weight: bold;
 }
 
 .cart button {
-	padding: .3em;
-	margin: 0;
-	box-shadow: none;
-	width: 50px;
-	height: 100%;
-	display: flex;
-	align-self: center;
-	justify-content: center;
-	border-radius: 30px;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
-	color: #fff;
-	background-image: none;
+  padding: 0.3em;
+  margin: 0;
+  box-shadow: none;
+  width: 50px;
+  height: 100%;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  border-radius: 30px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  color: #fff;
+  background-image: none;
 }
 
 .cart button:hover {
-	background-image: none;
-	background-color: rgba(0, 0, 0, 0.65);
+  background-image: none;
+  background-color: rgba(0, 0, 0, 0.65);
 }
 
 .cart-item-container {
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	padding: 1.2em;
-	margin: .4em;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.2em;
+  margin: 0.4em;
 }
 
 .cart-item-container-title {
-	font-size: 1.3em;
-	font-weight: bold;
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	justify-content: flex-start;
-	margin: 1.2em;
-	margin-top: .1em;
+  font-size: 1.3em;
+  font-weight: bold;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 1.2em;
+  margin-top: 0.1em;
 }
 
 .cart-item-container-title p {
-	font-size: .7em;
-	color: #333;
-	text-align: left;
+  font-size: 0.7em;
+  color: #333;
+  text-align: left;
 }
 
 .cart-item {
-	display: flex;
-	flex: 1;
-	background-color: white;
-	padding: 1em;
-	margin-bottom: 1em;
-	border-radius: 25px;
+  display: flex;
+  flex: 1;
+  background-color: white;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: 25px;
 }
 
 .cart-img {
-	width: 80px;
-	height: 80px;
-	border-radius: 100%;
-	border: 2px solid white;
-	padding: .2em;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  border: 2px solid white;
+  padding: 0.2em;
 }
 
 .cart-img img {
-	width: inherit;
-	height: inherit;
-	border-radius: inherit;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
 }
 
 .cart-description {
-	height: 100%;
-	padding: .2em;
-	padding-top: 1em;
-	display: flex;
-	flex: 1;
-	flex-direction: column;
+  height: 100%;
+  padding: 0.2em;
+  padding-top: 1em;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .cart-description p {
-	display: flex;
-	flex: 1;
-	justify-content: flex-start;
-	font-weight: bold;
-	margin-bottom: 0;
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  font-weight: bold;
+  margin-bottom: 0;
 }
 
 .cart-description label {
-	padding-top: 0;
-	display: flex;
-	flex: 3;
-	justify-content: flex-start;
-	color: grey;
+  padding-top: 0;
+  display: flex;
+  flex: 3;
+  justify-content: flex-start;
+  color: grey;
 }
 
 .cart-tools {
-	display: flex;
-	flex: 2;
-	flex-direction: row;
-	justify-content: flex-start;
-	padding-top: 1.4em;
+  display: flex;
+  flex: 2;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-top: 1.4em;
 }
 
 .cart-tools button {
-	height: 30px;
-	font-size: .6em;
-	display: flex;
-	flex: 1;
-	justify-content: center;
-	margin: .3em;
+  height: 30px;
+  font-size: 0.6em;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  margin: 0.3em;
 }
 
 .cart-tools button:hover {
-	background-color: #ccc;
+  background-color: #ccc;
 }
 
 .cart-tools button.danger {
-	border: 1px solid tomato;
-	background-color: transparent;
-	color: tomato;
+  border: 1px solid tomato;
+  background-color: transparent;
+  color: tomato;
 }
 
 .cart-tools button.danger:hover {
-	background-color: tomato;
-	color: white;
+  background-color: tomato;
+  color: white;
 }
 
 .cart-tools input {
-	width: 30px;
-	height: 25px;
-	cursor: pointer;
-	padding: .3em;
-	background-color: transparent;
-	color: grey;
-	border: 1px solid #eee;
-	border-radius: 4px;
+  width: 30px;
+  height: 25px;
+  cursor: pointer;
+  padding: 0.3em;
+  background-color: transparent;
+  color: grey;
+  border: 1px solid #eee;
+  border-radius: 4px;
 }
 
 .cart-tools .price {
-	margin: 1em;
-	width: 100%;
-	font-weight: bold;
-	text-align: right;
-	color: grey;
+  margin: 1em;
+  width: 100%;
+  font-weight: bold;
+  text-align: right;
+  color: grey;
 }
 
 .cart-form {
-	background-color: #FA8907;
-	border-radius: 30px;
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	justify-content: flex-start;
-	margin: .4em;
-	padding: 1.2em;
+  background-color: #fa8907;
+  border-radius: 30px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0.4em;
+  padding: 1.2em;
 }
 
 .payment-method {
-	padding-top: .2em;
-	padding-bottom: .2em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
 }
 
 .cart-form-header {
-	display: flex;
-	flex: 10;
-	flex-direction: row;
-	justify-content: space-between;
-	height: 90px;
-	margin-bottom: .3em;
+  display: flex;
+  flex: 10;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 90px;
+  margin-bottom: 0.3em;
 }
 
 .brand-name {
-	font-weight: bold;
-	font-size: 1.1em;
-	display: flex;
-	flex: 12;
+  font-weight: bold;
+  font-size: 1.1em;
+  display: flex;
+  flex: 12;
 }
 
 p.wallet-balance {
-	font-size: 1.1em;
-	margin-top: .4em;
-	margin-right: .2em;
-	display: flex;
-	flex: 3;
-	align-self: center;
+  font-size: 1.1em;
+  margin-top: 0.4em;
+  margin-right: 0.2em;
+  display: flex;
+  flex: 3;
+  align-self: center;
 }
 
 .title {
-	display: flex;
-	flex: 10;
-	color: #fff;
-	font-weight: bold;
-	font-size: 1.3em;
-	padding: .8em;
+  display: flex;
+  flex: 10;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.3em;
+  padding: 0.8em;
 }
 
 .user-image {
-	display: flex;
-	flex: -1;
-	width: 50px;
-	height: 50px;
-	border-radius: 100%;
-	border: 2px solid #fff;
-	padding: .3em;
+  display: flex;
+  flex: -1;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  border: 2px solid #fff;
+  padding: 0.3em;
 }
 
 .user-image img {
-	border-radius: inherit;
+  border-radius: inherit;
 }
 
 .pricing {
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	justify-content: center;
-	padding: .9em;
-	padding-left: 1.2em;
-	padding-right: 1.2em;
-	background-color: rgba(226, 217, 217, 0.2);
-	border-radius: 13px;
-	margin: .3em;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.9em;
+  padding-left: 1.2em;
+  padding-right: 1.2em;
+  background-color: rgba(226, 217, 217, 0.2);
+  border-radius: 13px;
+  margin: 0.3em;
 }
 
 .price-item {
-	display: flex;
-	flex: 1;
-	justify-content: space-between;
-	padding-bottom: .3em;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  padding-bottom: 0.3em;
 }
 
 .price-item label {
-	font-weight: bold;
-	color: white;
-	display: flex;
-	width: 100%;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  width: 100%;
 }
 
 .price-item label:first-child {
-	justify-content: flex-start;
-	display: flex;
-	flex: 5;	
+  justify-content: flex-start;
+  display: flex;
+  flex: 5;
 }
 
 .price-item label:last-child {
-	justify-content: flex-start;
-
+  justify-content: flex-start;
 }
 
 .col,
 .s6,
 .s12 {
-	margin: 0;
+  margin: 0;
 }
 
 form {
-	border-top: 1px solid #fff;
+  border-top: 1px solid #fff;
 }
 
 .input-field input {
-	width: 100%;
-	margin-top: .2em;
-	margin-bottom: .2em;
-	background-color: rgba(226, 217, 217, 0.4);
-	color: white;
-	font-size: 1.1em;
+  width: 100%;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  background-color: rgba(226, 217, 217, 0.4);
+  color: white;
+  font-size: 1.1em;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 input[type="number"] {
-	-moz-appearance: textfield;
+  -moz-appearance: textfield;
 }
 
-.input-field  input:disabled {
-	background-color: rgba(226, 217, 217, 0.1);
-	cursor: not-allowed;
+.input-field input:disabled {
+  background-color: rgba(226, 217, 217, 0.1);
+  cursor: not-allowed;
 }
 
 button {
-	margin-top: .4em;
-	width: 100%;
-	text-align: center;
-	font-size: 1.3em;
-	background-image: none;
-	box-shadow: none;
-	transition: .5s;
-	justify-content: center;
+  margin-top: 0.4em;
+  width: 100%;
+  text-align: center;
+  font-size: 1.3em;
+  background-image: none;
+  box-shadow: none;
+  transition: 0.5s;
+  justify-content: center;
 }
 
 button:hover {
-	background-image: none;
-	background-color: rgba(226, 217, 217, 0.2);
+  background-image: none;
+  background-color: rgba(226, 217, 217, 0.2);
 }
 
 @media only screen and (min-width: 600px) and (max-width: 992px) {
-	.cart-item {
-		flex-direction: column;
-		flex: 1;
-		justify-content: flex-start;
-	}
+  .cart-item {
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-start;
+  }
 
-	form input {
-		max-width: 90%;
-	}
+  form input {
+    max-width: 90%;
+  }
 }
 
 @media only screen and (max-width: 600px) {
-	.cart-item {
-		flex-direction: column;
-		flex: 1;
-		justify-content: flex-start;
-	}
+  .cart-item {
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-start;
+  }
 
-	form input {
-		max-width: 90%;
-	}
+  form input {
+    max-width: 90%;
+  }
 }

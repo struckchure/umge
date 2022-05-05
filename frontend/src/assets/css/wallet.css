@@ -1,35 +1,35 @@
 :root {
-	--border-radius: 15px;
-	--bgcolor: #eee;
+  --border-radius: 15px;
+  --bgcolor: #eee;
 }
 
 .wallet-preview,
 .wallet-update {
-	background-color: var(--bgcolor) !important;
-	border-radius: var(--border-radius) !important;
-	margin: .7em;
-	padding: 1em;
+  background-color: var(--bgcolor) !important;
+  border-radius: var(--border-radius) !important;
+  margin: 0.7em;
+  padding: 1em;
 }
 
 .wallet-preview-balance {
-	font-size: 3em;
+  font-size: 3em;
 }
 
 .wallet-card {
-	padding: .5em;
-	border: 1px solid #fff;
-	border-radius: 10px;
+  padding: 0.5em;
+  border: 1px solid #fff;
+  border-radius: 10px;
 }
 
 .wallet-card p {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 .wallet-card button {
-	display: block;
-	flex: .2;
-	padding: .3em;
-	margin: .2em;
-	width: 1px !important;
-	height: auto;
+  display: block;
+  flex: 0.2;
+  padding: 0.3em;
+  margin: 0.2em;
+  width: 1px !important;
+  height: auto;
 }

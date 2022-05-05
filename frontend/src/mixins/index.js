@@ -1,5 +1,5 @@
-import Vue from 'vue'
+import Vue from "vue";
 
-import titleMixin from "@/mixins/titleMixin.js"
+import titleMixin from "@/mixins/titleMixin.js";
 
-Vue.mixin(titleMixin)
+Vue.mixin(titleMixin);
